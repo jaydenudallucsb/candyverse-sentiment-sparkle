@@ -35,9 +35,9 @@ export const CandyPlanet = ({ platform, position, sentiment, onClick, isSelected
   // Color based on platform and sentiment
   const getColor = () => {
     const colors = {
-      slack: new THREE.Color('#f5a962'), // Caramel
-      discord: new THREE.Color('#4ade80'), // Gummy Green
-      teams: new THREE.Color('#60a5fa'), // Peppermint Blue
+      slack: new THREE.Color('#0891b2'), // Teal
+      discord: new THREE.Color('#a855f7'), // Purple
+      teams: new THREE.Color('#64748b'), // Slate
     };
     
     const baseColor = colors[platform];

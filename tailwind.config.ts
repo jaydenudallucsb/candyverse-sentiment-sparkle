@@ -56,9 +56,9 @@ export default {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
         },
-        caramel: {
-          DEFAULT: "hsl(var(--caramel))",
-          foreground: "hsl(var(--caramel-foreground))",
+        slack: {
+          DEFAULT: "hsl(var(--slack))",
+          foreground: "hsl(var(--slack-foreground))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

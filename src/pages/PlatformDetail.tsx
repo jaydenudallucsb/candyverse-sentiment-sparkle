@@ -23,29 +23,29 @@ const PlatformDetail = () => {
     );
   }
 
-  const getPlanetEmoji = () => {
+  const getPlatformIcon = () => {
     switch (platform) {
       case 'slack':
-        return '🍮';
+        return <div className="w-16 h-16 rounded-2xl bg-slack flex items-center justify-center"><div className="w-8 h-8 rounded-lg bg-white" /></div>;
       case 'discord':
-        return '🍬';
+        return <div className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center"><div className="w-8 h-8 rounded-lg bg-white" /></div>;
       case 'teams':
-        return '🍭';
+        return <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center"><div className="w-8 h-8 rounded-lg bg-white" /></div>;
       default:
-        return '🍬';
+        return <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center"><div className="w-8 h-8 rounded-lg bg-white" /></div>;
     }
   };
 
-  const getPlanetColor = () => {
+  const getPlatformColor = () => {
     switch (platform) {
       case 'slack':
-        return 'from-caramel to-caramel/60';
+        return 'from-slack/20 to-slack/5';
       case 'discord':
-        return 'from-accent to-accent/60';
+        return 'from-accent/20 to-accent/5';
       case 'teams':
-        return 'from-secondary to-secondary/60';
+        return 'from-secondary/20 to-secondary/5';
       default:
-        return 'from-primary to-primary/60';
+        return 'from-primary/20 to-primary/5';
     }
   };
 
@@ -67,17 +67,17 @@ const PlatformDetail = () => {
             Back to Candyverse
           </Button>
 
-          <Card className={`overflow-hidden border-2 bg-gradient-to-br ${getPlanetColor()}`}>
+          <Card className={`overflow-hidden border-2 bg-gradient-to-br ${getPlatformColor()}`}>
             <CardContent className="p-8">
               <div className="flex items-start justify-between">
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <span className="text-6xl">{getPlanetEmoji()}</span>
+                    {getPlatformIcon()}
                     <div>
                       <h1 className="text-4xl font-bold text-foreground mb-2">
                         {platformData.name}
                       </h1>
-                      <p className="text-lg opacity-90">{platformData.planetType}</p>
+                      <p className="text-lg text-muted-foreground">{platformData.planetType}</p>
                     </div>
                   </div>
 

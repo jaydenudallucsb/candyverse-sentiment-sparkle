@@ -8,53 +8,53 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Candy Theme - Pastel Dream */
-    --background: 320 60% 98%;
-    --foreground: 330 70% 25%;
+    /* Professional Data Theme */
+    --background: 220 15% 98%;
+    --foreground: 220 20% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 330 70% 25%;
+    --card-foreground: 220 20% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 330 70% 25%;
+    --popover-foreground: 220 20% 15%;
 
-    /* Cotton Candy Pink */
-    --primary: 340 85% 70%;
+    /* Deep Blue Primary */
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 340 85% 85%;
+    --primary-glow: 217 91% 75%;
 
-    /* Bubblegum Blue */
-    --secondary: 200 75% 75%;
-    --secondary-foreground: 200 70% 25%;
+    /* Slate Secondary */
+    --secondary: 215 20% 65%;
+    --secondary-foreground: 215 30% 15%;
     
-    /* Gummy Green */
-    --accent: 120 60% 75%;
-    --accent-foreground: 120 70% 20%;
+    /* Purple Accent */
+    --accent: 262 80% 65%;
+    --accent-foreground: 0 0% 100%;
 
-    --muted: 320 30% 95%;
-    --muted-foreground: 330 20% 50%;
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 15% 45%;
 
-    /* Cherry Red (negative sentiment) */
-    --destructive: 0 75% 65%;
+    /* Red (negative sentiment) */
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Lemon Yellow (neutral) */
-    --warning: 45 90% 70%;
-    --warning-foreground: 45 70% 25%;
+    /* Amber (neutral) */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
 
-    /* Mint Green (positive) */
-    --success: 150 60% 70%;
-    --success-foreground: 150 70% 20%;
+    /* Green (positive) */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
 
-    /* Caramel Orange */
-    --caramel: 30 70% 70%;
-    --caramel-foreground: 30 70% 25%;
+    /* Teal for Slack */
+    --slack: 186 94% 40%;
+    --slack-foreground: 0 0% 100%;
 
-    --border: 320 40% 90%;
-    --input: 320 40% 95%;
-    --ring: 340 85% 70%;
+    --border: 220 15% 88%;
+    --input: 220 15% 92%;
+    --ring: 217 91% 60%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -74,44 +74,44 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dark Candy Theme */
-    --background: 280 40% 12%;
-    --foreground: 320 60% 95%;
+    /* Professional Dark Theme */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
 
-    --card: 280 35% 15%;
-    --card-foreground: 320 60% 95%;
+    --card: 222 47% 14%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 280 35% 15%;
-    --popover-foreground: 320 60% 95%;
+    --popover: 222 47% 14%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 340 85% 60%;
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 340 85% 75%;
+    --primary-glow: 217 91% 75%;
 
-    --secondary: 200 70% 60%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 215 20% 55%;
+    --secondary-foreground: 210 40% 98%;
 
-    --accent: 120 55% 60%;
+    --accent: 262 80% 65%;
     --accent-foreground: 0 0% 100%;
 
-    --muted: 280 25% 20%;
-    --muted-foreground: 320 30% 70%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
 
-    --destructive: 0 70% 55%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --warning: 45 85% 60%;
-    --warning-foreground: 45 70% 20%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
 
-    --success: 150 55% 60%;
+    --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
 
-    --caramel: 30 65% 60%;
-    --caramel-foreground: 0 0% 100%;
+    --slack: 186 94% 40%;
+    --slack-foreground: 0 0% 100%;
 
-    --border: 280 30% 25%;
-    --input: 280 30% 20%;
-    --ring: 340 85% 60%;
+    --border: 217 33% 22%;
+    --input: 217 33% 17%;
+    --ring: 217 91% 60%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -178,20 +178,20 @@ All colors MUST be HSL.
 }
 
 /* Gradient backgrounds */
-.gradient-candy {
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+}
+
+.gradient-slate {
+  background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(215 20% 75%) 100%);
+}
+
+.gradient-data {
   background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 50%, hsl(var(--accent)) 100%);
 }
 
-.gradient-cotton-candy {
-  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
-}
-
-.gradient-bubblegum {
-  background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(200 75% 85%) 100%);
-}
-
-.gradient-gummy {
-  background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(120 60% 85%) 100%);
+.gradient-sentiment {
+  background: linear-gradient(to right, hsl(var(--destructive)), hsl(var(--warning)), hsl(var(--success)));
 }
 
 /* Glass morphism effect */

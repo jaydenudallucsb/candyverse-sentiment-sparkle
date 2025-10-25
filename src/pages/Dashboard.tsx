@@ -30,21 +30,21 @@ const Dashboard = () => {
         <motion.section variants={itemVariants} className="text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Welcome to the Candyverse</span>
+            <span className="text-sm font-medium text-primary">Competitive Intelligence Platform</span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Unwrap User Sentiment
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Understand User Sentiment
             </span>
             <br />
-            <span className="text-foreground">One Sweet Story at a Time</span>
+            <span className="text-foreground">Across Your Competition</span>
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Step into a magical candy world where user emotions become delicious data visualizations. 
-            We analyze sentiment across Slack, Discord, and Microsoft Teams to reveal how communities 
-            truly feel about their platforms.
+            Advanced sentiment analysis across Slack, Discord, and Microsoft Teams. 
+            Identify trends, track competitor movements, and discover actionable insights 
+            to inform your product strategy.
           </p>
         </motion.section>
 
@@ -59,11 +59,11 @@ const Dashboard = () => {
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold text-foreground mb-3">The Problem</h2>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    Slack knows its users inside and out — but what about the communities thriving on 
+                    Slack understands its own users, but what about the communities on 
                     <span className="font-semibold text-foreground"> Discord </span> and 
                     <span className="font-semibold text-foreground"> Microsoft Teams</span>? 
-                    Understanding competitor sentiment is like having a blind spot in a candy store. 
-                    You can't improve your recipe if you don't know what flavors are winning hearts elsewhere.
+                    Competitive intelligence requires visibility into how users feel about alternative platforms, 
+                    their feature preferences, and emerging pain points across the market.
                   </p>
                 </div>
               </div>
@@ -117,37 +117,43 @@ const Dashboard = () => {
                   <Zap className="w-8 h-8 text-accent" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-foreground mb-3">Our Solution: The Candyverse</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-3">Our Solution: Sentiment Universe</h2>
                   <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                    Welcome to the <span className="font-bold text-accent">Candyverse</span> — where each 
-                    platform becomes a candy planet with its own sweet ecosystem:
+                    Our interactive visualization platform positions each collaboration tool 
+                    as a data sphere with real-time sentiment tracking:
                   </p>
                   
                   <div className="grid md:grid-cols-3 gap-6">
-                    <div className="p-6 rounded-2xl bg-caramel/10 border border-caramel/20 space-y-3">
-                      <div className="text-4xl">🍮</div>
-                      <h3 className="font-bold text-caramel text-lg">Slack's Caramel Core</h3>
+                    <div className="p-6 rounded-2xl bg-slack/10 border border-slack/20 space-y-3">
+                      <div className="w-12 h-12 rounded-full bg-slack/20 flex items-center justify-center">
+                        <div className="w-6 h-6 rounded-full bg-slack" />
+                      </div>
+                      <h3 className="font-bold text-slack text-lg">Slack Central Hub</h3>
                       <p className="text-sm text-muted-foreground">
-                        Smooth and glowing when users are happy, cracked and darker when sentiment dips. 
-                        Watch it soften as pricing concerns mount.
+                        Primary platform at the center of analysis. Real-time sentiment tracking 
+                        shows 72% positive with pricing concerns affecting overall perception.
                       </p>
                     </div>
                     
                     <div className="p-6 rounded-2xl bg-accent/10 border border-accent/20 space-y-3">
-                      <div className="text-4xl">🍬</div>
-                      <h3 className="font-bold text-accent text-lg">Discord's Gummy Cluster</h3>
+                      <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
+                        <div className="w-6 h-6 rounded-full bg-accent" />
+                      </div>
+                      <h3 className="font-bold text-accent text-lg">Discord Moon</h3>
                       <p className="text-sm text-muted-foreground">
-                        Squishy spheres that jiggle with engagement spikes. AI channels caused a massive 
-                        bounce in positive sentiment!
+                        Orbiting competitor with 84% sentiment. AI feature launches driving 
+                        significant positive engagement and user satisfaction.
                       </p>
                     </div>
                     
                     <div className="p-6 rounded-2xl bg-secondary/10 border border-secondary/20 space-y-3">
-                      <div className="text-4xl">🍭</div>
-                      <h3 className="font-bold text-secondary text-lg">Teams' Peppermint Swirl</h3>
+                      <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center">
+                        <div className="w-6 h-6 rounded-full bg-secondary" />
+                      </div>
+                      <h3 className="font-bold text-secondary text-lg">Teams Moon</h3>
                       <p className="text-sm text-muted-foreground">
-                        Patterns tighten or loosen based on sentiment consistency. Performance issues 
-                        create tangled, chaotic swirls.
+                        Competitor analysis shows 58% sentiment. Performance and UX issues 
+                        creating opportunity for market repositioning.
                       </p>
                     </div>
                   </div>
@@ -159,17 +165,17 @@ const Dashboard = () => {
 
         {/* CTA */}
         <motion.section variants={itemVariants} className="text-center space-y-6 py-12">
-          <h2 className="text-3xl font-bold text-foreground">Ready to Explore?</h2>
+          <h2 className="text-3xl font-bold text-foreground">Start Analyzing</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Dive into the interactive Candyverse to see how sentiment evolves over time, 
-            or listen to our weekly Podcast Recap for bite-sized insights.
+            Explore the interactive sentiment visualization to track trends over time, 
+            or review our weekly insights summary for key competitive intelligence.
           </p>
           <div className="flex gap-4 justify-center">
             <a
               href="/candyverse"
-              className="px-8 py-4 rounded-2xl bg-gradient-to-r from-primary to-secondary text-primary-foreground font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
-              Enter the Candyverse →
+              View Analysis →
             </a>
           </div>
         </motion.section>

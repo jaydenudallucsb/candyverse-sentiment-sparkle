@@ -19,8 +19,8 @@ const PodcastRecap = () => {
       return;
     }
     
-    toast.success('🍬 Candy Recap sent to your phone!', {
-      description: 'Check your messages for this week\'s sentiment highlights.'
+    toast.success('Insights sent to your phone!', {
+      description: 'Check your messages for this week\'s sentiment summary.'
     });
     setPhoneNumber('');
   };
@@ -28,8 +28,8 @@ const PodcastRecap = () => {
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
     if (!isPlaying) {
-      toast.info('🎧 Playing Candy Recap', {
-        description: 'This week in the Candyverse...'
+      toast.info('🎧 Playing Weekly Recap', {
+        description: 'This week in sentiment analysis...'
       });
     }
   };
@@ -51,13 +51,13 @@ const PodcastRecap = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Weekly Recap</span>
+            <span className="text-sm font-medium text-primary">Weekly Intelligence Brief</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            This Week in the Candyverse
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+            This Week in Sentiment
           </h1>
           <p className="text-lg text-muted-foreground">
-            A sweet summary of sentiment trends across Slack, Discord, and Teams
+            Key insights and trends across Slack, Discord, and Teams
           </p>
         </motion.div>
 
@@ -167,14 +167,14 @@ const PodcastRecap = () => {
                   <p className="text-sm text-muted-foreground">
                     {platform.sentimentChange >= 0 ? (
                       <>
-                        {platform.name}'s {platform.planetType.toLowerCase()} is glowing bright! 
-                        Users are loving the recent {platform.topics[0].topic.toLowerCase()} updates.
+                        {platform.name} sentiment trending positive at {platform.overallSentiment}%. 
+                        Users responding well to recent {platform.topics[0].topic.toLowerCase()} improvements.
                       </>
                     ) : (
                       <>
-                        {platform.name}'s {platform.planetType.toLowerCase()} shows some cracks. 
-                        Community concerns around {platform.topics.find(t => t.sentiment === 'negative')?.topic.toLowerCase()} 
-                        are affecting sentiment.
+                        {platform.name} sentiment declining to {platform.overallSentiment}%. 
+                        User concerns around {platform.topics.find(t => t.sentiment === 'negative')?.topic.toLowerCase()} 
+                        impacting overall perception.
                       </>
                     )}
                   </p>
@@ -194,7 +194,7 @@ const PodcastRecap = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MessageSquare className="w-5 h-5 text-primary" />
-                Text Me the Candy Recap
+                Subscribe to Weekly Insights
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -208,13 +208,13 @@ const PodcastRecap = () => {
                 />
                 <Button
                   onClick={handleSendSMS}
-                  className="bg-gradient-to-r from-primary to-secondary"
+                  className="bg-primary"
                 >
-                  Send 🍬📱
+                  Subscribe
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground mt-3">
-                Get a weekly SMS with the sweetest sentiment insights. Standard message rates apply.
+                Receive weekly SMS updates with key sentiment insights. Standard message rates apply.
               </p>
             </CardContent>
           </Card>

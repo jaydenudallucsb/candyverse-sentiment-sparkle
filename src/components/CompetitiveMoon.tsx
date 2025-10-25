@@ -52,9 +52,9 @@ export const CompetitiveMoon = ({
 
   const getColor = () => {
     const colors = {
-      slack: new THREE.Color('#f5a962'), // Should not be used (Slack is center)
-      discord: new THREE.Color('#4ade80'), // Gummy Green
-      teams: new THREE.Color('#60a5fa'), // Peppermint Blue
+      slack: new THREE.Color('#0891b2'), // Should not be used (Slack is center)
+      discord: new THREE.Color('#a855f7'), // Purple
+      teams: new THREE.Color('#64748b'), // Slate
     };
     
     const baseColor = colors[platform];

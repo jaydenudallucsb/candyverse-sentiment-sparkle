@@ -53,24 +53,24 @@ const Candyverse = () => {
           className="space-y-4"
         >
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-2xl bg-caramel/10 border border-caramel/20">
-              <Globe className="w-8 h-8 text-caramel" />
+            <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20">
+              <Globe className="w-8 h-8 text-primary" />
             </div>
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-caramel via-primary to-caramel bg-clip-text text-transparent">
-                Slack's Candyverse
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+                Sentiment Analysis Hub
               </h1>
-              <p className="text-muted-foreground">Your sentiment universe with competitive intelligence from Discord and Teams moons</p>
+              <p className="text-muted-foreground">Competitive intelligence across collaboration platforms</p>
             </div>
           </div>
           
-          <Card className="border-caramel/20 bg-caramel/5">
+          <Card className="border-primary/20 bg-primary/5">
             <CardContent className="p-6">
               <p className="text-sm text-muted-foreground leading-relaxed">
-                <strong className="text-foreground">Welcome to Slack's Caramel Core.</strong> At the center of this universe, 
-                Slack's sentiment glows at <span className="font-semibold text-caramel">{slackData.overallSentiment}%</span>. 
-                Orbiting around are Discord and Teams - competitor moons revealing trends, threats, and opportunities. 
-                Click any moon to discover actionable insights for Slack's product strategy.
+                <strong className="text-foreground">Slack-Centric Intelligence.</strong> At the center of this analysis, 
+                Slack's sentiment stands at <span className="font-semibold text-slack">{slackData.overallSentiment}%</span>. 
+                Orbiting competitors Discord and Teams provide contextual intelligence revealing market trends, threats, and opportunities. 
+                Click any platform to explore detailed sentiment breakdowns and strategic insights.
               </p>
             </CardContent>
           </Card>
@@ -154,16 +154,16 @@ const Candyverse = () => {
                 {/* Legend */}
                 <div className="absolute bottom-4 left-4 right-4 flex justify-center gap-6 text-xs">
                   <div className="flex items-center gap-2 px-3 py-2 rounded-lg glass">
-                    <div className="w-4 h-4 rounded-full bg-caramel" />
-                    <span className="font-medium">Slack (Center)</span>
+                    <div className="w-4 h-4 rounded-full bg-slack" />
+                    <span className="font-medium">Slack (Primary)</span>
                   </div>
                   <div className="flex items-center gap-2 px-3 py-2 rounded-lg glass">
                     <div className="w-3 h-3 rounded-full bg-accent" />
-                    <span className="font-medium">Discord Moon</span>
+                    <span className="font-medium">Discord</span>
                   </div>
                   <div className="flex items-center gap-2 px-3 py-2 rounded-lg glass">
                     <div className="w-3 h-3 rounded-full bg-secondary" />
-                    <span className="font-medium">Teams Moon</span>
+                    <span className="font-medium">Teams</span>
                   </div>
                 </div>
               </div>
@@ -195,10 +195,10 @@ const Candyverse = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <Card className="border-2 border-caramel/20">
+          <Card className="border-2 border-slack/20">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
-                <span>Slack's Caramel Core Status</span>
+                <span>Slack Platform Status</span>
                 <Badge
                   variant={slackData.sentimentChange >= 0 ? "default" : "destructive"}
                   className="gap-1"

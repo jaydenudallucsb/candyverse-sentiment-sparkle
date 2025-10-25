@@ -24,7 +24,7 @@ export const sentimentData: PlatformData[] = [
   {
     platform: 'slack',
     name: 'Slack',
-    planetType: 'Caramel Core',
+    planetType: 'Primary Platform',
     overallSentiment: 72,
     sentimentChange: -8,
     topics: [
@@ -72,7 +72,7 @@ export const sentimentData: PlatformData[] = [
   {
     platform: 'discord',
     name: 'Discord',
-    planetType: 'Gummy Cluster',
+    planetType: 'Competitor Platform',
     overallSentiment: 84,
     sentimentChange: 12,
     topics: [
@@ -120,7 +120,7 @@ export const sentimentData: PlatformData[] = [
   {
     platform: 'teams',
     name: 'Microsoft Teams',
-    planetType: 'Peppermint Swirl',
+    planetType: 'Competitor Platform',
     overallSentiment: 58,
     sentimentChange: -3,
     topics: [
