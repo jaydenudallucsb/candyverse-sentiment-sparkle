@@ -20,6 +20,7 @@ export interface SentimentCluster {
     title: string;
     date: string;
     impact: 'positive' | 'negative' | 'neutral';
+    summary: string[];
   };
 }
 
@@ -90,7 +91,12 @@ export const sentimentData: PlatformData[] = [
         recentUpdate: {
           title: 'Smart notification filters added',
           date: 'Oct 12, 2025',
-          impact: 'positive'
+          impact: 'positive',
+          summary: [
+            'AI-powered priority filtering reduces notification noise by 40%',
+            'Custom schedules for DND modes now available',
+            'Thread-specific notification settings introduced'
+          ]
         }
       },
       {
@@ -101,7 +107,12 @@ export const sentimentData: PlatformData[] = [
         recentUpdate: {
           title: 'AI-powered message search enhanced',
           date: 'Oct 15, 2025',
-          impact: 'positive'
+          impact: 'positive',
+          summary: [
+            'Semantic search now understands context and intent',
+            'Message summaries auto-generate for long threads',
+            'Smart reply suggestions save 30% of response time'
+          ]
         }
       },
       {
@@ -112,7 +123,12 @@ export const sentimentData: PlatformData[] = [
         recentUpdate: {
           title: 'New workflow automation tools',
           date: 'Oct 8, 2025',
-          impact: 'positive'
+          impact: 'positive',
+          summary: [
+            'Visual workflow builder launched for non-technical users',
+            '50+ new pre-built automation templates added',
+            'Integration marketplace now has 1,000+ verified apps'
+          ]
         }
       }
     ]
@@ -173,7 +189,12 @@ export const sentimentData: PlatformData[] = [
         recentUpdate: {
           title: 'Advanced notification preferences',
           date: 'Oct 20, 2025',
-          impact: 'positive'
+          impact: 'positive',
+          summary: [
+            'Per-server and per-channel notification granularity',
+            'Keyword-based notification triggers now supported',
+            'Mobile push notifications 60% faster delivery'
+          ]
         }
       },
       {
@@ -184,7 +205,12 @@ export const sentimentData: PlatformData[] = [
         recentUpdate: {
           title: 'AI Copilot for message enhancement',
           date: 'Oct 18, 2025',
-          impact: 'positive'
+          impact: 'positive',
+          summary: [
+            'Real-time message tone and clarity suggestions',
+            'Automatic TL;DR generation for long discussions',
+            'Context-aware emoji and GIF recommendations'
+          ]
         }
       },
       {
@@ -195,7 +221,12 @@ export const sentimentData: PlatformData[] = [
         recentUpdate: {
           title: 'Enterprise API and bot marketplace',
           date: 'Oct 22, 2025',
-          impact: 'positive'
+          impact: 'positive',
+          summary: [
+            'New REST API v10 with 99.99% uptime SLA',
+            'Enterprise bot framework for custom workflows',
+            'Security-first OAuth 2.0 implementation'
+          ]
         }
       }
     ]
@@ -256,7 +287,12 @@ export const sentimentData: PlatformData[] = [
         recentUpdate: {
           title: 'Notification system still unreliable',
           date: 'Oct 20, 2025',
-          impact: 'negative'
+          impact: 'negative',
+          summary: [
+            'Users report missed notifications during critical meetings',
+            'Notification settings keep resetting after updates',
+            'Mobile notifications delayed by 5-15 minutes on average'
+          ]
         }
       },
       {
@@ -267,7 +303,12 @@ export const sentimentData: PlatformData[] = [
         recentUpdate: {
           title: 'Copilot update with incremental improvements',
           date: 'Oct 24, 2025',
-          impact: 'neutral'
+          impact: 'neutral',
+          summary: [
+            'Search accuracy improved but still lags competitors',
+            'Message formatting options remain limited',
+            'Thread organization confuses new users'
+          ]
         }
       },
       {
@@ -278,7 +319,12 @@ export const sentimentData: PlatformData[] = [
         recentUpdate: {
           title: 'Enhanced Microsoft 365 integration',
           date: 'Oct 18, 2025',
-          impact: 'positive'
+          impact: 'positive',
+          summary: [
+            'One-click document sharing from OneDrive and SharePoint',
+            'Calendar integration shows availability in real-time',
+            'Outlook email threads now sync to Teams channels'
+          ]
         }
       }
     ]

@@ -12,6 +12,7 @@ interface SentimentCluster {
     title: string;
     date: string;
     impact: 'positive' | 'negative' | 'neutral';
+    summary: string[];
   };
 }
 
@@ -106,7 +107,7 @@ export const SentimentClusterView = ({ clusters }: SentimentClusterViewProps) =>
 
               {/* Recent Update */}
               {cluster.recentUpdate && (
-                <div className="pt-3 border-t">
+                <div className="pt-3 border-t space-y-2">
                   <div className="flex items-start gap-2">
                     {getImpactIcon(cluster.recentUpdate.impact)}
                     <div className="flex-1">
@@ -116,6 +117,16 @@ export const SentimentClusterView = ({ clusters }: SentimentClusterViewProps) =>
                       </p>
                     </div>
                   </div>
+                  {cluster.recentUpdate.summary && cluster.recentUpdate.summary.length > 0 && (
+                    <ul className="space-y-1 ml-7">
+                      {cluster.recentUpdate.summary.map((point, idx) => (
+                        <li key={idx} className="text-xs text-muted-foreground flex items-start gap-1">
+                          <span className="text-foreground/40 mt-0.5">•</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               )}
             </CardContent>
