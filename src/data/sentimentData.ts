@@ -83,36 +83,36 @@ export const sentimentData: PlatformData[] = [
     ],
     sentimentClusters: [
       {
-        category: 'AI & Automation',
+        category: 'Notifications',
+        sentiment: 'neutral',
+        percentage: 68,
+        keywords: ['alerts', 'push', 'settings', 'noise'],
+        recentUpdate: {
+          title: 'Smart notification filters added',
+          date: 'Oct 12, 2025',
+          impact: 'positive'
+        }
+      },
+      {
+        category: 'Messages',
         sentiment: 'positive',
         percentage: 85,
-        keywords: ['AI search', 'smart replies', 'automation', 'workflow'],
+        keywords: ['AI search', 'threads', 'smart replies', 'formatting'],
         recentUpdate: {
-          title: 'AI Assistant enhanced search',
+          title: 'AI-powered message search enhanced',
           date: 'Oct 15, 2025',
           impact: 'positive'
         }
       },
       {
-        category: 'Pricing & Value',
-        sentiment: 'negative',
-        percentage: 40,
-        keywords: ['expensive', 'cost', 'pricing', 'value'],
+        category: 'Integrations',
+        sentiment: 'positive',
+        percentage: 78,
+        keywords: ['apps', 'workflows', 'automation', 'API'],
         recentUpdate: {
-          title: 'Free tier limitations maintained',
-          date: 'Oct 1, 2025',
-          impact: 'negative'
-        }
-      },
-      {
-        category: 'Performance',
-        sentiment: 'neutral',
-        percentage: 65,
-        keywords: ['speed', 'loading', 'mobile', 'lag'],
-        recentUpdate: {
-          title: 'Minor performance improvements',
-          date: 'Oct 10, 2025',
-          impact: 'neutral'
+          title: 'New workflow automation tools',
+          date: 'Oct 8, 2025',
+          impact: 'positive'
         }
       }
     ]
@@ -166,34 +166,34 @@ export const sentimentData: PlatformData[] = [
     ],
     sentimentClusters: [
       {
-        category: 'AI Innovation',
+        category: 'Notifications',
+        sentiment: 'positive',
+        percentage: 92,
+        keywords: ['customizable', 'granular', 'flexible', 'control'],
+        recentUpdate: {
+          title: 'Advanced notification preferences',
+          date: 'Oct 20, 2025',
+          impact: 'positive'
+        }
+      },
+      {
+        category: 'Messages',
         sentiment: 'positive',
         percentage: 95,
-        keywords: ['AI Copilot', 'context-aware', 'summarization', 'smart'],
+        keywords: ['AI Copilot', 'summarization', 'threads', 'rich media'],
         recentUpdate: {
-          title: 'AI Copilot launched with full features',
+          title: 'AI Copilot for message enhancement',
           date: 'Oct 18, 2025',
           impact: 'positive'
         }
       },
       {
-        category: 'Pricing Strategy',
+        category: 'Integrations',
         sentiment: 'positive',
-        percentage: 98,
-        keywords: ['free', 'forever', 'no-cost', 'accessible'],
+        percentage: 88,
+        keywords: ['bots', 'webhooks', 'API', 'extensions'],
         recentUpdate: {
-          title: 'Forever Free AI announcement',
-          date: 'Oct 24, 2025',
-          impact: 'positive'
-        }
-      },
-      {
-        category: 'Enterprise Features',
-        sentiment: 'positive',
-        percentage: 76,
-        keywords: ['security', 'compliance', 'enterprise', 'business'],
-        recentUpdate: {
-          title: 'Enterprise Beta launch',
+          title: 'Enterprise API and bot marketplace',
           date: 'Oct 22, 2025',
           impact: 'positive'
         }
@@ -249,36 +249,36 @@ export const sentimentData: PlatformData[] = [
     ],
     sentimentClusters: [
       {
-        category: 'Reliability',
+        category: 'Notifications',
         sentiment: 'negative',
-        percentage: 28,
-        keywords: ['outage', 'downtime', 'unavailable', 'crashes'],
+        percentage: 42,
+        keywords: ['overwhelming', 'spam', 'broken', 'delayed'],
         recentUpdate: {
-          title: '4-hour global outage',
-          date: 'Oct 25, 2025',
+          title: 'Notification system still unreliable',
+          date: 'Oct 20, 2025',
           impact: 'negative'
         }
       },
       {
-        category: 'AI Features',
+        category: 'Messages',
         sentiment: 'neutral',
-        percentage: 62,
-        keywords: ['Copilot', 'slow', 'improvement', 'mediocre'],
+        percentage: 58,
+        keywords: ['Copilot', 'search', 'formatting', 'basic'],
         recentUpdate: {
-          title: 'Copilot update with mixed results',
+          title: 'Copilot update with incremental improvements',
           date: 'Oct 24, 2025',
           impact: 'neutral'
         }
       },
       {
-        category: 'Performance',
-        sentiment: 'negative',
-        percentage: 34,
-        keywords: ['lag', 'memory', 'slow', 'resource-heavy'],
+        category: 'Integrations',
+        sentiment: 'positive',
+        percentage: 72,
+        keywords: ['Office 365', 'Microsoft', 'seamless', 'ecosystem'],
         recentUpdate: {
-          title: 'Performance issues persist',
-          date: 'Oct 1-25, 2025',
-          impact: 'negative'
+          title: 'Enhanced Microsoft 365 integration',
+          date: 'Oct 18, 2025',
+          impact: 'positive'
         }
       }
     ]
