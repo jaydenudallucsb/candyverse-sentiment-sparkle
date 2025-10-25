@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { sentimentData, Platform } from '@/data/sentimentData';
-import { TrendChart } from '@/components/TrendChart';
 import { CommentFeed } from '@/components/CommentFeed';
 
 const PlatformDetail = () => {
@@ -138,6 +137,7 @@ const PlatformDetail = () => {
                 <Card className="text-center">
                   <CardContent className="p-6 space-y-2">
                     <p className="font-semibold text-lg">{topic.topic}</p>
+                    <p className="text-xs text-muted-foreground">{topic.dateRange}</p>
                     <p className="text-3xl font-bold">{topic.mentions.toLocaleString()}</p>
                     <Badge
                       variant={
@@ -175,32 +175,11 @@ const PlatformDetail = () => {
           </div>
         </motion.div>
 
-        {/* Trend Charts */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <h2 className="text-2xl font-bold mb-4">Trends Over Time</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {platformData.topics.map((topic, index) => (
-              <motion.div
-                key={topic.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + index * 0.1 }}
-              >
-                <TrendChart topic={topic} />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
         {/* Comment Feed */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.3 }}
         >
           <h2 className="text-2xl font-bold mb-4">What Users Are Saying</h2>
           <CommentFeed topics={platformData.topics} />

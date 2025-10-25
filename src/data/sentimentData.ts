@@ -8,7 +8,7 @@ export interface TopicCluster {
   mentions: number;
   engagement: number;
   quotes: string[];
-  trend: number[];
+  dateRange: string; // e.g., "Oct 1-25, 2025"
 }
 
 export interface PlatformData {
@@ -39,7 +39,7 @@ export const sentimentData: PlatformData[] = [
           "The AI search is incredible, saves me hours",
           "Smart replies are surprisingly accurate"
         ],
-        trend: [65, 68, 72, 75, 78, 82, 85]
+        dateRange: "Oct 1-25, 2025"
       },
       {
         id: 'slack-perf',
@@ -52,7 +52,7 @@ export const sentimentData: PlatformData[] = [
           "Sometimes sluggish with large workspaces",
           "Mobile app needs optimization"
         ],
-        trend: [70, 68, 65, 63, 65, 64, 65]
+        dateRange: "Oct 1-25, 2025"
       },
       {
         id: 'slack-pricing',
@@ -65,7 +65,7 @@ export const sentimentData: PlatformData[] = [
           "Free plan is too limited",
           "Hard to justify the cost"
         ],
-        trend: [60, 55, 50, 48, 45, 43, 40]
+        dateRange: "Oct 1-25, 2025"
       }
     ]
   },
@@ -87,7 +87,7 @@ export const sentimentData: PlatformData[] = [
           "Switched from Slack because Discord AI actually understands context",
           "The AI summarizes my server chats perfectly, saving hours daily"
         ],
-        trend: [85, 87, 90, 92, 93, 94, 95]
+        dateRange: "Oct 18-25, 2025"
       },
       {
         id: 'discord-pricing-recent',
@@ -100,7 +100,7 @@ export const sentimentData: PlatformData[] = [
           "Free AI features?! This is why Discord wins",
           "Finally a company that doesn't nickel and dime users"
         ],
-        trend: [75, 78, 82, 88, 92, 96, 98]
+        dateRange: "Oct 24-25, 2025"
       },
       {
         id: 'discord-enterprise',
@@ -113,7 +113,7 @@ export const sentimentData: PlatformData[] = [
           "Compliance tools are solid. Pricing is 40% less than Slack",
           "Our IT team is impressed with the enterprise features"
         ],
-        trend: [60, 65, 68, 72, 74, 76, 76]
+        dateRange: "Oct 22-25, 2025"
       }
     ]
   },
@@ -135,7 +135,7 @@ export const sentimentData: PlatformData[] = [
           "4 hour outage cost us thousands. Looking at alternatives",
           "This is the third major outage this month. Time to switch"
         ],
-        trend: [65, 60, 55, 50, 42, 35, 28]
+        dateRange: "Oct 25, 2025"
       },
       {
         id: 'teams-copilot-update',
@@ -148,7 +148,7 @@ export const sentimentData: PlatformData[] = [
           "AI features improved but performance issues remain",
           "Better than before but Slack and Discord AI are faster"
         ],
-        trend: [55, 56, 57, 58, 58, 60, 62]
+        dateRange: "Oct 24-25, 2025"
       },
       {
         id: 'teams-performance-current',
@@ -161,7 +161,7 @@ export const sentimentData: PlatformData[] = [
           "Constant lag and freezing during screen shares",
           "My laptop fan sounds like a jet engine when Teams is running"
         ],
-        trend: [48, 45, 42, 40, 38, 36, 34]
+        dateRange: "Oct 1-25, 2025"
       }
     ]
   }
