@@ -139,11 +139,7 @@ const Candyverse = () => {
                         orbitRadius={5}
                         orbitSpeed={0.3}
                         sentiment={data.overallSentiment}
-                        onClick={() => {
-                          setSelectedCompetitor(data.platform);
-                          // Optional: uncomment to navigate immediately on moon click
-                          // handlePlanetClick(data.platform);
-                        }}
+                        onClick={() => handlePlanetClick(data.platform)}
                         isSelected={selectedCompetitor === data.platform}
                         timeOffset={index * Math.PI}
                       />
