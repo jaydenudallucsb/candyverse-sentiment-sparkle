@@ -169,22 +169,40 @@ export const sentimentData: PlatformData[] = [
 
 export const timelineEvents = [
   {
-    date: '2024-10',
-    platform: 'slack' as Platform,
-    event: 'Slack AI Assistant Launch',
-    impact: 'positive'
-  },
-  {
-    date: '2024-11',
+    date: '2025-10-18',
     platform: 'discord' as Platform,
-    event: 'Discord AI Channels Beta',
+    event: 'Discord AI Copilot Launch - 95% positive sentiment',
     impact: 'positive'
   },
   {
-    date: '2024-12',
+    date: '2025-10-24',
+    platform: 'discord' as Platform,
+    event: 'Discord announces Forever Free AI - viral on social media',
+    impact: 'positive'
+  },
+  {
+    date: '2025-10-25',
     platform: 'teams' as Platform,
-    event: 'Teams Performance Update',
+    event: 'Teams Global Outage - 4 hours, 2M+ users affected',
+    impact: 'negative'
+  },
+  {
+    date: '2025-10-22',
+    platform: 'discord' as Platform,
+    event: 'Discord Enterprise Beta launched - targeting Slack users',
+    impact: 'positive'
+  },
+  {
+    date: '2025-10-24',
+    platform: 'teams' as Platform,
+    event: 'Teams Copilot Update - mixed reception, performance issues',
     impact: 'neutral'
+  },
+  {
+    date: '2025-10-20',
+    platform: 'discord' as Platform,
+    event: 'Discord Canvas feature released - collaborative docs',
+    impact: 'positive'
   }
 ];
 
@@ -201,53 +219,63 @@ export interface CompetitiveInsight {
 
 export const competitiveInsights: CompetitiveInsight[] = [
   {
-    id: 'discord-ai-surge',
-    title: 'Discord AI Channels Driving 12% Sentiment Spike',
+    id: 'discord-ai-launch',
+    title: 'Discord Just Released AI Copilot (Last Week)',
     competitor: 'discord',
-    trend: 'Discord users are raving about AI Channels - a 45-point sentiment jump in just 4 months',
+    trend: 'Discord launched AI Copilot 7 days ago - already seeing 2,341 mentions with 95% positive sentiment. Users migrating from Slack for "better AI experience".',
     impact: 'threat',
-    actionableRecommendation: 'Accelerate Slack AI feature rollout and improve discoverability. Users want AI to feel more "present" in conversations.',
-    slackComparison: 'Slack AI sentiment +13 points, but Discord gaining faster. Risk: Discord could capture the "AI-first" workspace narrative.',
+    actionableRecommendation: 'URGENT: Counter-launch with enhanced Slack AI features this month. Discord capturing "AI-first" narrative directly from our user base.',
+    slackComparison: 'Slack losing 8% sentiment this week as users compare AI features. Discord AI rated 95% vs Slack AI 85%. Churn risk in tech-forward teams.',
     priority: 'high'
   },
   {
-    id: 'slack-pricing-concern',
-    title: 'Pricing Concerns Creating Churn Risk',
-    competitor: 'slack',
-    trend: 'Slack pricing sentiment dropped 20 points - now at 40% negative. Small teams citing "too expensive" in 1,456 mentions.',
+    id: 'discord-pricing-attack',
+    title: 'Discord Announced "Forever Free AI" Yesterday',
+    competitor: 'discord',
+    trend: 'Discord announced unlimited free AI access 24 hours ago. Social media erupting with Slack price comparisons. 1,456 mentions of Slack being "too expensive".',
     impact: 'threat',
-    actionableRecommendation: 'Launch a competitive free tier or introduce flexible team pricing. Discord and Teams offering more for less.',
-    slackComparison: 'Teams pricing criticism at 55%, Discord praised for "free forever" model. Opportunity to reposition value.',
+    actionableRecommendation: 'CRITICAL: Immediate pricing response needed. Consider limited free AI tier or match Discord offering to prevent mass exodus.',
+    slackComparison: 'Slack pricing at 40% negative sentiment while Discord praised. Already seeing 12% uptick in Slack-to-Discord migration searches.',
     priority: 'high'
   },
   {
-    id: 'teams-performance-weakness',
-    title: 'Teams Performance Issues = Slack Opportunity',
+    id: 'teams-outage-recent',
+    title: 'Teams Major Outage This Morning (4 Hours)',
     competitor: 'teams',
-    trend: 'Teams sentiment plummeting on performance (-15 points). 2,103 complaints about lag, crashes, and resource usage.',
+    trend: 'Teams suffered 4-hour global outage today affecting 2M+ users. Twitter flooded with complaints. Sentiment crashed 15 points in 12 hours.',
     impact: 'opportunity',
-    actionableRecommendation: 'Market Slack as the "fast & reliable" alternative. Create migration content targeting frustrated Teams users.',
-    slackComparison: 'Slack performance sentiment neutral (65%) vs Teams negative (30%). Clear competitive advantage to amplify.',
-    priority: 'medium'
+    actionableRecommendation: 'IMMEDIATE: Launch targeted "Switch to Slack" campaign while sentiment is low. Offer free migration support for Teams users.',
+    slackComparison: 'Perfect moment to highlight Slack 99.9% uptime. Teams users actively seeking alternatives RIGHT NOW. Window closes in 48-72 hours.',
+    priority: 'high'
   },
   {
-    id: 'discord-community-strength',
-    title: 'Discord Community Tools Leading Category',
+    id: 'discord-enterprise-push',
+    title: 'Discord Enterprise Beta (Launched 3 Days Ago)',
     competitor: 'discord',
-    trend: 'Discord community management sentiment at 88% - users love customization, moderation, and server flexibility.',
+    trend: 'Discord quietly launched Enterprise Beta with advanced security and compliance. 823 mentions from IT decision-makers testing it as "Slack alternative".',
+    impact: 'threat',
+    actionableRecommendation: 'Strengthen enterprise messaging - emphasize Slack security track record and enterprise features Discord lacks. Target CIOs directly.',
+    slackComparison: 'Discord entering enterprise space for first time. Could undercut Slack pricing while offering comparable features. Monitor beta feedback closely.',
+    priority: 'high'
+  },
+  {
+    id: 'teams-copilot-update',
+    title: 'Teams Copilot Update Released Yesterday',
+    competitor: 'teams',
+    trend: 'Teams pushed Copilot enhancement yesterday but user reception mixed. 734 mentions with only 58% positive - "still laggy" complaints persist.',
     impact: 'opportunity',
-    actionableRecommendation: 'Invest in Slack Connect and community features. Add more customization options for channels and workspaces.',
-    slackComparison: 'Slack lacks community-first features that power Discord. Could capture this segment with the right product pivot.',
+    actionableRecommendation: 'Capitalize on Teams AI disappointment. Position Slack AI as "actually fast and reliable" - run comparison campaigns.',
+    slackComparison: 'Teams Copilot rated 58% while Slack AI at 85%. Clear advantage but need to amplify messaging before next Teams update.',
     priority: 'medium'
   },
   {
-    id: 'teams-integration-advantage',
-    title: 'Teams Microsoft Integration Sticky but Limited',
-    competitor: 'teams',
-    trend: 'Teams Microsoft 365 integration sentiment stable at 78%. Enterprise users locked in but not enthusiastic.',
-    impact: 'neutral',
-    actionableRecommendation: 'Deepen integrations with Google Workspace, Salesforce, and other enterprise tools to create stickiness beyond Microsoft.',
-    slackComparison: 'Slack can win by being the "best integrations platform" - more partners, better APIs, smoother workflows.',
-    priority: 'low'
+    id: 'discord-canvas-feature',
+    title: 'Discord Canvas (Collaborative Docs) - 5 Days Old',
+    competitor: 'discord',
+    trend: 'Discord Canvas launched 5 days ago bringing real-time docs to channels. 1,823 users praising it as "Notion meets Slack but better".',
+    impact: 'threat',
+    actionableRecommendation: 'Slack lacks native collaborative docs feature. Consider partnership or acquisition to match Discord Canvas functionality.',
+    slackComparison: 'Discord adding features Slack users have requested for years. Risk of positioning Discord as "more complete platform".',
+    priority: 'medium'
   }
 ];
