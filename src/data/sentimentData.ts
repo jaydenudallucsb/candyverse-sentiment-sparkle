@@ -77,43 +77,43 @@ export const sentimentData: PlatformData[] = [
     sentimentChange: 12,
     topics: [
       {
-        id: 'discord-ai',
-        topic: 'AI Channels',
+        id: 'discord-ai-recent',
+        topic: 'AI Copilot (Released Oct 18)',
         sentiment: 'positive',
         mentions: 2341,
         engagement: 0.95,
         quotes: [
-          "AI channels are a game-changer!",
-          "Discord's AI integration is smooth",
-          "Best AI features I've seen in any platform"
+          "Just tried the new AI Copilot - incredible! Way better than expected",
+          "Switched from Slack because Discord AI actually understands context",
+          "The AI summarizes my server chats perfectly, saving hours daily"
         ],
-        trend: [50, 62, 75, 82, 88, 92, 95]
+        trend: [85, 87, 90, 92, 93, 94, 95]
       },
       {
-        id: 'discord-community',
-        topic: 'Community Tools',
+        id: 'discord-pricing-recent',
+        topic: 'Forever Free AI (Announced Oct 24)',
         sentiment: 'positive',
-        mentions: 1823,
-        engagement: 0.88,
+        mentions: 3156,
+        engagement: 0.98,
         quotes: [
-          "Community management is so easy",
-          "Moderation tools are powerful",
-          "Love the server customization"
+          "Can't believe Discord AI is completely free. Canceling my Slack subscription",
+          "Free AI features?! This is why Discord wins",
+          "Finally a company that doesn't nickel and dime users"
         ],
-        trend: [78, 80, 82, 84, 86, 88, 88]
+        trend: [75, 78, 82, 88, 92, 96, 98]
       },
       {
-        id: 'discord-ui',
-        topic: 'Interface',
-        sentiment: 'neutral',
-        mentions: 734,
-        engagement: 0.58,
+        id: 'discord-enterprise',
+        topic: 'Enterprise Beta (Launched Oct 22)',
+        sentiment: 'positive',
+        mentions: 823,
+        engagement: 0.76,
         quotes: [
-          "UI can be overwhelming for new users",
-          "Wish it was more intuitive",
-          "Takes time to learn all features"
+          "Discord Enterprise has the security features we need. Testing as Slack replacement",
+          "Compliance tools are solid. Pricing is 40% less than Slack",
+          "Our IT team is impressed with the enterprise features"
         ],
-        trend: [65, 64, 63, 62, 60, 59, 58]
+        trend: [60, 65, 68, 72, 74, 76, 76]
       }
     ]
   },
@@ -125,43 +125,43 @@ export const sentimentData: PlatformData[] = [
     sentimentChange: -3,
     topics: [
       {
-        id: 'teams-integration',
-        topic: 'Microsoft Integration',
-        sentiment: 'positive',
+        id: 'teams-outage-recent',
+        topic: 'Major Outage Today (4 Hours)',
+        sentiment: 'negative',
+        mentions: 4892,
+        engagement: 0.97,
+        quotes: [
+          "Teams down AGAIN during our biggest client meeting. Unacceptable",
+          "4 hour outage cost us thousands. Looking at alternatives",
+          "This is the third major outage this month. Time to switch"
+        ],
+        trend: [65, 60, 55, 50, 42, 35, 28]
+      },
+      {
+        id: 'teams-copilot-update',
+        topic: 'Copilot Update (Released Oct 24)',
+        sentiment: 'neutral',
         mentions: 1567,
-        engagement: 0.78,
+        engagement: 0.64,
         quotes: [
-          "Perfect for Office 365 users",
-          "Integration with Outlook is seamless",
-          "Calendar features are great"
+          "New Copilot update is meh. Still slower than competitors",
+          "AI features improved but performance issues remain",
+          "Better than before but Slack and Discord AI are faster"
         ],
-        trend: [75, 76, 77, 78, 78, 78, 78]
+        trend: [55, 56, 57, 58, 58, 60, 62]
       },
       {
-        id: 'teams-perf',
-        topic: 'Performance',
+        id: 'teams-performance-current',
+        topic: 'Performance Issues (Ongoing)',
         sentiment: 'negative',
-        mentions: 2103,
-        engagement: 0.89,
+        mentions: 3247,
+        engagement: 0.91,
         quotes: [
-          "So slow and laggy",
-          "Crashes during important meetings",
-          "Resource hog on my computer"
+          "Teams uses 4GB of RAM just sitting idle. Ridiculous",
+          "Constant lag and freezing during screen shares",
+          "My laptop fan sounds like a jet engine when Teams is running"
         ],
-        trend: [45, 42, 40, 38, 35, 33, 30]
-      },
-      {
-        id: 'teams-ui',
-        topic: 'User Experience',
-        sentiment: 'negative',
-        mentions: 1834,
-        engagement: 0.82,
-        quotes: [
-          "Cluttered interface",
-          "Too many clicks to do simple things",
-          "Confusing navigation"
-        ],
-        trend: [55, 52, 50, 48, 45, 43, 40]
+        trend: [48, 45, 42, 40, 38, 36, 34]
       }
     ]
   }
