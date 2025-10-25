@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { sentimentData, Platform } from '@/data/sentimentData';
 import { CommentFeed } from '@/components/CommentFeed';
+import { SentimentClusterView } from '@/components/SentimentClusterView';
 
 const PlatformDetail = () => {
   const { platform } = useParams<{ platform: Platform }>();
@@ -117,6 +118,16 @@ const PlatformDetail = () => {
               </div>
             </CardContent>
           </Card>
+        </motion.div>
+
+        {/* Sentiment Clusters */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h2 className="text-2xl font-bold mb-4">Sentiment Clusters vs Recent Updates</h2>
+          <SentimentClusterView clusters={platformData.sentimentClusters} />
         </motion.div>
 
         {/* Sentiment Overview */}

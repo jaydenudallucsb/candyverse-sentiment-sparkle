@@ -11,6 +11,18 @@ export interface TopicCluster {
   dateRange: string; // e.g., "Oct 1-25, 2025"
 }
 
+export interface SentimentCluster {
+  category: string;
+  sentiment: 'positive' | 'negative' | 'neutral';
+  percentage: number;
+  keywords: string[];
+  recentUpdate?: {
+    title: string;
+    date: string;
+    impact: 'positive' | 'negative' | 'neutral';
+  };
+}
+
 export interface PlatformData {
   platform: Platform;
   name: string;
@@ -18,6 +30,7 @@ export interface PlatformData {
   overallSentiment: number;
   sentimentChange: number;
   topics: TopicCluster[];
+  sentimentClusters: SentimentCluster[];
 }
 
 export const sentimentData: PlatformData[] = [
@@ -67,6 +80,41 @@ export const sentimentData: PlatformData[] = [
         ],
         dateRange: "Oct 1-25, 2025"
       }
+    ],
+    sentimentClusters: [
+      {
+        category: 'AI & Automation',
+        sentiment: 'positive',
+        percentage: 85,
+        keywords: ['AI search', 'smart replies', 'automation', 'workflow'],
+        recentUpdate: {
+          title: 'AI Assistant enhanced search',
+          date: 'Oct 15, 2025',
+          impact: 'positive'
+        }
+      },
+      {
+        category: 'Pricing & Value',
+        sentiment: 'negative',
+        percentage: 40,
+        keywords: ['expensive', 'cost', 'pricing', 'value'],
+        recentUpdate: {
+          title: 'Free tier limitations maintained',
+          date: 'Oct 1, 2025',
+          impact: 'negative'
+        }
+      },
+      {
+        category: 'Performance',
+        sentiment: 'neutral',
+        percentage: 65,
+        keywords: ['speed', 'loading', 'mobile', 'lag'],
+        recentUpdate: {
+          title: 'Minor performance improvements',
+          date: 'Oct 10, 2025',
+          impact: 'neutral'
+        }
+      }
     ]
   },
   {
@@ -115,6 +163,41 @@ export const sentimentData: PlatformData[] = [
         ],
         dateRange: "Oct 22-25, 2025"
       }
+    ],
+    sentimentClusters: [
+      {
+        category: 'AI Innovation',
+        sentiment: 'positive',
+        percentage: 95,
+        keywords: ['AI Copilot', 'context-aware', 'summarization', 'smart'],
+        recentUpdate: {
+          title: 'AI Copilot launched with full features',
+          date: 'Oct 18, 2025',
+          impact: 'positive'
+        }
+      },
+      {
+        category: 'Pricing Strategy',
+        sentiment: 'positive',
+        percentage: 98,
+        keywords: ['free', 'forever', 'no-cost', 'accessible'],
+        recentUpdate: {
+          title: 'Forever Free AI announcement',
+          date: 'Oct 24, 2025',
+          impact: 'positive'
+        }
+      },
+      {
+        category: 'Enterprise Features',
+        sentiment: 'positive',
+        percentage: 76,
+        keywords: ['security', 'compliance', 'enterprise', 'business'],
+        recentUpdate: {
+          title: 'Enterprise Beta launch',
+          date: 'Oct 22, 2025',
+          impact: 'positive'
+        }
+      }
     ]
   },
   {
@@ -162,6 +245,41 @@ export const sentimentData: PlatformData[] = [
           "My laptop fan sounds like a jet engine when Teams is running"
         ],
         dateRange: "Oct 1-25, 2025"
+      }
+    ],
+    sentimentClusters: [
+      {
+        category: 'Reliability',
+        sentiment: 'negative',
+        percentage: 28,
+        keywords: ['outage', 'downtime', 'unavailable', 'crashes'],
+        recentUpdate: {
+          title: '4-hour global outage',
+          date: 'Oct 25, 2025',
+          impact: 'negative'
+        }
+      },
+      {
+        category: 'AI Features',
+        sentiment: 'neutral',
+        percentage: 62,
+        keywords: ['Copilot', 'slow', 'improvement', 'mediocre'],
+        recentUpdate: {
+          title: 'Copilot update with mixed results',
+          date: 'Oct 24, 2025',
+          impact: 'neutral'
+        }
+      },
+      {
+        category: 'Performance',
+        sentiment: 'negative',
+        percentage: 34,
+        keywords: ['lag', 'memory', 'slow', 'resource-heavy'],
+        recentUpdate: {
+          title: 'Performance issues persist',
+          date: 'Oct 1-25, 2025',
+          impact: 'negative'
+        }
       }
     ]
   }
