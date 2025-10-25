@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Candyverse from "./pages/Candyverse";
+import PlatformDetail from "./pages/PlatformDetail";
 import PodcastRecap from "./pages/PodcastRecap";
 import NotFound from "./pages/NotFound";
 
@@ -21,6 +22,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/candyverse" element={<Candyverse />} />
+            <Route path="/platform/:platform" element={<PlatformDetail />} />
             <Route path="/podcast" element={<PodcastRecap />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

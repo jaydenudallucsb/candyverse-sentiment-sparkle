@@ -1,4 +1,5 @@
 import { useState, useEffect, Suspense } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Stars } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,9 +14,14 @@ import { CompetitiveInsightsPanel } from '@/components/CompetitiveInsightsPanel'
 import { sentimentData, Platform } from '@/data/sentimentData';
 
 const Candyverse = () => {
+  const navigate = useNavigate();
   const [selectedCompetitor, setSelectedCompetitor] = useState<Platform | null>(null);
   const [timeIndex, setTimeIndex] = useState(6);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlanetClick = (platform: Platform) => {
+    navigate(`/platform/${platform}`);
+  };
 
   // Auto-play animation
   useEffect(() => {
@@ -100,7 +106,7 @@ const Candyverse = () => {
                       platform="slack"
                       position={[0, 0, 0]}
                       sentiment={slackData.overallSentiment}
-                      onClick={() => setSelectedCompetitor(null)}
+                      onClick={() => handlePlanetClick('slack')}
                       isSelected={selectedCompetitor === null}
                     />
                     
@@ -133,7 +139,11 @@ const Candyverse = () => {
                         orbitRadius={5}
                         orbitSpeed={0.3}
                         sentiment={data.overallSentiment}
-                        onClick={() => setSelectedCompetitor(data.platform)}
+                        onClick={() => {
+                          setSelectedCompetitor(data.platform);
+                          // Optional: uncomment to navigate immediately on moon click
+                          // handlePlanetClick(data.platform);
+                        }}
                         isSelected={selectedCompetitor === data.platform}
                         timeOffset={index * Math.PI}
                       />
@@ -247,7 +257,7 @@ const Candyverse = () => {
           <CompetitiveInsightsPanel selectedCompetitor={selectedCompetitor} />
         </motion.div>
 
-        {/* Competitor Moon Details */}
+        {/* Competitor Moon Preview with View Details Button */}
         <AnimatePresence mode="wait">
           {selectedCompetitor && (
             <motion.div
@@ -258,9 +268,17 @@ const Candyverse = () => {
             >
               <Card className="border-2">
                 <CardHeader>
-                  <CardTitle>
-                    {sentimentData.find(d => d.platform === selectedCompetitor)?.name} Moon Details
-                  </CardTitle>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>
+                      {sentimentData.find(d => d.platform === selectedCompetitor)?.name} Moon Preview
+                    </CardTitle>
+                    <button
+                      onClick={() => handlePlanetClick(selectedCompetitor)}
+                      className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-primary-foreground font-semibold hover:shadow-lg transition-all"
+                    >
+                      View Full Details →
+                    </button>
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {sentimentData.find(d => d.platform === selectedCompetitor)?.topics.map((topic) => (
