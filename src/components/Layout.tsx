@@ -1,98 +1,92 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Globe, Sparkles, Radio } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { Link, useLocation } from "react-router-dom";
+import { Menu, Sparkles, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState(location.pathname);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const tabs = [
-    { path: '/', label: 'Overview', icon: Sparkles },
-    { path: '/candyverse', label: 'Analysis', icon: Globe },
-    { path: '/podcast', label: 'Insights', icon: Radio },
+  const navItems = [
+    { path: "/", label: "INTRODUCTION" },
+    { path: "/candyverse", label: "THE ANALYSIS" },
+    { path: "/podcast", label: "INSIGHTS" },
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Subtle background elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-30">
-        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute top-40 right-20 w-40 h-40 rounded-full bg-accent/10 blur-3xl" />
-        <div className="absolute bottom-32 left-1/4 w-36 h-36 rounded-full bg-secondary/10 blur-3xl" />
-      </div>
+    <div className="min-h-screen cosmic-bg">
+      {/* Minimal Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-background/20">
+        <div className="container mx-auto px-6 py-6 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 group">
+            <Sparkles className="h-6 w-6 text-primary group-hover:rotate-12 transition-transform" />
+          </Link>
 
-      {/* Header */}
-      <header className="relative z-10 border-b border-border/50 backdrop-blur-sm bg-background/80">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="relative">
-                <Sparkles className="w-10 h-10 text-primary transition-transform group-hover:scale-110" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">
-                  Unwrap.ai
-                </h1>
-                <p className="text-xs text-muted-foreground">Competitive Sentiment Intelligence</p>
-              </div>
-            </Link>
-          </div>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`text-sm font-light tracking-wider transition-colors ${
+                  location.pathname === item.path
+                    ? "text-foreground border-b-2 border-primary pb-1"
+                    : "text-foreground/60 hover:text-foreground"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden p-2 text-foreground/80 hover:text-foreground transition-colors"
+          >
+            <Menu className="h-6 w-6" />
+          </button>
         </div>
       </header>
 
-      {/* Tab Navigation */}
-      <nav className="sticky top-0 z-20 border-b border-border/50 backdrop-blur-md bg-background/80">
-        <div className="container mx-auto px-6">
-          <div className="flex gap-1">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
-              const isActive = location.pathname === tab.path;
-              
-              return (
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-lg md:hidden"
+          >
+            <div className="flex flex-col items-center justify-center h-full gap-8">
+              {navItems.map((item) => (
                 <Link
-                  key={tab.path}
-                  to={tab.path}
-                  onClick={() => setActiveTab(tab.path)}
-                  className="relative"
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMenuOpen(false)}
+                  className={`text-2xl font-light tracking-wider transition-colors ${
+                    location.pathname === item.path
+                      ? "text-foreground"
+                      : "text-foreground/60 hover:text-foreground"
+                  }`}
                 >
-                  <div
-                    className={cn(
-                      "flex items-center gap-2 px-6 py-4 transition-colors",
-                      isActive
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span className="font-medium">{tab.label}</span>
-                  </div>
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute bottom-0 left-0 right-0 h-1 bg-primary"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
+                  {item.label}
                 </Link>
-              );
-            })}
-          </div>
-        </div>
-      </nav>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main Content */}
-      <main className="relative z-10">
-        {children}
-      </main>
+      <main>{children}</main>
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-border/50 mt-20 backdrop-blur-sm bg-background/80">
-        <div className="container mx-auto px-6 py-8 text-center text-sm text-muted-foreground">
-          <p>Powered by Unwrap.ai • Competitive sentiment intelligence for modern teams</p>
+      {/* Scroll Indicator (only on home) */}
+      {location.pathname === "/" && (
+        <div className="scroll-indicator text-foreground/40">
+          <ChevronDown className="h-6 w-6" />
         </div>
-      </footer>
+      )}
     </div>
   );
 };

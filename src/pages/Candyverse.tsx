@@ -44,36 +44,21 @@ const Candyverse = () => {
   const competitorData = sentimentData.filter(d => d.platform !== 'slack');
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="container mx-auto px-6 space-y-8">
+    <div className="min-h-screen py-20">
+      <div className="container mx-auto px-6 space-y-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-4"
+          className="text-center space-y-6 max-w-4xl mx-auto"
         >
-          <div className="flex items-center gap-3">
-            <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20">
-              <Globe className="w-8 h-8 text-primary" />
-            </div>
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground">
-                Sentiment Analysis Hub
-              </h1>
-              <p className="text-muted-foreground">Competitive intelligence across collaboration platforms</p>
-            </div>
-          </div>
-          
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-6">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                <strong className="text-foreground">Slack-Centric Intelligence.</strong> At the center of this analysis, 
-                Slack's sentiment stands at <span className="font-semibold text-slack">{slackData.overallSentiment}%</span>. 
-                Orbiting competitors Discord and Teams provide contextual intelligence revealing market trends, threats, and opportunities. 
-                Click any platform to explore detailed sentiment breakdowns and strategic insights.
-              </p>
-            </CardContent>
-          </Card>
+          <h1 className="text-5xl md:text-6xl font-light text-foreground tracking-tight">
+            The Sentiment Universe
+          </h1>
+          <p className="text-xl text-foreground/60 leading-relaxed">
+            Slack sits at the center at <span className="text-slack font-medium">{slackData.overallSentiment}%</span> sentiment. 
+            Orbiting competitors reveal market trends, threats, and opportunities.
+          </p>
         </motion.div>
 
         {/* 3D Canvas */}
@@ -81,23 +66,22 @@ const Candyverse = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
+          className="glass rounded-2xl overflow-hidden"
         >
-          <Card className="overflow-hidden border-2">
-            <CardContent className="p-0">
-              <div className="h-[600px] bg-gradient-to-b from-background to-muted/20 relative">
-                <Canvas>
-                  <Suspense fallback={null}>
-                    <PerspectiveCamera makeDefault position={[0, 3, 10]} />
-                    <OrbitControls
-                      enablePan={false}
-                      minDistance={6}
-                      maxDistance={18}
-                      maxPolarAngle={Math.PI / 2}
-                    />
-                    
-                    <ambientLight intensity={0.6} />
-                    <pointLight position={[10, 10, 10]} intensity={1.2} />
-                    <pointLight position={[-10, -10, -10]} intensity={0.6} />
+          <div className="h-[700px] relative">
+            <Canvas>
+              <Suspense fallback={null}>
+                <PerspectiveCamera makeDefault position={[0, 3, 10]} />
+                <OrbitControls
+                  enablePan={false}
+                  minDistance={6}
+                  maxDistance={18}
+                  maxPolarAngle={Math.PI / 2}
+                />
+                
+                <ambientLight intensity={0.6} />
+                <pointLight position={[10, 10, 10]} intensity={1.2} />
+                <pointLight position={[-10, -10, -10]} intensity={0.6} />
                     
                     <Stars radius={100} depth={50} count={5000} factor={4} fade speed={1} />
                     
@@ -163,26 +147,23 @@ const Candyverse = () => {
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+            </motion.div>
 
         {/* Time Slider */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
+          className="glass rounded-xl"
         >
-          <Card>
-            <CardContent className="p-6">
-              <TimeSlider
-                value={timeIndex}
-                onChange={setTimeIndex}
-                isPlaying={isPlaying}
-                onPlayPause={() => setIsPlaying(!isPlaying)}
-              />
-            </CardContent>
-          </Card>
+          <div className="p-6">
+            <TimeSlider
+              value={timeIndex}
+              onChange={setTimeIndex}
+              isPlaying={isPlaying}
+              onPlayPause={() => setIsPlaying(!isPlaying)}
+            />
+          </div>
         </motion.div>
 
         {/* Slack Overview */}
@@ -190,58 +171,56 @@ const Candyverse = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
+          className="glass rounded-xl"
         >
-          <Card className="border-2 border-slack/20">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span>Slack Platform Status</span>
-                <Badge
-                  variant={slackData.sentimentChange >= 0 ? "default" : "destructive"}
-                  className="gap-1"
-                >
-                  {slackData.sentimentChange > 0 && <TrendingUp className="w-3 h-3" />}
-                  {slackData.sentimentChange < 0 && <TrendingDown className="w-3 h-3" />}
-                  {slackData.sentimentChange === 0 && <Minus className="w-3 h-3" />}
-                  {slackData.sentimentChange > 0 ? '+' : ''}{slackData.sentimentChange}%
-                </Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <p className="text-sm text-muted-foreground mb-2">Overall Sentiment</p>
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-destructive via-warning to-success transition-all duration-500"
-                      style={{ width: `${slackData.overallSentiment}%` }}
-                    />
-                  </div>
-                  <span className="font-bold text-xl">{slackData.overallSentiment}%</span>
+          <div className="p-6 space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-light text-foreground">Slack Platform Status</h2>
+              <Badge
+                variant={slackData.sentimentChange >= 0 ? "default" : "destructive"}
+                className="gap-1"
+              >
+                {slackData.sentimentChange > 0 && <TrendingUp className="w-3 h-3" />}
+                {slackData.sentimentChange < 0 && <TrendingDown className="w-3 h-3" />}
+                {slackData.sentimentChange === 0 && <Minus className="w-3 h-3" />}
+                {slackData.sentimentChange > 0 ? '+' : ''}{slackData.sentimentChange}%
+              </Badge>
+            </div>
+
+            <div>
+              <p className="text-sm text-foreground/60 mb-2">Overall Sentiment</p>
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-destructive via-warning to-success transition-all duration-500"
+                    style={{ width: `${slackData.overallSentiment}%` }}
+                  />
                 </div>
+                <span className="font-bold text-xl">{slackData.overallSentiment}%</span>
               </div>
-              
-              <div className="grid grid-cols-3 gap-4 pt-4">
-                {slackData.topics.map((topic) => (
-                  <div key={topic.id} className="text-center p-3 rounded-lg bg-muted/30">
-                    <p className="text-xs text-muted-foreground mb-1">{topic.topic}</p>
-                    <p className="font-semibold text-lg">{topic.mentions}</p>
-                    <Badge
-                      variant={
-                        topic.sentiment === 'positive'
-                          ? 'default'
-                          : topic.sentiment === 'negative'
-                          ? 'destructive'
-                          : 'secondary'
-                      }
-                      className="text-xs mt-1"
-                    >
-                      {topic.sentiment}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-4 pt-4">
+              {slackData.topics.map((topic) => (
+                <div key={topic.id} className="text-center p-4 rounded-lg bg-background/30 border border-border/30">
+                  <p className="text-xs text-foreground/60 mb-1">{topic.topic}</p>
+                  <p className="font-semibold text-lg">{topic.mentions}</p>
+                  <Badge
+                    variant={
+                      topic.sentiment === 'positive'
+                        ? 'default'
+                        : topic.sentiment === 'negative'
+                        ? 'destructive'
+                        : 'secondary'
+                    }
+                    className="text-xs mt-1"
+                  >
+                    {topic.sentiment}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </div>
         </motion.div>
 
         {/* Competitive Insights */}
@@ -261,22 +240,22 @@ const Candyverse = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
+              className="glass rounded-xl"
             >
-              <Card className="border-2">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle>
-                      {sentimentData.find(d => d.platform === selectedCompetitor)?.name} Moon Preview
-                    </CardTitle>
-                    <button
-                      onClick={() => handlePlanetClick(selectedCompetitor)}
-                      className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-primary-foreground font-semibold hover:shadow-lg transition-all"
-                    >
-                      View Full Details →
-                    </button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
+              <div className="p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-light text-foreground">
+                    {sentimentData.find(d => d.platform === selectedCompetitor)?.name} Moon Preview
+                  </h2>
+                  <button
+                    onClick={() => handlePlanetClick(selectedCompetitor)}
+                    className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-light hover:bg-primary/90 transition-all"
+                  >
+                    View Full Details →
+                  </button>
+                </div>
+
+                <div className="space-y-4">
                   {sentimentData.find(d => d.platform === selectedCompetitor)?.topics.map((topic) => (
                     <div key={topic.id} className="space-y-2">
                       <div className="flex items-center justify-between">
@@ -293,19 +272,19 @@ const Candyverse = () => {
                           {topic.sentiment}
                         </Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-foreground/60">
                         {topic.mentions.toLocaleString()} mentions
                       </p>
-                      <div className="p-3 rounded-lg bg-muted/50 border-l-2 border-primary">
+                      <div className="p-3 rounded-lg bg-background/30 border border-border/30 border-l-2 border-l-primary">
                         <div className="flex gap-2 items-start">
                           <Quote className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                          <p className="text-sm italic">{topic.quotes[0]}</p>
+                          <p className="text-sm italic text-foreground/80">{topic.quotes[0]}</p>
                         </div>
                       </div>
                     </div>
                   ))}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
