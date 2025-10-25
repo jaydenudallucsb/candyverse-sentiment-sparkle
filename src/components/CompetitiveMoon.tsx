@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sphere } from '@react-three/drei';
+import { Sphere, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { Platform } from '@/data/sentimentData';
 
@@ -105,6 +105,19 @@ export const CompetitiveMoon = ({
           <meshBasicMaterial color={getColor()} transparent opacity={0.7} />
         </mesh>
       )}
+
+      {/* Platform Label */}
+      <Text
+        position={[0, moonSize + 0.5, 0]}
+        fontSize={0.3}
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+        outlineWidth={0.02}
+        outlineColor="#000000"
+      >
+        {platform.toUpperCase()}
+      </Text>
     </group>
   );
 };
