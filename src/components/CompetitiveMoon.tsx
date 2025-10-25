@@ -1,0 +1,110 @@
+import { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Sphere } from '@react-three/drei';
+import * as THREE from 'three';
+import { Platform } from '@/data/sentimentData';
+
+interface CompetitiveMoonProps {
+  platform: Platform;
+  orbitRadius: number;
+  orbitSpeed: number;
+  sentiment: number;
+  onClick?: () => void;
+  isSelected?: boolean;
+  timeOffset?: number;
+}
+
+export const CompetitiveMoon = ({ 
+  platform, 
+  orbitRadius, 
+  orbitSpeed, 
+  sentiment, 
+  onClick, 
+  isSelected,
+  timeOffset = 0 
+}: CompetitiveMoonProps) => {
+  const groupRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
+  const glowRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      // Orbital rotation around Slack (center)
+      const time = state.clock.elapsedTime * orbitSpeed + timeOffset;
+      groupRef.current.position.x = Math.cos(time) * orbitRadius;
+      groupRef.current.position.z = Math.sin(time) * orbitRadius;
+    }
+
+    if (meshRef.current) {
+      // Self rotation
+      meshRef.current.rotation.y += 0.003;
+      
+      if (isSelected) {
+        meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 3) * 0.08;
+      }
+    }
+    
+    if (glowRef.current) {
+      const pulse = Math.sin(state.clock.elapsedTime * 2) * 0.2 + 0.8;
+      glowRef.current.scale.setScalar(1 + pulse * 0.15);
+    }
+  });
+
+  const getColor = () => {
+    const colors = {
+      slack: new THREE.Color('#f5a962'), // Should not be used (Slack is center)
+      discord: new THREE.Color('#4ade80'), // Gummy Green
+      teams: new THREE.Color('#60a5fa'), // Peppermint Blue
+    };
+    
+    const baseColor = colors[platform];
+    const brightness = 0.5 + (sentiment / 100) * 0.5;
+    return baseColor.multiplyScalar(brightness);
+  };
+
+  const moonSize = 0.5; // Smaller than the main Slack planet
+
+  return (
+    <group ref={groupRef}>
+      {/* Orbit path indicator */}
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[orbitRadius - 0.02, orbitRadius + 0.02, 64]} />
+        <meshBasicMaterial color={getColor()} transparent opacity={0.15} />
+      </mesh>
+
+      {/* Moon glow */}
+      <Sphere ref={glowRef} args={[moonSize * 1.3, 32, 32]}>
+        <meshBasicMaterial
+          color={getColor()}
+          transparent
+          opacity={0.15}
+        />
+      </Sphere>
+
+      {/* Moon body */}
+      <Sphere
+        ref={meshRef}
+        args={[moonSize, 48, 48]}
+        onClick={onClick}
+        onPointerOver={() => document.body.style.cursor = 'pointer'}
+        onPointerOut={() => document.body.style.cursor = 'default'}
+      >
+        <meshStandardMaterial
+          color={getColor()}
+          emissive={getColor()}
+          emissiveIntensity={0.4}
+          roughness={0.5}
+          metalness={0.5}
+        />
+      </Sphere>
+
+      {/* Selection ring */}
+      {isSelected && (
+        <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[moonSize * 1.2, moonSize * 1.4, 64]} />
+          <meshBasicMaterial color={getColor()} transparent opacity={0.7} />
+        </mesh>
+      )}
+    </group>
+  );
+};

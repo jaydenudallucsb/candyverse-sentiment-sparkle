@@ -187,3 +187,67 @@ export const timelineEvents = [
     impact: 'neutral'
   }
 ];
+
+export interface CompetitiveInsight {
+  id: string;
+  title: string;
+  competitor: Platform;
+  trend: string;
+  impact: 'opportunity' | 'threat' | 'neutral';
+  actionableRecommendation: string;
+  slackComparison: string;
+  priority: 'high' | 'medium' | 'low';
+}
+
+export const competitiveInsights: CompetitiveInsight[] = [
+  {
+    id: 'discord-ai-surge',
+    title: 'Discord AI Channels Driving 12% Sentiment Spike',
+    competitor: 'discord',
+    trend: 'Discord users are raving about AI Channels - a 45-point sentiment jump in just 4 months',
+    impact: 'threat',
+    actionableRecommendation: 'Accelerate Slack AI feature rollout and improve discoverability. Users want AI to feel more "present" in conversations.',
+    slackComparison: 'Slack AI sentiment +13 points, but Discord gaining faster. Risk: Discord could capture the "AI-first" workspace narrative.',
+    priority: 'high'
+  },
+  {
+    id: 'slack-pricing-concern',
+    title: 'Pricing Concerns Creating Churn Risk',
+    competitor: 'slack',
+    trend: 'Slack pricing sentiment dropped 20 points - now at 40% negative. Small teams citing "too expensive" in 1,456 mentions.',
+    impact: 'threat',
+    actionableRecommendation: 'Launch a competitive free tier or introduce flexible team pricing. Discord and Teams offering more for less.',
+    slackComparison: 'Teams pricing criticism at 55%, Discord praised for "free forever" model. Opportunity to reposition value.',
+    priority: 'high'
+  },
+  {
+    id: 'teams-performance-weakness',
+    title: 'Teams Performance Issues = Slack Opportunity',
+    competitor: 'teams',
+    trend: 'Teams sentiment plummeting on performance (-15 points). 2,103 complaints about lag, crashes, and resource usage.',
+    impact: 'opportunity',
+    actionableRecommendation: 'Market Slack as the "fast & reliable" alternative. Create migration content targeting frustrated Teams users.',
+    slackComparison: 'Slack performance sentiment neutral (65%) vs Teams negative (30%). Clear competitive advantage to amplify.',
+    priority: 'medium'
+  },
+  {
+    id: 'discord-community-strength',
+    title: 'Discord Community Tools Leading Category',
+    competitor: 'discord',
+    trend: 'Discord community management sentiment at 88% - users love customization, moderation, and server flexibility.',
+    impact: 'opportunity',
+    actionableRecommendation: 'Invest in Slack Connect and community features. Add more customization options for channels and workspaces.',
+    slackComparison: 'Slack lacks community-first features that power Discord. Could capture this segment with the right product pivot.',
+    priority: 'medium'
+  },
+  {
+    id: 'teams-integration-advantage',
+    title: 'Teams Microsoft Integration Sticky but Limited',
+    competitor: 'teams',
+    trend: 'Teams Microsoft 365 integration sentiment stable at 78%. Enterprise users locked in but not enthusiastic.',
+    impact: 'neutral',
+    actionableRecommendation: 'Deepen integrations with Google Workspace, Salesforce, and other enterprise tools to create stickiness beyond Microsoft.',
+    slackComparison: 'Slack can win by being the "best integrations platform" - more partners, better APIs, smoother workflows.',
+    priority: 'low'
+  }
+];
