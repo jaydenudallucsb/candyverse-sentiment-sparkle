@@ -86,36 +86,40 @@ export const CandyPlanet = ({
   return (
     <group position={position}>
       {/* Glow effect */}
-      <Sphere ref={glowRef} args={[1.8, 32, 32]}>
+      <Sphere ref={glowRef} args={[1.2, 32, 32]}>
         <meshBasicMaterial
           color={getColor()}
           transparent
-          opacity={0.15}
+          opacity={0.2}
         />
       </Sphere>
 
-      {/* Main Logo as Planet */}
-      <Billboard position={[0, 0, 2]}>
-        <mesh
-          ref={meshRef}
-          onClick={onClick}
-          onPointerOver={() => document.body.style.cursor = 'pointer'}
-          onPointerOut={() => document.body.style.cursor = 'default'}
-        >
-          <planeGeometry args={[2.5, 2.5]} />
-          <meshBasicMaterial
-            color={getColor()}
-            transparent
-            opacity={0}
-          />
-        </mesh>
+      {/* Main planet */}
+      <Sphere
+        ref={meshRef}
+        args={[1, 64, 64]}
+        onClick={onClick}
+        onPointerOver={() => document.body.style.cursor = 'pointer'}
+        onPointerOut={() => document.body.style.cursor = 'default'}
+      >
+        <meshStandardMaterial
+          color={getColor()}
+          emissive={getColor()}
+          emissiveIntensity={getEmissiveIntensity()}
+          roughness={0.4}
+          metalness={0.6}
+        />
+      </Sphere>
+
+      {/* Platform Logo on planet surface */}
+      <Billboard position={[0, 0, 1.6]}>
         <Text
-          fontSize={2.5}
+          fontSize={0.8}
           color="white"
           anchorX="center"
           anchorY="middle"
-          outlineWidth={0.1}
-          outlineColor={getColor()}
+          outlineWidth={0.05}
+          outlineColor="#000000"
           fontWeight="bold"
         >
           {getLogo()}
