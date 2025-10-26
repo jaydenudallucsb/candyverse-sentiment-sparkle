@@ -1,24 +1,24 @@
-import { useState, useEffect, Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Stars } from '@react-three/drei';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { TrendingUp, TrendingDown, Minus, Quote, Globe, Layers, Eye, EyeOff } from 'lucide-react';
-import { CandyPlanet } from '@/components/CandyPlanet';
-import { CompetitiveMoon } from '@/components/CompetitiveMoon';
-import { CandyCluster } from '@/components/CandyCluster';
-import { ComparisonRing } from '@/components/ComparisonRing';
-import { PlanetAtmosphere } from '@/components/PlanetAtmosphere';
-import { SolarWindConnection } from '@/components/SolarWindConnection';
-import { SlackInsightOverlay } from '@/components/SlackInsightOverlay';
-import { UniverseTooltip } from '@/components/UniverseTooltip';
-import { TimeSlider } from '@/components/TimeSlider';
-import { CompetitiveInsightsPanel } from '@/components/CompetitiveInsightsPanel';
-import { sentimentData, Platform } from '@/data/sentimentData';
-import { getClusterInsights, getComparisonMetrics, ComparisonInsight } from '@/utils/clusteringUtils';
+import { useState, useEffect, Suspense } from "react";
+import { useNavigate } from "react-router-dom";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, PerspectiveCamera, Stars } from "@react-three/drei";
+import { motion, AnimatePresence } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { TrendingUp, TrendingDown, Minus, Quote, Globe, Layers, Eye, EyeOff } from "lucide-react";
+import { CandyPlanet } from "@/components/CandyPlanet";
+import { CompetitiveMoon } from "@/components/CompetitiveMoon";
+import { CandyCluster } from "@/components/CandyCluster";
+import { ComparisonRing } from "@/components/ComparisonRing";
+import { PlanetAtmosphere } from "@/components/PlanetAtmosphere";
+import { SolarWindConnection } from "@/components/SolarWindConnection";
+import { SlackInsightOverlay } from "@/components/SlackInsightOverlay";
+import { UniverseTooltip } from "@/components/UniverseTooltip";
+import { TimeSlider } from "@/components/TimeSlider";
+import { CompetitiveInsightsPanel } from "@/components/CompetitiveInsightsPanel";
+import { sentimentData, Platform } from "@/data/sentimentData";
+import { getClusterInsights, getComparisonMetrics, ComparisonInsight } from "@/utils/clusteringUtils";
 
 const Candyverse = () => {
   const navigate = useNavigate();
@@ -35,14 +35,14 @@ const Candyverse = () => {
   }>({
     isVisible: false,
     position: { x: 0, y: 0 },
-    content: { title: '', metrics: [] }
+    content: { title: "", metrics: [] },
   });
 
   const clusterInsights = getClusterInsights();
   const comparisonMetrics = getComparisonMetrics();
 
   const handlePlanetClick = (platform: Platform) => {
-    if (platform === 'slack') {
+    if (platform === "slack") {
       setShowSlackInsight(true);
     } else {
       navigate(`/platform/${platform}`);
@@ -55,16 +55,16 @@ const Candyverse = () => {
         isVisible: true,
         position: { x: e.clientX, y: e.clientY },
         content: {
-          title: 'Universal Feature Overlap',
+          title: "Universal Feature Overlap",
           metrics: [
-            { label: 'Overlap', value: '84%' },
-            { label: 'Comments', value: '3,924' },
-            { label: 'Platforms', value: 'All 3' }
-          ]
-        }
+            { label: "Overlap", value: "84%" },
+            { label: "Comments", value: "3,924" },
+            { label: "Platforms", value: "All 3" },
+          ],
+        },
       });
     } else {
-      setTooltipState(prev => ({ ...prev, isVisible: false }));
+      setTooltipState((prev) => ({ ...prev, isVisible: false }));
     }
   };
 
@@ -73,7 +73,7 @@ const Candyverse = () => {
       const sentiments = {
         slack: -0.086,
         discord: -0.012,
-        teams: -0.041
+        teams: -0.041,
       };
       setTooltipState({
         isVisible: true,
@@ -81,20 +81,20 @@ const Candyverse = () => {
         content: {
           title: `${platform.charAt(0).toUpperCase() + platform.slice(1)} Sentiment`,
           metrics: [
-            { label: 'Average Sentiment', value: sentiments[platform].toFixed(3) },
-            { label: 'Status', value: 'Slightly Negative' }
-          ]
-        }
+            { label: "Average Sentiment", value: sentiments[platform].toFixed(3) },
+            { label: "Status", value: "Slightly Negative" },
+          ],
+        },
       });
     } else {
-      setTooltipState(prev => ({ ...prev, isVisible: false }));
+      setTooltipState((prev) => ({ ...prev, isVisible: false }));
     }
   };
 
   // Auto-play animation
   useEffect(() => {
     if (!isPlaying) return;
-    
+
     const interval = setInterval(() => {
       setTimeIndex((prev) => {
         if (prev >= 6) {
@@ -108,8 +108,8 @@ const Candyverse = () => {
     return () => clearInterval(interval);
   }, [isPlaying]);
 
-  const slackData = sentimentData.find(d => d.platform === 'slack')!;
-  const competitorData = sentimentData.filter(d => d.platform !== 'slack');
+  const slackData = sentimentData.find((d) => d.platform === "slack")!;
+  const competitorData = sentimentData.filter((d) => d.platform !== "slack");
 
   return (
     <div className="min-h-screen py-20">
@@ -124,8 +124,9 @@ const Candyverse = () => {
             The Sentiment Universe
           </h1>
           <p className="text-2xl text-foreground/70 leading-relaxed">
-            Slack sits at the center at <span className="text-slack font-bold text-3xl animate-pulse-glow">{slackData.overallSentiment}%</span> sentiment. 
-            Orbiting competitors reveal market trends, threats, and opportunities.
+            Slack sits at the center at{" "}
+            <span className="text-slack font-bold text-3xl animate-pulse-glow">{slackData.overallSentiment}%</span>{" "}
+            sentiment. Orbiting competitors reveal market trends, threats, and opportunities.
           </p>
         </motion.div>
 
@@ -140,136 +141,127 @@ const Candyverse = () => {
             <Canvas>
               <Suspense fallback={null}>
                 <PerspectiveCamera makeDefault position={[0, 3, 10]} />
-                <OrbitControls
-                  enablePan={false}
-                  minDistance={6}
-                  maxDistance={18}
-                  maxPolarAngle={Math.PI / 2}
-                />
-                
+                <OrbitControls enablePan={false} minDistance={6} maxDistance={18} maxPolarAngle={Math.PI / 2} />
+
                 <ambientLight intensity={0.6} />
                 <pointLight position={[10, 10, 10]} intensity={1.2} />
                 <pointLight position={[-10, -10, -10]} intensity={0.6} />
-                    
-                    <Stars radius={100} depth={50} count={5000} factor={4} fade speed={1} />
-                    
-                    {/* Central Slack Planet with Atmosphere */}
-                    <group position={[0, 0, 0]}>
-                      <PlanetAtmosphere platform="slack" sentiment={-0.086} radius={1.8} />
-                      <CandyPlanet
-                        platform="slack"
-                        position={[0, 0, 0]}
-                        sentiment={slackData.overallSentiment}
-                        onClick={() => handlePlanetClick('slack')}
-                        isSelected={selectedCompetitor === null}
-                        comparisonActive={comparisonMode}
+
+                <Stars radius={100} depth={50} count={5000} factor={4} fade speed={1} />
+
+                {/* Central Slack Planet with Atmosphere */}
+                <group position={[0, 0, 0]}>
+                  <PlanetAtmosphere platform="slack" sentiment={-0.086} radius={1.8} />
+                  <CandyPlanet
+                    platform="slack"
+                    position={[0, 0, 0]}
+                    sentiment={slackData.overallSentiment}
+                    onClick={() => handlePlanetClick("slack")}
+                    isSelected={selectedCompetitor === null}
+                    comparisonActive={comparisonMode}
+                  />
+                </group>
+
+                {/* Comparison Ring around Slack */}
+                <ComparisonRing
+                  insights={clusterInsights}
+                  isActive={comparisonMode}
+                  onSegmentHover={setHoveredInsight}
+                />
+
+                {/* Slack's Topic Clusters */}
+                {slackData.topics.map((topic, index) => {
+                  const angle = (index / slackData.topics.length) * Math.PI * 2;
+                  const radius = 2.2;
+                  const clusterSize = Math.min(0.3, (topic.mentions / 2000) * 0.5);
+
+                  return (
+                    <CandyCluster
+                      key={topic.id}
+                      position={[Math.cos(angle) * radius, Math.sin(index) * 0.5, Math.sin(angle) * radius]}
+                      sentiment={topic.sentiment}
+                      size={clusterSize}
+                      engagement={topic.engagement}
+                    />
+                  );
+                })}
+
+                {/* Competitor Moons with Atmospheres and Connections */}
+                {competitorData.map((data, index) => {
+                  // Calculate similarity based on sentiment proximity to Slack
+                  const similarityScore = 1 - Math.abs(data.overallSentiment - slackData.overallSentiment) / 100;
+                  const angle = index * Math.PI;
+                  const orbitRadius = 5;
+                  const moonPosition: [number, number, number] = [
+                    Math.cos(angle) * orbitRadius,
+                    0,
+                    Math.sin(angle) * orbitRadius,
+                  ];
+
+                  return (
+                    <group key={data.platform}>
+                      {/* Solar Wind Connection */}
+                      <SolarWindConnection
+                        startPosition={[0, 0, 0]}
+                        endPosition={moonPosition}
+                        color1="#6366f1"
+                        color2={data.platform === "discord" ? "#5865F2" : "#6264A7"}
+                        overlapPercentage={84}
+                        onHover={(isHovered) => handleConnectionHover(isHovered)}
+                      />
+
+                      {/* Moon with Atmosphere */}
+                      <CompetitiveMoon
+                        platform={data.platform}
+                        orbitRadius={orbitRadius}
+                        orbitSpeed={0.3}
+                        sentiment={data.overallSentiment}
+                        onClick={() => handlePlanetClick(data.platform)}
+                        isSelected={selectedCompetitor === data.platform}
+                        timeOffset={angle}
+                        similarityScore={similarityScore}
                       />
                     </group>
+                  );
+                })}
+              </Suspense>
+            </Canvas>
 
-                    {/* Comparison Ring around Slack */}
-                    <ComparisonRing
-                      insights={clusterInsights}
-                      isActive={comparisonMode}
-                      onSegmentHover={setHoveredInsight}
-                    />
-                    
-                    {/* Slack's Topic Clusters */}
-                    {slackData.topics.map((topic, index) => {
-                      const angle = (index / slackData.topics.length) * Math.PI * 2;
-                      const radius = 2.2;
-                      const clusterSize = Math.min(0.3, (topic.mentions / 2000) * 0.5);
-                      
-                      return (
-                        <CandyCluster
-                          key={topic.id}
-                          position={[
-                            Math.cos(angle) * radius,
-                            Math.sin(index) * 0.5,
-                            Math.sin(angle) * radius,
-                          ]}
-                          sentiment={topic.sentiment}
-                          size={clusterSize}
-                          engagement={topic.engagement}
-                        />
-                      );
-                    })}
-                    
-                    {/* Competitor Moons with Atmospheres and Connections */}
-                    {competitorData.map((data, index) => {
-                      // Calculate similarity based on sentiment proximity to Slack
-                      const similarityScore = 1 - Math.abs(data.overallSentiment - slackData.overallSentiment) / 100;
-                      const angle = index * Math.PI;
-                      const orbitRadius = 5;
-                      const moonPosition: [number, number, number] = [
-                        Math.cos(angle) * orbitRadius,
-                        0,
-                        Math.sin(angle) * orbitRadius
-                      ];
-                      
-                      return (
-                        <group key={data.platform}>
-                          {/* Solar Wind Connection */}
-                          <SolarWindConnection
-                            startPosition={[0, 0, 0]}
-                            endPosition={moonPosition}
-                            color1="#6366f1"
-                            color2={data.platform === 'discord' ? '#5865F2' : '#6264A7'}
-                            overlapPercentage={84}
-                            onHover={(isHovered) => handleConnectionHover(isHovered)}
-                          />
-                          
-                          {/* Moon with Atmosphere */}
-                          <CompetitiveMoon
-                            platform={data.platform}
-                            orbitRadius={orbitRadius}
-                            orbitSpeed={0.3}
-                            sentiment={data.overallSentiment}
-                            onClick={() => handlePlanetClick(data.platform)}
-                            isSelected={selectedCompetitor === data.platform}
-                            timeOffset={angle}
-                            similarityScore={similarityScore}
-                          />
-                        </group>
-                      );
-                    })}
-                  </Suspense>
-                </Canvas>
-                
-                {/* Universe Tooltip */}
-                <UniverseTooltip
-                  isVisible={tooltipState.isVisible}
-                  position={tooltipState.position}
-                  content={tooltipState.content}
-                />
-                
-                {/* Comparison Toggle & Legend */}
-                <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
-                  <Button
-                    onClick={() => setComparisonMode(!comparisonMode)}
-                    variant={comparisonMode ? "default" : "outline"}
-                    className="gap-2 glass hover:scale-105 transition-all duration-300"
-                  >
-                    {comparisonMode ? <EyeOff className="w-4 h-4" /> : <Layers className="w-4 h-4" />}
-                    {comparisonMode ? 'Hide' : 'Compare All'}
-                  </Button>
+            {/* Universe Tooltip */}
+            <UniverseTooltip
+              isVisible={tooltipState.isVisible}
+              position={tooltipState.position}
+              content={tooltipState.content}
+            />
 
-                  <div className="flex gap-4 text-sm">
-                    <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-slack/30 hover:border-slack hover:bg-slack/10 transition-all duration-300 hover:scale-105 cursor-pointer">
-                      <div className="w-5 h-5 rounded-full bg-slack animate-pulse-glow" />
-                      <span className="font-semibold">Slack</span>
-                    </div>
-                    <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-accent/30 hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-105 cursor-pointer">
-                      <div className="w-4 h-4 rounded-full bg-accent animate-pulse-glow" />
-                      <span className="font-semibold">Discord</span>
-                    </div>
-                    <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-secondary/30 hover:border-secondary hover:bg-secondary/10 transition-all duration-300 hover:scale-105 cursor-pointer">
-                      <div className="w-4 h-4 rounded-full bg-secondary animate-pulse-glow" />
-                      <span className="font-semibold">Teams</span>
-                    </div>
-                  </div>
+            {/* Comparison Toggle & Legend */}
+            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
+              <Button
+                onClick={() => setComparisonMode(!comparisonMode)}
+                variant={comparisonMode ? "default" : "outline"}
+                className="gap-2 glass hover:scale-105 transition-all duration-300"
+              >
+                {comparisonMode ? <EyeOff className="w-4 h-4" /> : <Layers className="w-4 h-4" />}
+                {comparisonMode ? "Hide" : "Compare All"}
+              </Button>
+
+              <div className="flex gap-4 text-sm">
+                <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-slack/30 hover:border-slack hover:bg-slack/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                  <div className="w-5 h-5 rounded-full bg-slack animate-pulse-glow" />
+                  <span className="font-semibold">Slack</span>
+                </div>
+                <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-accent/30 hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                  <div className="w-4 h-4 rounded-full bg-accent animate-pulse-glow" />
+                  <span className="font-semibold">Discord</span>
+                </div>
+                <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-secondary/30 hover:border-secondary hover:bg-secondary/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                  <div className="w-4 h-4 rounded-full bg-secondary animate-pulse-glow" />
+                  <span className="font-semibold">Teams</span>
                 </div>
               </div>
-            </motion.div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Time Slider */}
         <motion.div
@@ -293,7 +285,7 @@ const Candyverse = () => {
           {comparisonMode && (
             <motion.div
               initial={{ opacity: 0, y: -20, height: 0 }}
-              animate={{ opacity: 1, y: 0, height: 'auto' }}
+              animate={{ opacity: 1, y: 0, height: "auto" }}
               exit={{ opacity: 0, y: -20, height: 0 }}
               className="glass rounded-2xl border-2 border-primary/40 overflow-hidden"
             >
@@ -302,7 +294,7 @@ const Candyverse = () => {
                   <Globe className="w-8 h-8 text-primary" />
                   <h2 className="text-3xl font-light text-foreground">Cross-Platform Intelligence</h2>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-6">
                   <div className="text-center p-6 rounded-xl bg-slack/10 border border-slack/30">
                     <p className="text-sm text-foreground/70 mb-2">Slack Avg Sentiment</p>
@@ -321,8 +313,10 @@ const Candyverse = () => {
                 <div className="p-6 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
                   <p className="text-sm text-foreground/70 mb-2">Dataset Overview</p>
                   <p className="text-lg text-foreground">
-                    Analyzed <span className="font-bold text-primary">{comparisonMetrics.totalComments.toLocaleString()}</span> comments 
-                    across <span className="font-bold text-primary">{comparisonMetrics.totalClusters}</span> semantic clusters
+                    Analyzed{" "}
+                    <span className="font-bold text-primary">{comparisonMetrics.totalComments.toLocaleString()}</span>{" "}
+                    comments across <span className="font-bold text-primary">{comparisonMetrics.totalClusters}</span>{" "}
+                    semantic clusters
                   </p>
                 </div>
 
@@ -332,7 +326,7 @@ const Candyverse = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     className="p-6 rounded-xl bg-gradient-to-br from-background/80 to-background/40 border-2 border-primary/40"
                   >
-                    <Badge className="mb-3">{hoveredInsight.category.replace('_', ' ')}</Badge>
+                    <Badge className="mb-3">{hoveredInsight.category.replace("_", " ")}</Badge>
                     <h3 className="text-2xl font-bold mb-2 text-foreground">{hoveredInsight.label}</h3>
                     <p className="text-foreground/80 mb-4">{hoveredInsight.summary}</p>
                     <div className="flex gap-3">
@@ -366,14 +360,12 @@ const Candyverse = () => {
           <div className="p-8 space-y-8">
             <div className="flex items-center justify-between">
               <h2 className="text-3xl font-light text-foreground">Slack Platform Status</h2>
-              <Badge
-                variant={slackData.sentimentChange >= 0 ? "default" : "destructive"}
-                className="gap-1"
-              >
+              <Badge variant={slackData.sentimentChange >= 0 ? "default" : "destructive"} className="gap-1">
                 {slackData.sentimentChange > 0 && <TrendingUp className="w-3 h-3" />}
                 {slackData.sentimentChange < 0 && <TrendingDown className="w-3 h-3" />}
                 {slackData.sentimentChange === 0 && <Minus className="w-3 h-3" />}
-                {slackData.sentimentChange > 0 ? '+' : ''}{slackData.sentimentChange}%
+                {slackData.sentimentChange > 0 ? "+" : ""}
+                {slackData.sentimentChange}%
               </Badge>
             </div>
 
@@ -393,21 +385,21 @@ const Candyverse = () => {
                     transition={{ duration: 2, delay: 1.5, ease: "easeInOut" }}
                   />
                 </div>
-                <motion.span 
+                <motion.span
                   className="font-bold text-3xl text-slack tabular-nums"
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 1 }}
                 >
-                  {slackData.overallSentiment}%
+                  56.5%
                 </motion.span>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-3 gap-6 pt-4">
               {slackData.topics.map((topic, index) => (
-                <motion.div 
-                  key={topic.id} 
+                <motion.div
+                  key={topic.id}
                   className="text-center p-6 rounded-xl bg-gradient-to-br from-background/50 to-background/30 border-2 border-border/30 hover:border-slack/50 hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -417,11 +409,11 @@ const Candyverse = () => {
                   <p className="font-bold text-2xl text-slack mb-2">{topic.mentions}</p>
                   <Badge
                     variant={
-                      topic.sentiment === 'positive'
-                        ? 'default'
-                        : topic.sentiment === 'negative'
-                        ? 'destructive'
-                        : 'secondary'
+                      topic.sentiment === "positive"
+                        ? "default"
+                        : topic.sentiment === "negative"
+                          ? "destructive"
+                          : "secondary"
                     }
                     className="text-xs"
                   >
@@ -434,11 +426,7 @@ const Candyverse = () => {
         </motion.div>
 
         {/* Competitive Insights */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
           <CompetitiveInsightsPanel selectedCompetitor={selectedCompetitor} />
         </motion.div>
 
@@ -455,7 +443,7 @@ const Candyverse = () => {
               <div className="p-8 space-y-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-3xl font-light text-foreground">
-                    {sentimentData.find(d => d.platform === selectedCompetitor)?.name} Moon Preview
+                    {sentimentData.find((d) => d.platform === selectedCompetitor)?.name} Moon Preview
                   </h2>
                   <button
                     onClick={() => handlePlanetClick(selectedCompetitor)}
@@ -466,33 +454,33 @@ const Candyverse = () => {
                 </div>
 
                 <div className="space-y-4">
-                  {sentimentData.find(d => d.platform === selectedCompetitor)?.topics.map((topic) => (
-                    <div key={topic.id} className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium">{topic.topic}</span>
-                        <Badge
-                          variant={
-                            topic.sentiment === 'positive'
-                              ? 'default'
-                              : topic.sentiment === 'negative'
-                              ? 'destructive'
-                              : 'secondary'
-                          }
-                        >
-                          {topic.sentiment}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-foreground/60">
-                        {topic.mentions.toLocaleString()} mentions
-                      </p>
-                      <div className="p-3 rounded-lg bg-background/30 border border-border/30 border-l-2 border-l-primary">
-                        <div className="flex gap-2 items-start">
-                          <Quote className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                          <p className="text-sm italic text-foreground/80">{topic.quotes[0]}</p>
+                  {sentimentData
+                    .find((d) => d.platform === selectedCompetitor)
+                    ?.topics.map((topic) => (
+                      <div key={topic.id} className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="font-medium">{topic.topic}</span>
+                          <Badge
+                            variant={
+                              topic.sentiment === "positive"
+                                ? "default"
+                                : topic.sentiment === "negative"
+                                  ? "destructive"
+                                  : "secondary"
+                            }
+                          >
+                            {topic.sentiment}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-foreground/60">{topic.mentions.toLocaleString()} mentions</p>
+                        <div className="p-3 rounded-lg bg-background/30 border border-border/30 border-l-2 border-l-primary">
+                          <div className="flex gap-2 items-start">
+                            <Quote className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                            <p className="text-sm italic text-foreground/80">{topic.quotes[0]}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
             </motion.div>
@@ -502,9 +490,7 @@ const Candyverse = () => {
 
       {/* Slack Insight Overlay */}
       <AnimatePresence>
-        {showSlackInsight && (
-          <SlackInsightOverlay onClose={() => setShowSlackInsight(false)} />
-        )}
+        {showSlackInsight && <SlackInsightOverlay onClose={() => setShowSlackInsight(false)} />}
       </AnimatePresence>
     </div>
   );
