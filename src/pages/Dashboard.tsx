@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Dashboard = () => {
             <br />
             <span className="text-foreground/80">to help you achieve it.</span>
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -46,9 +46,9 @@ const Dashboard = () => {
           transition={{ duration: 1, delay: 1.5 }}
           className="absolute bottom-8 left-8 max-w-sm text-sm text-foreground/60 leading-relaxed glass p-6 rounded-lg"
         >
-          Unwrap.ai is an intelligent sentiment analysis platform that goes beyond surface-level metrics 
-          to give teams true understanding of competitive landscapes. We analyze user sentiment 
-          across Slack, Discord, and Microsoft Teams in real-time.
+          Unwrap.ai is an intelligent sentiment analysis platform that goes beyond surface-level metrics to give teams
+          true understanding of competitive landscapes. We analyze user sentiment across Slack, Discord, and Microsoft
+          Teams in real-time.
         </motion.div>
       </section>
 
@@ -113,20 +113,19 @@ const Dashboard = () => {
           </h2>
 
           <p className="text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed">
-            Our platform visualizes sentiment as an interactive universe. Slack sits at the center, 
-            while Discord and Teams orbit as moons—each sized by mention volume, colored by sentiment, 
-            and clustered by topic.
+            Our platform visualizes sentiment as an interactive universe. Slack sits at the center, while Discord and
+            Teams orbit as moons—each sized by mention volume, colored by sentiment, and clustered by topic.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
             <button
-              onClick={() => navigate('/candyverse')}
+              onClick={() => navigate("/candyverse")}
               className="px-10 py-4 bg-primary text-primary-foreground rounded-lg text-lg font-light tracking-wide hover:bg-primary/90 transition-all"
             >
               Explore The Analysis
             </button>
             <button
-              onClick={() => navigate('/podcast')}
+              onClick={() => navigate("/podcast")}
               className="px-10 py-4 glass text-foreground rounded-lg text-lg font-light tracking-wide hover:bg-white/10 transition-all"
             >
               View Insights
@@ -144,9 +143,7 @@ const Dashboard = () => {
           viewport={{ once: true }}
           className="text-center max-w-6xl space-y-16"
         >
-          <h2 className="text-3xl md:text-5xl font-light text-foreground">
-            Three platforms. One universe.
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-light text-foreground">Three platforms. One universe.</h2>
 
           <div className="grid md:grid-cols-3 gap-12">
             <div className="space-y-6">
@@ -154,9 +151,7 @@ const Dashboard = () => {
                 <div className="w-12 h-12 rounded-full bg-slack" />
               </div>
               <h3 className="text-2xl font-light text-slack">Slack</h3>
-              <p className="text-foreground/60 leading-relaxed">
-                56.6% positive sentiment. 
-              </p>
+              <p className="text-foreground/60 leading-relaxed">56.6% positive sentiment.</p>
             </div>
 
             <div className="space-y-6">
@@ -164,9 +159,7 @@ const Dashboard = () => {
                 <div className="w-12 h-12 rounded-full bg-accent" />
               </div>
               <h3 className="text-2xl font-light text-accent">Discord</h3>
-              <p className="text-foreground/60 leading-relaxed">
-                38.1% positive sentiment. 
-              </p>
+              <p className="text-foreground/60 leading-relaxed">38.1% positive sentiment.</p>
             </div>
 
             <div className="space-y-6">
@@ -174,9 +167,7 @@ const Dashboard = () => {
                 <div className="w-12 h-12 rounded-full bg-secondary" />
               </div>
               <h3 className="text-2xl font-light text-secondary">Teams</h3>
-              <p className="text-foreground/60 leading-relaxed">
-                 52.5% positive sentiment. 
-              </p>
+              <p className="text-foreground/60 leading-relaxed">52.5% positive sentiment.</p>
             </div>
           </div>
         </motion.div>
