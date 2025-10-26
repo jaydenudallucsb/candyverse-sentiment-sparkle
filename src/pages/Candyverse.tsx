@@ -235,6 +235,125 @@ const Candyverse = () => {
         </AnimatePresence>
       </div>
 
+      {/* Our Approach Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="container mx-auto px-6 pt-16"
+      >
+        <div className="max-w-7xl mx-auto space-y-12">
+          <div className="text-center space-y-4">
+            <h2 className="text-4xl md:text-5xl font-light text-foreground">
+              Our Approach
+            </h2>
+            <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
+              We scrape Reddit to analyze what people complain about on Slack vs. Discord vs. Teams, then use ML to find patterns and competitive intelligence.
+            </p>
+          </div>
+
+          {/* The Data */}
+          <Card className="glass border-primary/20">
+            <CardHeader>
+              <CardTitle className="text-2xl font-light">📊 The Data</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <h4 className="font-semibold text-foreground/90 mb-2">Source: Reddit (3 subreddits)</h4>
+                <ul className="space-y-1 text-foreground/70 ml-6 list-disc">
+                  <li>r/Slack (Slack users complaining)</li>
+                  <li>r/discordapp (Discord users complaining)</li>
+                  <li>r/MicrosoftTeams (Teams users complaining)</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground/90 mb-2">What we collected:</h4>
+                <ul className="space-y-1 text-foreground/70 ml-6 list-disc">
+                  <li>4,662 total comments</li>
+                  <li>Text content ("Threading is so confusing")</li>
+                  <li>Platform identification (Slack/Discord/Teams)</li>
+                  <li>Timestamps, author info, and upvote scores</li>
+                </ul>
+              </div>
+              <p className="text-sm text-foreground/60">Database: SQLite (simple, local, no server needed)</p>
+            </CardContent>
+          </Card>
+
+          {/* The 4 Phases */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Phase 1 */}
+            <Card className="glass border-primary/20 hover:border-primary/40 transition-all">
+              <CardHeader>
+                <CardTitle className="text-xl font-light">Phase 1: Data Collection</CardTitle>
+                <CardDescription>Scraping & Storage</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm text-foreground/70">
+                  <strong>What we built:</strong> Reddit scraper using PRAW, SQLite database for storage, and data cleaning pipelines.
+                </p>
+                <p className="text-sm text-foreground/60 italic">
+                  "We scraped 4,662 authentic user comments from Reddit - real complaints, not filtered surveys."
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Phase 2 */}
+            <Card className="glass border-primary/20 hover:border-primary/40 transition-all">
+              <CardHeader>
+                <CardTitle className="text-xl font-light">Phase 2: Sentiment Analysis</CardTitle>
+                <CardDescription>Understanding Emotion</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm text-foreground/70">
+                  <strong>What we built:</strong> VADER sentiment analyzer optimized for social media, per-comment sentiment scores (-1 to +1).
+                </p>
+                <div className="space-y-1 text-xs text-foreground/60">
+                  <p>• Slack avg: -0.086 (negative)</p>
+                  <p>• Discord avg: -0.012 (neutral)</p>
+                  <p>• Teams avg: -0.041 (negative)</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Phase 2.5 */}
+            <Card className="glass border-primary/20 hover:border-primary/40 transition-all">
+              <CardHeader>
+                <CardTitle className="text-xl font-light">Phase 2.5: Feature Intelligence</CardTitle>
+                <CardDescription>The Big One</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm text-foreground/70">
+                  <strong>What we built:</strong> Detection system for 33 predefined features (threading, notifications, video calls, dark mode, etc.) with feature-level sentiment and temporal trends.
+                </p>
+                <div className="space-y-1 text-xs text-foreground/60">
+                  <p>• Notification badges: 19x growth (CRITICAL)</p>
+                  <p>• Muting: 8x growth (URGENT)</p>
+                  <p>• Threading sentiment: -0.65 (very negative)</p>
+                  <p>• Call quality: +0.71 (best in class)</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Phase 3 */}
+            <Card className="glass border-primary/20 hover:border-primary/40 transition-all">
+              <CardHeader>
+                <CardTitle className="text-xl font-light">Phase 3: Vector Clustering</CardTitle>
+                <CardDescription>Venn Diagram Analysis</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm text-foreground/70">
+                  <strong>What we built:</strong> Vector embeddings with HDBSCAN clustering to find natural semantic groups and categorize feature overlap across platforms.
+                </p>
+                <p className="text-sm text-foreground/60 italic">
+                  "84% of features are universal - most complaints aren't platform-specific."
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Cross-Platform Intelligence Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
