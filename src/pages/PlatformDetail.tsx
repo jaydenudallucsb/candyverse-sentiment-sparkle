@@ -2,10 +2,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, TrendingUp, TrendingDown, Minus, Sparkles, MessageSquare, Target } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Minus, Sparkles, MessageSquare, Target, GitCompare } from 'lucide-react';
 import { sentimentData, Platform } from '@/data/sentimentData';
 import { CommentFeed } from '@/components/CommentFeed';
 import { SentimentClusterView } from '@/components/SentimentClusterView';
+import { VennDiagram } from '@/components/VennDiagram';
+import { ComparisonInsights } from '@/components/ComparisonInsights';
 import { useState, useEffect } from 'react';
 
 const PlatformDetail = () => {
@@ -327,6 +329,113 @@ const PlatformDetail = () => {
           </div>
         </motion.div>
       </section>
+
+      {/* Cross-Platform Analysis Section - Only for Slack */}
+      {platform === 'slack' && (
+        <>
+          <section className="full-section bg-gradient-to-b from-background via-primary/5 to-background">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="max-w-7xl w-full space-y-16"
+            >
+              <div className="text-center space-y-4">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ type: "spring", duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="inline-block"
+                >
+                  <GitCompare className="w-16 h-16 text-primary mx-auto mb-4" />
+                </motion.div>
+                <h2 className="text-5xl md:text-6xl font-light text-foreground leading-tight">
+                  Cross-Platform Intelligence
+                </h2>
+                <p className="text-xl text-foreground/60 font-light max-w-3xl mx-auto">
+                  Venn diagram analysis of 4,662 comments across Slack, Discord, and Microsoft Teams
+                </p>
+              </div>
+
+              <VennDiagram
+                data={{
+                  all3: {
+                    size: 3924,
+                    sentiment: {
+                      slack: 0.236,
+                      discord: -0.009,
+                      teams: 0.198,
+                    },
+                    label: "Slack/Just/Teams (Universal)",
+                  },
+                  discordOnly: {
+                    size: 5,
+                    sentiment: 0.046,
+                    label: "Post/Like/Really",
+                  },
+                  teamsOnly: {
+                    size: 8,
+                    sentiment: -0.106,
+                    label: "Just/Did/Like",
+                  },
+                  slackOnly: {
+                    size: 0,
+                    sentiment: 0,
+                    label: "Slack-Only Features",
+                  },
+                }}
+              />
+            </motion.div>
+          </section>
+
+          <section className="full-section">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="max-w-7xl w-full space-y-12"
+            >
+              <div className="text-center space-y-4">
+                <h2 className="text-4xl md:text-5xl font-light text-foreground">
+                  Competitive Analysis
+                </h2>
+                <p className="text-xl text-foreground/60 font-light max-w-3xl mx-auto">
+                  Data-driven insights from semantic clustering analysis
+                </p>
+              </div>
+
+              <ComparisonInsights
+                data={{
+                  universalFeatures: {
+                    percentage: 84.1,
+                    slackSentiment: 0.236,
+                    discordSentiment: -0.009,
+                    teamsSentiment: 0.198,
+                  },
+                  slackAdvantage: 0.245,
+                  keyFindings: [
+                    "84% of user feedback is universal across all platforms, indicating that most pain points and feature requests are platform-agnostic rather than specific to one tool.",
+                    "Slack achieves the highest sentiment score (+0.236) in the universal cluster, outperforming Discord (+0.245 advantage) and Teams (+0.038 advantage) where it matters most.",
+                    "Only 3 small clusters (0.4% of data) are platform-specific, suggesting minimal feature differentiation in user perception.",
+                    "Low silhouette score (0.032) indicates significant semantic overlap, meaning users discuss similar topics across all platforms with comparable language.",
+                    "Discord and Teams show near-zero sentiment (-0.009 and +0.198) in universal features, positioning Slack as the sentiment leader in shared feature discussions.",
+                  ],
+                  recommendations: [
+                    "Focus product development on universal features where Slack already leads. The 84% universal cluster represents the battleground where competition happens.",
+                    "Investigate why Slack sentiment (+0.236) significantly exceeds Discord (-0.009) in shared features. This +0.245 advantage is your competitive moat.",
+                    "Platform-specific features (Discord-only, Teams-only clusters) represent <1% of discussions. Prioritize differentiation in universal areas rather than unique features.",
+                    "Consider sub-clustering the mega-cluster (3,924 comments) with stricter parameters to identify specific feature groups where Slack can further strengthen its lead.",
+                    "Use this sentiment advantage in marketing: '84% of platform discussions are universal - and Slack users are 24.5% more positive about them.'",
+                  ],
+                }}
+              />
+            </motion.div>
+          </section>
+        </>
+      )}
 
       {/* User Comments Section */}
       <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background">
