@@ -94,6 +94,27 @@ const PodcastRecap = () => {
 
   return (
     <div className="relative">
+      {/* Intro Section */}
+      <section className="container mx-auto px-6 pt-32 pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center space-y-4 max-w-3xl mx-auto"
+        >
+          <Badge className="px-4 py-2 text-sm">
+            <Sparkles className="w-4 h-4 mr-2" />
+            Weekly Intelligence Brief
+          </Badge>
+          <h1 className="text-5xl md:text-6xl font-light text-foreground">
+            This Week in Sentiment
+          </h1>
+          <p className="text-lg text-foreground/60 font-light">
+            Key insights and trends across Slack, Discord, and Teams
+          </p>
+        </motion.div>
+      </section>
+
       {/* Audio Player Section */}
       <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background pt-48">
         <motion.div
