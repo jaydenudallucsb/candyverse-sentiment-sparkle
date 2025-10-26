@@ -88,7 +88,7 @@ const Candyverse = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
-          className="text-center"
+          className="text-center py-20"
         >
           <p className="text-3xl md:text-4xl font-light text-foreground/70">
             our solution?
