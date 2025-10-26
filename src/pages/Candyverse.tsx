@@ -55,10 +55,61 @@ const Candyverse = () => {
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-6 space-y-16">
+        {/* Story Introduction */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-center space-y-8 max-w-5xl mx-auto"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 1 }}
+            className="space-y-6"
+          >
+            <p className="text-3xl md:text-4xl font-light text-foreground/90 leading-relaxed">
+              Imagine you're the CEO of Slack.
+            </p>
+            <p className="text-xl md:text-2xl text-foreground/70 leading-relaxed">
+              You wake up to headlines about Discord's explosive growth among developers. 
+              Teams is bundled with Office 365, silently capturing enterprise accounts. 
+              Your board wants answers: <span className="text-foreground italic">What do users really think? Where are we winning? Where are we bleeding?</span>
+            </p>
+            <p className="text-xl md:text-2xl text-foreground/70 leading-relaxed">
+              Traditional surveys won't cut it—they're slow, biased, and expensive. 
+              You need <span className="text-primary font-medium">real voices, real complaints, real time</span>.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="glass p-8 rounded-2xl border-2 border-primary/30 space-y-4"
+          >
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/40 to-primary/10 mx-auto flex items-center justify-center">
+              <Globe className="w-8 h-8 text-primary" />
+            </div>
+            <p className="text-2xl md:text-3xl font-light text-foreground">
+              Welcome to <span className="text-primary">Unwrap.ai</span>
+            </p>
+            <p className="text-lg text-foreground/70 leading-relaxed">
+              We scraped 4,662 authentic Reddit comments, ran them through sentiment analysis, 
+              detected 33 features, and mapped competitive overlap—all visualized in a universe 
+              where your product sits at the center, and competitors orbit with mathematical precision.
+            </p>
+            <p className="text-lg text-primary/90 font-medium">
+              No surveys. No guesswork. Just pure, unfiltered competitive intelligence.
+            </p>
+          </motion.div>
+        </motion.div>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
           className="text-center space-y-8 max-w-4xl mx-auto"
         >
           <h1 className="text-6xl md:text-7xl font-light text-foreground tracking-tight animate-fade-in">
