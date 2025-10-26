@@ -51,17 +51,22 @@ export const CompetitiveInsightsPanel = ({ selectedCompetitor }: CompetitiveInsi
   };
 
   return (
-    <Card className="border-2">
+    <Card className="border-2 border-primary/30 hover:border-primary/60 transition-all duration-500 bg-gradient-to-br from-card to-card/50">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Lightbulb className="w-5 h-5 text-primary" />
+        <CardTitle className="flex items-center gap-3 text-2xl">
+          <motion.div
+            animate={{ rotate: [0, 15, -15, 0] }}
+            transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+          >
+            <Lightbulb className="w-6 h-6 text-primary" />
+          </motion.div>
           {selectedCompetitor 
             ? `Insights from ${selectedCompetitor.charAt(0).toUpperCase() + selectedCompetitor.slice(1)}`
             : 'Top Strategic Insights for Slack'
           }
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-6">
         {insights.map((insight, index) => (
           <motion.div
             key={insight.id}
@@ -69,13 +74,19 @@ export const CompetitiveInsightsPanel = ({ selectedCompetitor }: CompetitiveInsi
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Alert className={`${getImpactColor(insight.impact)} border-2`}>
-              <div className="space-y-3">
+            <Alert className={`${getImpactColor(insight.impact)} border-2 hover:scale-[1.02] transition-all duration-300 hover:shadow-lg`}>
+              <div className="space-y-4">
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3 flex-1">
-                    {getImpactIcon(insight.impact)}
-                    <div className="space-y-1 flex-1">
-                      <h4 className="font-semibold text-base">{insight.title}</h4>
+                  <div className="flex items-start gap-4 flex-1">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: index * 0.1 + 0.2 }}
+                    >
+                      {getImpactIcon(insight.impact)}
+                    </motion.div>
+                    <div className="space-y-2 flex-1">
+                      <h4 className="font-bold text-lg">{insight.title}</h4>
                       {getPriorityBadge(insight.priority)}
                     </div>
                   </div>

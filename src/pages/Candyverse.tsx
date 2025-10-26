@@ -45,18 +45,18 @@ const Candyverse = () => {
 
   return (
     <div className="min-h-screen py-20">
-      <div className="container mx-auto px-6 space-y-12">
+      <div className="container mx-auto px-6 space-y-16">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center space-y-6 max-w-4xl mx-auto"
+          className="text-center space-y-8 max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-6xl font-light text-foreground tracking-tight">
+          <h1 className="text-6xl md:text-7xl font-light text-foreground tracking-tight animate-fade-in">
             The Sentiment Universe
           </h1>
-          <p className="text-xl text-foreground/60 leading-relaxed">
-            Slack sits at the center at <span className="text-slack font-medium">{slackData.overallSentiment}%</span> sentiment. 
+          <p className="text-2xl text-foreground/70 leading-relaxed">
+            Slack sits at the center at <span className="text-slack font-bold text-3xl animate-pulse-glow">{slackData.overallSentiment}%</span> sentiment. 
             Orbiting competitors reveal market trends, threats, and opportunities.
           </p>
         </motion.div>
@@ -66,9 +66,9 @@ const Candyverse = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
-          className="glass rounded-2xl overflow-hidden"
+          className="glass rounded-3xl overflow-hidden border-2 border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_0_50px_rgba(var(--primary),0.3)]"
         >
-          <div className="h-[700px] relative">
+          <div className="h-[700px] relative bg-gradient-to-b from-background via-primary/5 to-background">
             <Canvas>
               <Suspense fallback={null}>
                 <PerspectiveCamera makeDefault position={[0, 3, 10]} />
@@ -132,18 +132,18 @@ const Candyverse = () => {
                 </Canvas>
                 
                 {/* Legend */}
-                <div className="absolute bottom-4 left-4 right-4 flex justify-center gap-6 text-xs">
-                  <div className="flex items-center gap-2 px-3 py-2 rounded-lg glass">
-                    <div className="w-4 h-4 rounded-full bg-slack" />
-                    <span className="font-medium">Slack (Primary)</span>
+                <div className="absolute bottom-6 left-6 right-6 flex justify-center gap-4 text-sm">
+                  <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-slack/30 hover:border-slack hover:bg-slack/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                    <div className="w-5 h-5 rounded-full bg-slack animate-pulse-glow" />
+                    <span className="font-semibold">Slack</span>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-2 rounded-lg glass">
-                    <div className="w-3 h-3 rounded-full bg-accent" />
-                    <span className="font-medium">Discord</span>
+                  <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-accent/30 hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                    <div className="w-4 h-4 rounded-full bg-accent animate-pulse-glow" />
+                    <span className="font-semibold">Discord</span>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-2 rounded-lg glass">
-                    <div className="w-3 h-3 rounded-full bg-secondary" />
-                    <span className="font-medium">Teams</span>
+                  <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-secondary/30 hover:border-secondary hover:bg-secondary/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                    <div className="w-4 h-4 rounded-full bg-secondary animate-pulse-glow" />
+                    <span className="font-semibold">Teams</span>
                   </div>
                 </div>
               </div>
@@ -154,9 +154,9 @@ const Candyverse = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="glass rounded-xl"
+          className="glass rounded-2xl border border-primary/20 hover:border-primary/40 transition-all duration-300"
         >
-          <div className="p-6">
+          <div className="p-8">
             <TimeSlider
               value={timeIndex}
               onChange={setTimeIndex}
@@ -171,11 +171,11 @@ const Candyverse = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="glass rounded-xl"
+          className="glass rounded-2xl border-2 border-slack/30 hover:border-slack/60 transition-all duration-500 hover:shadow-[0_0_40px_rgba(var(--slack),0.2)]"
         >
-          <div className="p-6 space-y-6">
+          <div className="p-8 space-y-8">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-light text-foreground">Slack Platform Status</h2>
+              <h2 className="text-3xl font-light text-foreground">Slack Platform Status</h2>
               <Badge
                 variant={slackData.sentimentChange >= 0 ? "default" : "destructive"}
                 className="gap-1"
@@ -187,24 +187,32 @@ const Candyverse = () => {
               </Badge>
             </div>
 
-            <div>
-              <p className="text-sm text-foreground/60 mb-2">Overall Sentiment</p>
-              <div className="flex items-center gap-3">
-                <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-destructive via-warning to-success transition-all duration-500"
-                    style={{ width: `${slackData.overallSentiment}%` }}
+            <div className="space-y-4">
+              <p className="text-base text-foreground/70 font-medium">Overall Sentiment</p>
+              <div className="flex items-center gap-4">
+                <div className="flex-1 h-4 bg-muted rounded-full overflow-hidden shadow-inner">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-destructive via-warning to-success rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${slackData.overallSentiment}%` }}
+                    transition={{ duration: 1, delay: 0.5 }}
                   />
                 </div>
-                <span className="font-bold text-xl">{slackData.overallSentiment}%</span>
+                <span className="font-bold text-3xl text-slack">{slackData.overallSentiment}%</span>
               </div>
             </div>
             
-            <div className="grid grid-cols-3 gap-4 pt-4">
-              {slackData.topics.map((topic) => (
-                <div key={topic.id} className="text-center p-4 rounded-lg bg-background/30 border border-border/30">
-                  <p className="text-xs text-foreground/60 mb-1">{topic.topic}</p>
-                  <p className="font-semibold text-lg">{topic.mentions}</p>
+            <div className="grid grid-cols-3 gap-6 pt-4">
+              {slackData.topics.map((topic, index) => (
+                <motion.div 
+                  key={topic.id} 
+                  className="text-center p-6 rounded-xl bg-gradient-to-br from-background/50 to-background/30 border-2 border-border/30 hover:border-slack/50 hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1 }}
+                >
+                  <p className="text-sm text-foreground/70 mb-2 font-medium">{topic.topic}</p>
+                  <p className="font-bold text-2xl text-slack mb-2">{topic.mentions}</p>
                   <Badge
                     variant={
                       topic.sentiment === 'positive'
@@ -213,11 +221,11 @@ const Candyverse = () => {
                         ? 'destructive'
                         : 'secondary'
                     }
-                    className="text-xs mt-1"
+                    className="text-xs"
                   >
                     {topic.sentiment}
                   </Badge>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -240,16 +248,16 @@ const Candyverse = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="glass rounded-xl"
+              className="glass rounded-2xl border-2 border-primary/30 hover:border-primary/60 transition-all duration-500"
             >
-              <div className="p-6 space-y-4">
+              <div className="p-8 space-y-6">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-light text-foreground">
+                  <h2 className="text-3xl font-light text-foreground">
                     {sentimentData.find(d => d.platform === selectedCompetitor)?.name} Moon Preview
                   </h2>
                   <button
                     onClick={() => handlePlanetClick(selectedCompetitor)}
-                    className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-light hover:bg-primary/90 transition-all"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-medium hover:scale-105 hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all duration-300"
                   >
                     View Full Details →
                   </button>

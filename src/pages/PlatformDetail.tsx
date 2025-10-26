@@ -50,8 +50,8 @@ const PlatformDetail = () => {
   };
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="container mx-auto px-6 space-y-8">
+    <div className="min-h-screen py-12 bg-gradient-to-b from-background via-primary/5 to-background">
+      <div className="container mx-auto px-6 space-y-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -67,17 +67,23 @@ const PlatformDetail = () => {
             Back to Candyverse
           </Button>
 
-          <Card className={`overflow-hidden border-2 bg-gradient-to-br ${getPlatformColor()}`}>
-            <CardContent className="p-8">
+          <Card className={`overflow-hidden border-2 bg-gradient-to-br ${getPlatformColor()} hover:scale-[1.02] transition-all duration-500 hover:shadow-2xl`}>
+            <CardContent className="p-10">
               <div className="flex items-start justify-between">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    {getPlatformIcon()}
+                <div className="space-y-6">
+                  <div className="flex items-center gap-6">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.2, type: "spring" }}
+                    >
+                      {getPlatformIcon()}
+                    </motion.div>
                     <div>
-                      <h1 className="text-4xl font-bold text-foreground mb-2">
+                      <h1 className="text-5xl font-bold text-foreground mb-2 animate-fade-in">
                         {platformData.name}
                       </h1>
-                      <p className="text-lg text-muted-foreground">{platformData.planetType}</p>
+                      <p className="text-xl text-muted-foreground">{platformData.planetType}</p>
                     </div>
                   </div>
 
@@ -126,7 +132,7 @@ const PlatformDetail = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h2 className="text-2xl font-bold mb-4">Sentiment Clusters vs Recent Updates</h2>
+          <h2 className="text-3xl font-bold mb-6 text-foreground">Sentiment Clusters vs Recent Updates</h2>
           <SentimentClusterView clusters={platformData.sentimentClusters} />
         </motion.div>
 
@@ -136,8 +142,8 @@ const PlatformDetail = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h2 className="text-2xl font-bold mb-4">Sentiment Breakdown</h2>
-          <div className="grid md:grid-cols-3 gap-4">
+          <h2 className="text-3xl font-bold mb-6 text-foreground">Sentiment Breakdown</h2>
+          <div className="grid md:grid-cols-3 gap-6">
             {platformData.topics.map((topic, index) => (
               <motion.div
                 key={topic.id}
@@ -145,11 +151,11 @@ const PlatformDetail = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 + index * 0.1 }}
               >
-                <Card className="text-center">
-                  <CardContent className="p-6 space-y-2">
-                    <p className="font-semibold text-lg">{topic.topic}</p>
-                    <p className="text-xs text-muted-foreground">{topic.dateRange}</p>
-                    <p className="text-3xl font-bold">{topic.mentions.toLocaleString()}</p>
+                <Card className="text-center hover:scale-105 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 bg-gradient-to-br from-card to-card/50">
+                  <CardContent className="p-8 space-y-3">
+                    <p className="font-bold text-xl">{topic.topic}</p>
+                    <p className="text-sm text-muted-foreground">{topic.dateRange}</p>
+                    <p className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{topic.mentions.toLocaleString()}</p>
                     <Badge
                       variant={
                         topic.sentiment === 'positive'
@@ -192,7 +198,7 @@ const PlatformDetail = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <h2 className="text-2xl font-bold mb-4">What Users Are Saying</h2>
+          <h2 className="text-3xl font-bold mb-6 text-foreground">What Users Are Saying</h2>
           <CommentFeed topics={platformData.topics} />
         </motion.div>
       </div>

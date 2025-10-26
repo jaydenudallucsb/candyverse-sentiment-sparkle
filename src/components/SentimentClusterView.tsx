@@ -63,44 +63,64 @@ export const SentimentClusterView = ({ clusters }: SentimentClusterViewProps) =>
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
         >
-          <Card className={`border-2 ${getSentimentColor(cluster.sentiment)}`}>
+          <Card className={`border-2 ${getSentimentColor(cluster.sentiment)} hover:scale-105 hover:shadow-2xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-card to-card/50`}>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
-                <span className="text-lg">{cluster.category}</span>
-                {getSentimentIcon(cluster.sentiment)}
+                <span className="text-xl font-bold">{cluster.category}</span>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: index * 0.1 + 0.2 }}
+                >
+                  {getSentimentIcon(cluster.sentiment)}
+                </motion.div>
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-5">
               {/* Sentiment Percentage */}
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">Sentiment Score</span>
-                  <span className="text-2xl font-bold">{cluster.percentage}%</span>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-muted-foreground">Sentiment Score</span>
+                  <motion.span 
+                    className="text-3xl font-bold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: index * 0.1 + 0.3, type: "spring" }}
+                  >
+                    {cluster.percentage}%
+                  </motion.span>
                 </div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
+                <div className="h-3 bg-muted rounded-full overflow-hidden shadow-inner">
                   <motion.div
-                    className={`h-full ${
+                    className={`h-full rounded-full ${
                       cluster.sentiment === 'positive'
-                        ? 'bg-success'
+                        ? 'bg-gradient-to-r from-success to-success/70'
                         : cluster.sentiment === 'negative'
-                        ? 'bg-destructive'
-                        : 'bg-warning'
+                        ? 'bg-gradient-to-r from-destructive to-destructive/70'
+                        : 'bg-gradient-to-r from-warning to-warning/70'
                     }`}
                     initial={{ width: 0 }}
                     animate={{ width: `${cluster.percentage}%` }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
                   />
                 </div>
               </div>
 
               {/* Keywords */}
               <div>
-                <p className="text-xs text-muted-foreground mb-2">Top Keywords</p>
-                <div className="flex flex-wrap gap-1">
-                  {cluster.keywords.map((keyword) => (
-                    <Badge key={keyword} variant="outline" className="text-xs">
-                      {keyword}
-                    </Badge>
+                <p className="text-sm font-medium text-muted-foreground mb-3">Top Keywords</p>
+                <div className="flex flex-wrap gap-2">
+                  {cluster.keywords.map((keyword, kidx) => (
+                    <motion.div
+                      key={keyword}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.1 + 0.4 + kidx * 0.05 }}
+                    >
+                      <Badge variant="outline" className="text-xs hover:bg-primary/20 hover:border-primary transition-all duration-200">
+                        {keyword}
+                      </Badge>
+                    </motion.div>
                   ))}
                 </div>
               </div>
