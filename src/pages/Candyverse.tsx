@@ -128,7 +128,7 @@ const Candyverse = () => {
                 {competitorData.map((data, index) => {
                   // Calculate similarity based on sentiment proximity to Slack
                   const similarityScore = 1 - Math.abs(data.overallSentiment - slackData.overallSentiment) / 100;
-                  const angle = index * Math.PI;
+                  const angle = index * Math.PI * 1.5; // Increased spacing for better separation
                   const orbitRadius = 5;
 
                   return (
