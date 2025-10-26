@@ -95,7 +95,7 @@ const PodcastRecap = () => {
   return (
     <div className="relative">
       {/* Audio Player Section */}
-      <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background">
+      <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background pt-32">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
