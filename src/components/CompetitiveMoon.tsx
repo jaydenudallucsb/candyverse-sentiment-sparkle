@@ -3,6 +3,11 @@ import { useFrame } from '@react-three/fiber';
 import { Sphere, Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { Platform } from '@/data/sentimentData';
+import slackLogo from '../assets/logos/slack.jpeg';
+import discordLogo from '../assets/logos/discord.png';
+import teamsLogo from '../assets/logos/teams.jpeg';
+
+import { useTexture } from '@react-three/drei';
 
 interface CompetitiveMoonProps {
   platform: Platform;
@@ -28,6 +33,12 @@ export const CompetitiveMoon = ({
   const groupRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
+
+  const logoTextures = {
+    slack: useTexture(slackLogo),
+    discord: useTexture(discordLogo),
+    teams: useTexture(teamsLogo),
+  };
 
   useFrame((state) => {
     if (groupRef.current) {
@@ -115,20 +126,16 @@ export const CompetitiveMoon = ({
         />
       </Sphere>
 
-      {/* Platform Logo on moon surface */}
-      <Billboard position={[0, 0, moonSize + 0.35]}>
-        <Text
-          fontSize={0.4}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-          outlineWidth={0.03}
-          outlineColor="#000000"
-          fontWeight="bold"
-        >
-          {getLogo()}
-        </Text>
-      </Billboard>
+{/* Platform Logo Texture */}
+<Billboard position={[0, 0, 0.9]}>
+  <mesh>
+    <planeGeometry args={[0.9, 0.9]} />
+    <meshBasicMaterial
+      map={logoTextures[platform]}
+      transparent
+    />
+  </mesh>
+</Billboard>
 
       {/* Selection ring */}
       {isSelected && (

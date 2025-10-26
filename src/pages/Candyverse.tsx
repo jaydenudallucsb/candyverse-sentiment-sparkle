@@ -62,12 +62,10 @@ const Candyverse = () => {
           className="text-center space-y-8 max-w-4xl mx-auto"
         >
           <h1 className="text-6xl md:text-7xl font-light text-foreground tracking-tight animate-fade-in">
-            The Sentiment Universe
+            The Consumerverse
           </h1>
           <p className="text-2xl text-foreground/70 leading-relaxed">
-            Slack sits at the center at{" "}
-            <span className="text-slack font-bold text-3xl animate-pulse-glow">{slackData.overallSentiment}%</span>{" "}
-            sentiment. Orbiting competitors reveal market trends, threats, and opportunities.
+            Slack sits at the center at 56.5% positive feedback. Orbiting competitors reveal market trends, threats, and opportunities.
           </p>
         </motion.div>
 
@@ -734,7 +732,7 @@ const Candyverse = () => {
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">Predictive Modeling</h3>
                 <p className="text-foreground/70">
-                  Develop machine learning models to predict future sentiment trends based on historical patterns, seasonal variations, and competitor actions. This would transform reactive analysis into proactive strategic planning.
+                  Expand the consumerverse concept to automate this process, from weekly data scraping to comparative, actionable insights. 
                 </p>
               </div>
             </CardContent>

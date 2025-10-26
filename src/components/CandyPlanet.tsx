@@ -3,6 +3,13 @@ import { useFrame } from '@react-three/fiber';
 import { Sphere, Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { Platform } from '@/data/sentimentData';
+import slackLogo from '../assets/logos/slack.jpeg';
+import discordLogo from '../assets/logos/discord.png';
+import teamsLogo from '../assets/logos/teams.jpeg';
+
+import { useTexture } from '@react-three/drei';
+
+
 
 interface CandyPlanetProps {
   platform: Platform;
@@ -24,6 +31,13 @@ export const CandyPlanet = ({
 }: CandyPlanetProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
+
+  // Load the images as textures
+const logoTextures = {
+  slack: useTexture(slackLogo),
+  discord: useTexture(discordLogo),
+  teams: useTexture(teamsLogo),
+};
 
   // Rotation animation
   useFrame((state) => {
@@ -75,11 +89,11 @@ export const CandyPlanet = ({
   const getLogo = () => {
     switch(platform) {
       case 'slack':
-        return '#';
+        return <img src={slackLogo} alt="Slack logo" className="w-6 h-6 inline-block" />;
       case 'discord':
-        return '🎮';
+        return <img src={discordLogo} alt="Discord logo" className="w-6 h-6 inline-block" />;
       case 'teams':
-        return 'T';
+        return <img src={teamsLogo} alt="Microsoft Teams logo" className="w-6 h-6 inline-block" />;
     }
   };
 
@@ -111,20 +125,16 @@ export const CandyPlanet = ({
         />
       </Sphere>
 
-      {/* Platform Logo on planet surface */}
-      <Billboard position={[0, 0, 1.6]}>
-        <Text
-          fontSize={0.8}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-          outlineWidth={0.05}
-          outlineColor="#000000"
-          fontWeight="bold"
-        >
-          {getLogo()}
-        </Text>
-      </Billboard>
+{/* Platform Logo Texture */}
+<Billboard position={[0, 0, 1.6]}>
+  <mesh>
+    <planeGeometry args={[0.9, 0.9]} />
+    <meshBasicMaterial
+      map={logoTextures[platform]}
+      transparent
+    />
+  </mesh>
+</Billboard>
 
       {/* Selection ring */}
       {isSelected && (
