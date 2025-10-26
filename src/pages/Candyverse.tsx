@@ -16,7 +16,6 @@ import { SolarWindConnection } from "@/components/SolarWindConnection";
 import { SlackInsightOverlay } from "@/components/SlackInsightOverlay";
 import { UniverseTooltip } from "@/components/UniverseTooltip";
 import { TimeSlider } from "@/components/TimeSlider";
-import { CompetitiveInsightsPanel } from "@/components/CompetitiveInsightsPanel";
 import { sentimentData, Platform } from "@/data/sentimentData";
 import { getClusterInsights, getComparisonMetrics, ComparisonInsight } from "@/utils/clusteringUtils";
 
@@ -423,11 +422,6 @@ const Candyverse = () => {
               ))}
             </div>
           </div>
-        </motion.div>
-
-        {/* Competitive Insights */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-          <CompetitiveInsightsPanel selectedCompetitor={selectedCompetitor} />
         </motion.div>
 
         {/* Competitor Moon Preview with View Details Button */}
