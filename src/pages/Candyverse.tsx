@@ -177,23 +177,6 @@ const Candyverse = () => {
           </div>
         </motion.div>
 
-        {/* Time Slider */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="glass rounded-2xl border border-primary/20 hover:border-primary/40 transition-all duration-300"
-        >
-          <div className="p-8">
-            <TimeSlider
-              value={timeIndex}
-              onChange={setTimeIndex}
-              isPlaying={isPlaying}
-              onPlayPause={() => setIsPlaying(!isPlaying)}
-            />
-          </div>
-        </motion.div>
-
         {/* Competitor Moon Preview with View Details Button */}
         <AnimatePresence mode="wait">
           {selectedCompetitor && (
