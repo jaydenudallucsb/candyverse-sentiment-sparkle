@@ -81,28 +81,6 @@ const Candyverse = () => {
               You need <span className="text-primary font-medium">real voices, real complaints, real time</span>.
             </p>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="glass p-8 rounded-2xl border-2 border-primary/30 space-y-4"
-          >
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/40 to-primary/10 mx-auto flex items-center justify-center">
-              <Globe className="w-8 h-8 text-primary" />
-            </div>
-            <p className="text-2xl md:text-3xl font-light text-foreground">
-              Welcome to <span className="text-primary">Unwrap.ai</span>
-            </p>
-            <p className="text-lg text-foreground/70 leading-relaxed">
-              We scraped 4,662 authentic Reddit comments, ran them through sentiment analysis, 
-              detected 33 features, and mapped competitive overlap—all visualized in a universe 
-              where your product sits at the center, and competitors orbit with mathematical precision.
-            </p>
-            <p className="text-lg text-primary/90 font-medium">
-              No surveys. No guesswork. Just pure, unfiltered competitive intelligence.
-            </p>
-          </motion.div>
         </motion.div>
 
         {/* Header */}
