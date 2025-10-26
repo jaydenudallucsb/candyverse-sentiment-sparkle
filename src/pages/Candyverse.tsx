@@ -269,76 +269,60 @@ const Candyverse = () => {
             </CardContent>
           </Card>
 
-          {/* The 4 Phases */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Phase 1 */}
-            <Card className="glass border-primary/20 hover:border-primary/40 transition-all">
-              <CardHeader>
-                <CardTitle className="text-xl font-light">Phase 1: Data Collection</CardTitle>
-                <CardDescription>Scraping & Storage</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-foreground/70">
-                  <strong>What we built:</strong> Reddit scraper using PRAW, SQLite database for storage, and data cleaning pipelines.
-                </p>
-                <p className="text-sm text-foreground/60 italic">
-                  "We scraped 4,662 authentic user comments from Reddit - real complaints, not filtered surveys."
-                </p>
-              </CardContent>
-            </Card>
+          {/* Analysis Process */}
+          <div className="space-y-8 max-w-4xl mx-auto">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light text-foreground">Phase 1: Data Collection</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                We built a Reddit scraper using PRAW with SQLite database for storage and data cleaning pipelines. 
+                The system scraped 4,662 authentic user comments from Reddit - real complaints, not filtered surveys - 
+                providing a genuine foundation for competitive analysis.
+              </p>
+            </div>
 
-            {/* Phase 2 */}
-            <Card className="glass border-primary/20 hover:border-primary/40 transition-all">
-              <CardHeader>
-                <CardTitle className="text-xl font-light">Phase 2: Sentiment Analysis</CardTitle>
-                <CardDescription>Understanding Emotion</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-foreground/70">
-                  <strong>What we built:</strong> VADER sentiment analyzer optimized for social media, per-comment sentiment scores (-1 to +1).
-                </p>
-                <div className="space-y-1 text-xs text-foreground/60">
-                  <p>• Slack avg: -0.086 (negative)</p>
-                  <p>• Discord avg: -0.012 (neutral)</p>
-                  <p>• Teams avg: -0.041 (negative)</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light text-foreground">Phase 2: Sentiment Analysis</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Using VADER sentiment analyzer optimized for social media, we processed per-comment sentiment scores 
+                ranging from -1 to +1. The results revealed distinct emotional patterns: Slack averaged -0.086 (negative), 
+                Discord averaged -0.012 (neutral), and Teams averaged -0.041 (negative). This quantitative approach to 
+                emotion detection became the foundation for understanding user satisfaction across platforms.
+              </p>
+            </div>
 
-            {/* Phase 2.5 */}
-            <Card className="glass border-primary/20 hover:border-primary/40 transition-all">
-              <CardHeader>
-                <CardTitle className="text-xl font-light">Phase 2.5: Feature Intelligence</CardTitle>
-                <CardDescription>The Big One</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-foreground/70">
-                  <strong>What we built:</strong> Detection system for 33 predefined features (threading, notifications, video calls, dark mode, etc.) with feature-level sentiment and temporal trends.
-                </p>
-                <div className="space-y-1 text-xs text-foreground/60">
-                  <p>• Notification badges: 19x growth (CRITICAL)</p>
-                  <p>• Muting: 8x growth (URGENT)</p>
-                  <p>• Threading sentiment: -0.65 (very negative)</p>
-                  <p>• Call quality: +0.71 (best in class)</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light text-foreground">Phase 2.5: Feature Intelligence</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                The breakthrough came with our detection system for 33 predefined features including threading, 
+                notifications, video calls, and dark mode. Each feature received sentiment tracking and temporal trend 
+                analysis. Critical insights emerged: notification badges showed 19x growth (CRITICAL), muting requests 
+                grew 8x (URGENT), threading sentiment measured -0.65 (very negative), while call quality scored +0.71 
+                (best in class). This granular feature-level intelligence revealed exactly where each platform excels 
+                or struggles.
+              </p>
+            </div>
 
-            {/* Phase 3 */}
-            <Card className="glass border-primary/20 hover:border-primary/40 transition-all">
-              <CardHeader>
-                <CardTitle className="text-xl font-light">Phase 3: Vector Clustering</CardTitle>
-                <CardDescription>Venn Diagram Analysis</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-foreground/70">
-                  <strong>What we built:</strong> Vector embeddings with HDBSCAN clustering to find natural semantic groups and categorize feature overlap across platforms.
-                </p>
-                <p className="text-sm text-foreground/60 italic">
-                  "84% of features are universal - most complaints aren't platform-specific."
-                </p>
-              </CardContent>
-            </Card>
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light text-foreground">Phase 3: Vector Clustering</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Vector embeddings combined with HDBSCAN clustering exposed natural semantic groups within the data, 
+                enabling sophisticated Venn diagram analysis of feature overlap across platforms. The most striking 
+                discovery: 84% of features are universal - most complaints aren't platform-specific but reflect 
+                fundamental challenges in collaborative software design.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light text-foreground">Phase 4: AI-Powered Audio Insights</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                The final transformation takes our competitive intelligence and makes it accessible. Using the Eleven Labs 
+                API, we automatically process weekly insights into professionally narrated audio recordings. The system 
+                synthesizes sentiment trends, feature comparisons, and emerging patterns into digestible audio summaries 
+                that can be distributed to stakeholders weekly. This automation ensures decision-makers receive regular, 
+                actionable competitive intelligence without manual report generation - turning data into voice, and voice 
+                into strategic advantage.
+              </p>
+            </div>
           </div>
         </div>
       </motion.div>
