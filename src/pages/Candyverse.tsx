@@ -261,10 +261,6 @@ const Candyverse = () => {
         className="max-w-7xl mx-auto space-y-16"
       >
         <div className="text-center space-y-4">
-          <Badge className="px-4 py-2 text-sm">
-            <BarChart3 className="w-4 h-4 mr-2" />
-            Cross-Platform Intelligence
-          </Badge>
           <h2 className="text-4xl md:text-5xl font-light text-foreground">
             Sentiment Percentages
             <br />
