@@ -17,12 +17,12 @@ export const PlanetAtmosphere = ({
 }: PlanetAtmosphereProps) => {
   const atmosphereRef = useRef<THREE.Mesh>(null);
   
-  // Sentiment-based atmosphere properties
+  // Sentiment-based atmosphere properties with FeedMusic color palette
   const getAtmosphereColor = () => {
     const colors = {
-      slack: new THREE.Color('#6366f1'), // Deep purple
-      discord: new THREE.Color('#5865F2'), // Soft blue
-      teams: new THREE.Color('#6264A7'), // Pale blue
+      slack: new THREE.Color('hsl(186, 94%, 40%)'), // Teal - matches design system
+      discord: new THREE.Color('hsl(217, 91%, 60%)'), // Primary blue
+      teams: new THREE.Color('hsl(215, 20%, 65%)'), // Secondary slate
     };
     return colors[platform];
   };
@@ -37,23 +37,40 @@ export const PlanetAtmosphere = ({
     }[platform];
   };
 
+  // Musical rhythm parameters
+  const getRhythmParams = () => {
+    return {
+      slack: { bpm: 80, waveFreq: 2.5, amplitude: 0.08 }, // Slow, deep waves
+      discord: { bpm: 100, waveFreq: 4.0, amplitude: 0.04 }, // Steady, medium waves
+      teams: { bpm: 90, waveFreq: 3.2, amplitude: 0.05 }, // Gentle pulses
+    }[platform];
+  };
+
   useFrame((state) => {
     if (atmosphereRef.current) {
       const time = state.clock.elapsedTime;
       const turbulence = getTurbulenceIntensity();
+      const rhythm = getRhythmParams();
       
-      // Gentle pulsing with turbulence
-      const pulse = Math.sin(time * 2) * 0.05 * turbulence + 0.95;
-      atmosphereRef.current.scale.setScalar(pulse);
+      // Musical rhythm: convert BPM to radians per second
+      const beatTime = (rhythm.bpm / 60) * time * Math.PI * 2;
       
-      // Subtle rotation
-      atmosphereRef.current.rotation.y += 0.001;
+      // Rhythmic sound wave pulsing with smooth easing
+      const beatPulse = Math.sin(beatTime) * rhythm.amplitude;
+      const wavePulse = Math.sin(time * rhythm.waveFreq) * 0.03 * turbulence;
+      const scale = 1 + beatPulse + wavePulse;
       
-      // Opacity variation based on turbulence
+      atmosphereRef.current.scale.setScalar(scale);
+      
+      // Slow, continuous rotation like a vinyl record
+      atmosphereRef.current.rotation.y += 0.0008;
+      
+      // Rhythmic opacity variation synced to beat
       if (atmosphereRef.current.material) {
         const material = atmosphereRef.current.material as THREE.MeshBasicMaterial;
-        const opacity = 0.15 + Math.sin(time * 3) * 0.05 * turbulence;
-        material.opacity = opacity;
+        const baseOpacity = 0.18;
+        const opacityPulse = Math.sin(beatTime * 0.5) * 0.08;
+        material.opacity = baseOpacity + opacityPulse;
       }
     }
   });
@@ -63,8 +80,9 @@ export const PlanetAtmosphere = ({
       <meshBasicMaterial
         color={getAtmosphereColor()}
         transparent
-        opacity={0.2}
+        opacity={0.18}
         side={THREE.BackSide}
+        blending={THREE.AdditiveBlending}
       />
     </Sphere>
   );
