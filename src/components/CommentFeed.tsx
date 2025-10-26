@@ -1,7 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { ThumbsUp, ThumbsDown, Minus, Quote } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Minus, User, Quote } from 'lucide-react';
 import { TopicCluster, SentimentType } from '@/data/sentimentData';
 import { motion } from 'framer-motion';
 
@@ -19,78 +17,79 @@ interface CommentProps {
 }
 
 const Comment = ({ text, sentiment, topic, author, date, index }: CommentProps) => {
-  const getSentimentIcon = () => {
-    switch (sentiment) {
-      case 'positive':
-        return <ThumbsUp className="w-4 h-4 text-success" />;
-      case 'negative':
-        return <ThumbsDown className="w-4 h-4 text-destructive" />;
-      default:
-        return <Minus className="w-4 h-4 text-warning" />;
-    }
-  };
-
-  const getSentimentColor = () => {
-    switch (sentiment) {
-      case 'positive':
-        return 'border-success/20 bg-success/5';
-      case 'negative':
-        return 'border-destructive/20 bg-destructive/5';
-      default:
-        return 'border-warning/20 bg-warning/5';
-    }
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -4 }}
-      transition={{ delay: index * 0.05, duration: 0.3 }}
-      className={`p-5 rounded-2xl border-2 ${getSentimentColor()} hover:shadow-xl transition-all duration-300 cursor-pointer group relative overflow-hidden backdrop-blur-sm`}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05 }}
+      viewport={{ once: true, margin: "-100px" }}
+      whileHover={{ scale: 1.01 }}
+      className="glass p-6 rounded-2xl space-y-4 hover:bg-muted/20 transition-all duration-300 cursor-pointer relative overflow-hidden group"
     >
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0"
-        initial={{ x: "-100%" }}
-        whileHover={{ x: "100%" }}
-        transition={{ duration: 0.8 }}
+      {/* Sentiment Indicator Line */}
+      <div
+        className={`absolute left-0 top-0 bottom-0 w-1 ${
+          sentiment === 'positive'
+            ? 'bg-gradient-to-b from-success to-success/50'
+            : sentiment === 'negative'
+            ? 'bg-gradient-to-b from-destructive to-destructive/50'
+            : 'bg-gradient-to-b from-warning to-warning/50'
+        }`}
       />
-      <div className="flex gap-4 relative z-10">
+
+      <div className="flex items-start gap-4 pl-4">
+        {/* Avatar */}
         <motion.div
           whileHover={{ scale: 1.1, rotate: 5 }}
-          transition={{ type: "spring", stiffness: 300 }}
+          className={`w-12 h-12 rounded-full bg-gradient-to-br ${
+            sentiment === 'positive'
+              ? 'from-success/30 to-success/10'
+              : sentiment === 'negative'
+              ? 'from-destructive/30 to-destructive/10'
+              : 'from-warning/30 to-warning/10'
+          } flex items-center justify-center flex-shrink-0 cursor-pointer relative overflow-hidden`}
         >
-          <Avatar className="h-12 w-12 shrink-0 border-2 border-primary/20">
-            <AvatarFallback className="bg-gradient-to-br from-primary/20 to-accent/20 text-primary font-bold text-sm">
-              {author.slice(0, 2).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
+          <User className="w-6 h-6 text-foreground/60 relative z-10" />
+          <motion.div
+            className="absolute inset-0"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
         </motion.div>
-        
+
+        {/* Content */}
         <div className="flex-1 space-y-3">
-          <div className="flex items-start justify-between gap-2">
-            <div>
-              <p className="font-bold text-base group-hover:text-primary transition-colors">{author}</p>
-              <p className="text-xs text-muted-foreground uppercase tracking-wide">{date}</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <motion.div
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                transition={{ type: "spring", stiffness: 400 }}
-              >
-                {getSentimentIcon()}
-              </motion.div>
-              <Badge variant="outline" className="text-xs font-medium hover:bg-primary/10 transition-colors">
-                {topic}
-              </Badge>
-            </div>
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="font-light text-foreground">{author}</span>
+            <span className="text-xs text-foreground/30">•</span>
+            <span className="text-xs text-foreground/50">{date}</span>
+            <Badge variant="outline" className="text-xs">
+              {topic}
+            </Badge>
           </div>
-          
-          <div className="flex gap-3 items-start p-4 rounded-xl bg-background/50 border border-border/50">
-            <Quote className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-            <p className="text-sm leading-relaxed text-foreground/90">{text}</p>
+          <div className="flex gap-3 items-start">
+            <Quote className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+            <p className="text-sm text-foreground/70 leading-relaxed font-light">
+              {text}
+            </p>
           </div>
         </div>
+
+        {/* Sentiment Icon */}
+        <motion.div
+          whileHover={{ scale: 1.2, rotate: 10 }}
+          className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+            sentiment === 'positive'
+              ? 'bg-success/20 text-success'
+              : sentiment === 'negative'
+              ? 'bg-destructive/20 text-destructive'
+              : 'bg-warning/20 text-warning'
+          }`}
+        >
+          {sentiment === 'positive' && <ThumbsUp className="w-5 h-5" />}
+          {sentiment === 'negative' && <ThumbsDown className="w-5 h-5" />}
+          {sentiment === 'neutral' && <Minus className="w-5 h-5" />}
+        </motion.div>
       </div>
     </motion.div>
   );
@@ -115,37 +114,32 @@ export const CommentFeed = ({ topics }: CommentFeedProps) => {
     const sentimentOrder = { negative: 0, neutral: 1, positive: 2 };
     return sentimentOrder[a.sentiment] - sentimentOrder[b.sentiment];
   });
-
+  
   return (
-    <Card className="border-2 border-primary/30 hover:border-primary/50 transition-all duration-500 bg-gradient-to-br from-card to-card/50 shadow-xl">
-      <CardHeader className="border-b border-border/50 bg-gradient-to-r from-primary/5 to-accent/5">
-        <CardTitle className="flex items-center gap-3 text-2xl">
-          <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-            className="w-3 h-3 rounded-full bg-success animate-pulse-glow"
-          />
-          User Feedback
-          <Badge variant="secondary" className="ml-auto">
-            {sortedComments.length} comments
-          </Badge>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6">
-        <div className="space-y-4 max-h-[700px] overflow-y-auto pr-3 custom-scrollbar">
-          {sortedComments.map((comment, index) => (
-            <Comment
-              key={`${comment.topicId}-${comment.quoteIndex}`}
-              text={comment.text}
-              sentiment={comment.sentiment}
-              topic={comment.topic}
-              author={comment.author}
-              date={comment.date}
-              index={index}
-            />
-          ))}
+    <div className="glass p-8 rounded-3xl">
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-3">
+          <Quote className="w-8 h-8 text-primary" />
+          <h3 className="text-2xl font-light text-foreground">Community Voices</h3>
         </div>
-      </CardContent>
-    </Card>
+        <Badge variant="outline" className="text-sm px-4 py-1.5">
+          {sortedComments.length} insights
+        </Badge>
+      </div>
+
+      <div className="space-y-6 max-h-[700px] overflow-y-auto pr-4 custom-scrollbar">
+        {sortedComments.map((comment, index) => (
+          <Comment
+            key={`${comment.topicId}-${comment.quoteIndex}`}
+            text={comment.text}
+            sentiment={comment.sentiment}
+            topic={comment.topic}
+            author={comment.author}
+            date={comment.date}
+            index={index}
+          />
+        ))}
+      </div>
+    </div>
   );
 };

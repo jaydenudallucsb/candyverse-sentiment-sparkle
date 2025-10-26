@@ -1,7 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, TrendingDown, AlertCircle, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { TrendingUp, Calendar, Sparkles, MessageCircle } from 'lucide-react';
 
 interface SentimentCluster {
   category: string;
@@ -21,152 +20,138 @@ interface SentimentClusterViewProps {
 }
 
 export const SentimentClusterView = ({ clusters }: SentimentClusterViewProps) => {
-  const getSentimentIcon = (sentiment: string) => {
-    switch (sentiment) {
-      case 'positive':
-        return <CheckCircle className="w-5 h-5 text-success" />;
-      case 'negative':
-        return <AlertCircle className="w-5 h-5 text-destructive" />;
-      default:
-        return <AlertCircle className="w-5 h-5 text-warning" />;
-    }
-  };
-
-  const getSentimentColor = (sentiment: string) => {
-    switch (sentiment) {
-      case 'positive':
-        return 'bg-success/20 border-success/40';
-      case 'negative':
-        return 'bg-destructive/20 border-destructive/40';
-      default:
-        return 'bg-warning/20 border-warning/40';
-    }
-  };
-
-  const getImpactIcon = (impact: string) => {
-    switch (impact) {
-      case 'positive':
-        return <TrendingUp className="w-4 h-4 text-success" />;
-      case 'negative':
-        return <TrendingDown className="w-4 h-4 text-destructive" />;
-      default:
-        return null;
-    }
-  };
-
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid md:grid-cols-2 gap-12">
       {clusters.map((cluster, index) => (
         <motion.div
           key={cluster.category}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ delay: index * 0.2 }}
+          viewport={{ once: true }}
+          whileHover={{ y: -5 }}
+          className="glass p-10 rounded-3xl space-y-8 relative overflow-hidden group cursor-pointer"
         >
-          <Card className={`border-2 ${getSentimentColor(cluster.sentiment)} hover:scale-105 hover:shadow-2xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-card to-card/50`}>
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span className="text-xl font-bold">{cluster.category}</span>
+          {/* Background Gradient */}
+          <motion.div
+            className={`absolute inset-0 ${
+              cluster.sentiment === 'positive'
+                ? 'bg-gradient-to-br from-success/10'
+                : cluster.sentiment === 'negative'
+                ? 'bg-gradient-to-br from-destructive/10'
+                : 'bg-gradient-to-br from-warning/10'
+            } to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+          />
+
+          <div className="relative z-10 space-y-8">
+            {/* Header */}
+            <div className="flex items-start justify-between">
+              <div className="space-y-2">
                 <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: index * 0.1 + 0.2 }}
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
                 >
-                  {getSentimentIcon(cluster.sentiment)}
+                  <MessageCircle className="w-8 h-8 text-primary" />
                 </motion.div>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-5">
-              {/* Sentiment Percentage */}
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-muted-foreground">Sentiment Score</span>
-                  <motion.span 
-                    className="text-3xl font-bold"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: index * 0.1 + 0.3, type: "spring" }}
-                  >
-                    {cluster.percentage}%
-                  </motion.span>
-                </div>
-                <div className="h-3 bg-muted rounded-full overflow-hidden shadow-inner">
+                <h3 className="text-3xl font-light text-foreground leading-tight">
+                  {cluster.category}
+                </h3>
+              </div>
+              <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ delay: index * 0.2 + 0.3, type: "spring", bounce: 0.5 }}
+                viewport={{ once: true }}
+                className="text-6xl font-light bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent tabular-nums"
+              >
+                {cluster.percentage}
+                <span className="text-3xl">%</span>
+              </motion.div>
+            </div>
+
+            {/* Sentiment Bar */}
+            <div className="space-y-3">
+              <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
+                <motion.div
+                  className={`h-full ${
+                    cluster.sentiment === 'positive'
+                      ? 'bg-gradient-to-r from-success via-success/80 to-success/60'
+                      : cluster.sentiment === 'negative'
+                      ? 'bg-gradient-to-r from-destructive via-destructive/80 to-destructive/60'
+                      : 'bg-gradient-to-r from-warning via-warning/80 to-warning/60'
+                  }`}
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${cluster.percentage}%` }}
+                  transition={{ duration: 1.5, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                />
+              </div>
+              <Badge
+                variant={
+                  cluster.sentiment === 'positive'
+                    ? 'default'
+                    : cluster.sentiment === 'negative'
+                    ? 'destructive'
+                    : 'secondary'
+                }
+                className="text-xs"
+              >
+                {cluster.sentiment}
+              </Badge>
+            </div>
+
+            {/* Keywords */}
+            <div className="space-y-4">
+              <p className="text-xs text-foreground/50 uppercase tracking-widest">Key Themes</p>
+              <div className="flex flex-wrap gap-2">
+                {cluster.keywords.map((keyword, i) => (
                   <motion.div
-                    className={`h-full rounded-full ${
-                      cluster.sentiment === 'positive'
-                        ? 'bg-gradient-to-r from-success to-success/70'
-                        : cluster.sentiment === 'negative'
-                        ? 'bg-gradient-to-r from-destructive to-destructive/70'
-                        : 'bg-gradient-to-r from-warning to-warning/70'
-                    }`}
-                    initial={{ width: 0 }}
-                    animate={{ width: `${cluster.percentage}%` }}
-                    transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
-                  />
-                </div>
-              </div>
-
-              {/* Keywords */}
-              <div>
-                <p className="text-sm font-medium text-muted-foreground mb-3">Top Keywords</p>
-                <div className="flex flex-wrap gap-2">
-                  {cluster.keywords.map((keyword, kidx) => (
-                    <motion.div
-                      key={keyword}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 + 0.4 + kidx * 0.05 }}
+                    key={keyword}
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ delay: index * 0.2 + i * 0.05 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <Badge
+                      variant="outline"
+                      className="text-sm px-4 py-1.5 hover:bg-primary/10 transition-all"
                     >
-                      <Badge variant="outline" className="text-xs hover:bg-primary/20 hover:border-primary transition-all duration-200">
-                        {keyword}
-                      </Badge>
-                    </motion.div>
+                      {keyword}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Recent Update */}
+            {cluster.recentUpdate && (
+              <div className="space-y-4 pt-4 border-t border-foreground/10">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-foreground/50" />
+                  <p className="text-xs text-foreground/50 uppercase tracking-widest">
+                    {cluster.recentUpdate.date}
+                  </p>
+                </div>
+                <h4 className="text-lg font-light text-foreground">{cluster.recentUpdate.title}</h4>
+                <ul className="space-y-3">
+                  {cluster.recentUpdate.summary.map((point, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.2 + 0.5 + i * 0.1 }}
+                      viewport={{ once: true }}
+                      className="text-sm text-foreground/70 flex items-start gap-3 leading-relaxed"
+                    >
+                      <Sparkles className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{point}</span>
+                    </motion.li>
                   ))}
-                </div>
+                </ul>
               </div>
-
-              {/* Recent Update */}
-              {cluster.recentUpdate && (
-                <motion.div 
-                  className="pt-4 border-t space-y-3"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: index * 0.1 + 0.6 }}
-                >
-                  <div className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-br from-background/60 to-background/40 border border-border/50 hover:border-primary/30 transition-all duration-300 group cursor-pointer">
-                    <motion.div
-                      whileHover={{ scale: 1.2, rotate: 15 }}
-                      transition={{ type: "spring", stiffness: 400 }}
-                    >
-                      {getImpactIcon(cluster.recentUpdate.impact)}
-                    </motion.div>
-                    <div className="flex-1">
-                      <p className="text-base font-bold group-hover:text-primary transition-colors">{cluster.recentUpdate.title}</p>
-                      <p className="text-xs text-muted-foreground mt-2 uppercase tracking-wider">
-                        {cluster.recentUpdate.date}
-                      </p>
-                    </div>
-                  </div>
-                  {cluster.recentUpdate.summary && cluster.recentUpdate.summary.length > 0 && (
-                    <ul className="space-y-2 ml-2">
-                      {cluster.recentUpdate.summary.map((point, idx) => (
-                        <motion.li 
-                          key={idx} 
-                          className="text-sm text-muted-foreground flex items-start gap-3 p-2 rounded-lg hover:bg-primary/5 transition-colors group cursor-pointer"
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 + 0.7 + idx * 0.05 }}
-                        >
-                          <span className="text-primary font-bold mt-0.5 group-hover:scale-125 transition-transform">•</span>
-                          <span className="flex-1">{point}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  )}
-                </motion.div>
-              )}
-            </CardContent>
-          </Card>
+            )}
+          </div>
         </motion.div>
       ))}
     </div>

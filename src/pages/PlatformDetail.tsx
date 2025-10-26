@@ -1,246 +1,352 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Minus, Sparkles, MessageSquare, Target } from 'lucide-react';
 import { sentimentData, Platform } from '@/data/sentimentData';
 import { CommentFeed } from '@/components/CommentFeed';
 import { SentimentClusterView } from '@/components/SentimentClusterView';
+import { useState, useEffect } from 'react';
 
 const PlatformDetail = () => {
   const { platform } = useParams<{ platform: Platform }>();
   const navigate = useNavigate();
+  const [animatedSentiment, setAnimatedSentiment] = useState(0);
+  const [animatedMentions, setAnimatedMentions] = useState(0);
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 300], [1, 0.3]);
+  const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
 
   const platformData = sentimentData.find((d) => d.platform === platform);
 
+  useEffect(() => {
+    if (platformData) {
+      const sentimentTimer = setInterval(() => {
+        setAnimatedSentiment(prev => {
+          if (prev >= platformData.overallSentiment) {
+            clearInterval(sentimentTimer);
+            return platformData.overallSentiment;
+          }
+          return prev + 1;
+        });
+      }, 20);
+
+      const totalMentions = platformData.topics.reduce((sum, topic) => sum + topic.mentions, 0);
+      const mentionsTimer = setInterval(() => {
+        setAnimatedMentions(prev => {
+          if (prev >= totalMentions) {
+            clearInterval(mentionsTimer);
+            return totalMentions;
+          }
+          return prev + Math.ceil(totalMentions / 50);
+        });
+      }, 30);
+
+      return () => {
+        clearInterval(sentimentTimer);
+        clearInterval(mentionsTimer);
+      };
+    }
+  }, [platformData]);
+
   if (!platformData) {
     return (
-      <div className="container mx-auto px-6 py-12 text-center">
-        <h1 className="text-2xl font-bold mb-4">Platform not found</h1>
-        <Button onClick={() => navigate('/candyverse')}>Back to Candyverse</Button>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <h1 className="text-4xl font-light text-foreground">Platform not found</h1>
+          <Button onClick={() => navigate('/candyverse')} variant="ghost">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Candyverse
+          </Button>
+        </div>
       </div>
     );
   }
 
-  const getPlatformIcon = () => {
+  const getPlatformGradient = () => {
     switch (platform) {
       case 'slack':
-        return <div className="w-16 h-16 rounded-2xl bg-slack flex items-center justify-center"><div className="w-8 h-8 rounded-lg bg-white" /></div>;
+        return 'from-slack/40 to-slack/10';
       case 'discord':
-        return <div className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center"><div className="w-8 h-8 rounded-lg bg-white" /></div>;
+        return 'from-accent/40 to-accent/10';
       case 'teams':
-        return <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center"><div className="w-8 h-8 rounded-lg bg-white" /></div>;
+        return 'from-secondary/40 to-secondary/10';
       default:
-        return <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center"><div className="w-8 h-8 rounded-lg bg-white" /></div>;
+        return 'from-primary/40 to-primary/10';
     }
   };
 
   const getPlatformColor = () => {
     switch (platform) {
       case 'slack':
-        return 'from-slack/20 to-slack/5';
+        return 'slack';
       case 'discord':
-        return 'from-accent/20 to-accent/5';
+        return 'accent';
       case 'teams':
-        return 'from-secondary/20 to-secondary/5';
+        return 'secondary';
       default:
-        return 'from-primary/20 to-primary/5';
+        return 'primary';
     }
   };
 
   return (
-    <div className="min-h-screen py-12 bg-gradient-to-b from-background via-primary/5 to-background">
-      <div className="container mx-auto px-6 space-y-12">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-6"
+    <div className="relative">
+      {/* Hero Section with Platform Overview */}
+      <section className="full-section">
+        <Button
+          variant="ghost"
+          onClick={() => navigate('/candyverse')}
+          className="absolute top-8 left-8 gap-2 glass"
         >
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/candyverse')}
-            className="gap-2"
+          <ArrowLeft className="w-4 h-4" />
+          Back
+        </Button>
+
+        <motion.div
+          style={{ opacity, scale }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+          className="text-center max-w-6xl space-y-12"
+        >
+          {/* Platform Icon */}
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, type: "spring" }}
+            className={`w-32 h-32 rounded-full bg-gradient-to-br ${getPlatformGradient()} mx-auto flex items-center justify-center relative`}
           >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Candyverse
-          </Button>
+            <div className={`w-16 h-16 rounded-full bg-${getPlatformColor()}`} />
+            <motion.div
+              className={`absolute inset-0 rounded-full bg-${getPlatformColor()}`}
+              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </motion.div>
 
-          <Card className={`overflow-hidden border-2 bg-gradient-to-br ${getPlatformColor()} hover:scale-[1.02] transition-all duration-500 hover:shadow-2xl`}>
-            <CardContent className="p-10">
-              <div className="flex items-start justify-between">
-                <div className="space-y-6">
-                  <div className="flex items-center gap-6">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.2, type: "spring" }}
-                    >
-                      {getPlatformIcon()}
-                    </motion.div>
-                    <div>
-                      <h1 className="text-5xl font-bold text-foreground mb-2 animate-fade-in">
-                        {platformData.name}
-                      </h1>
-                      <p className="text-xl text-muted-foreground">{platformData.planetType}</p>
-                    </div>
-                  </div>
+          {/* Platform Name & Type */}
+          <div className="space-y-4">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-6xl md:text-8xl font-light text-foreground leading-tight tracking-tight"
+            >
+              {platformData.name}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="text-2xl text-foreground/60 font-light"
+            >
+              {platformData.planetType}
+            </motion.p>
+          </div>
 
-                  <div className="flex items-center gap-8">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="text-center p-4 rounded-xl bg-background/30 backdrop-blur-sm"
-                    >
-                      <p className="text-sm opacity-70 mb-2 uppercase tracking-wide">Overall Sentiment</p>
-                      <motion.p 
-                        className="text-4xl font-bold tabular-nums"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.5, type: "spring", bounce: 0.5 }}
-                      >
-                        {platformData.overallSentiment}%
-                      </motion.p>
-                    </motion.div>
+          {/* Key Metrics - Flowing Layout */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="grid md:grid-cols-3 gap-12 mt-16"
+          >
+            {/* Sentiment Score */}
+            <div className="glass p-10 rounded-2xl space-y-4 relative overflow-hidden group">
+              <motion.div
+                className={`absolute inset-0 bg-gradient-to-br from-${getPlatformColor()}/20 to-transparent`}
+                whileHover={{ scale: 1.1, opacity: 0.8 }}
+              />
+              <Sparkles className={`w-8 h-8 text-${getPlatformColor()} mx-auto relative z-10`} />
+              <p className="text-sm text-foreground/60 uppercase tracking-wider relative z-10">Overall Sentiment</p>
+              <motion.p
+                className={`text-7xl font-light tabular-nums text-${getPlatformColor()} relative z-10`}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 1, type: "spring", bounce: 0.4 }}
+              >
+                {animatedSentiment}
+                <span className="text-4xl">%</span>
+              </motion.p>
+            </div>
 
-                    <div className="h-16 w-px bg-foreground/20" />
-
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="text-center"
-                    >
-                      <p className="text-sm opacity-70 mb-2 uppercase tracking-wide">Trend</p>
-                      <Badge
-                        variant={platformData.sentimentChange >= 0 ? 'default' : 'destructive'}
-                        className="gap-1 text-lg px-4 py-2"
-                      >
-                        {platformData.sentimentChange > 0 && <TrendingUp className="w-5 h-5" />}
-                        {platformData.sentimentChange < 0 && <TrendingDown className="w-5 h-5" />}
-                        {platformData.sentimentChange === 0 && <Minus className="w-5 h-5" />}
-                        {platformData.sentimentChange > 0 ? '+' : ''}
-                        {platformData.sentimentChange}%
-                      </Badge>
-                    </motion.div>
-
-                    <div className="h-16 w-px bg-foreground/20" />
-
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                      className="text-center p-4 rounded-xl bg-background/30 backdrop-blur-sm"
-                    >
-                      <p className="text-sm opacity-70 mb-2 uppercase tracking-wide">Total Mentions</p>
-                      <motion.p 
-                        className="text-4xl font-bold tabular-nums"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.7, type: "spring", bounce: 0.5 }}
-                      >
-                        {platformData.topics
-                          .reduce((sum, topic) => sum + topic.mentions, 0)
-                          .toLocaleString()}
-                      </motion.p>
-                    </motion.div>
-                  </div>
-                </div>
+            {/* Trend */}
+            <div className="glass p-10 rounded-2xl space-y-4 relative overflow-hidden group">
+              <motion.div
+                className={`absolute inset-0 bg-gradient-to-br ${
+                  platformData.sentimentChange >= 0 ? 'from-success/20' : 'from-destructive/20'
+                } to-transparent`}
+                whileHover={{ scale: 1.1, opacity: 0.8 }}
+              />
+              <Target className="w-8 h-8 text-foreground/60 mx-auto relative z-10" />
+              <p className="text-sm text-foreground/60 uppercase tracking-wider relative z-10">Trend Direction</p>
+              <div className="flex items-center justify-center gap-2 relative z-10">
+                {platformData.sentimentChange > 0 && <TrendingUp className="w-10 h-10 text-success" />}
+                {platformData.sentimentChange < 0 && <TrendingDown className="w-10 h-10 text-destructive" />}
+                {platformData.sentimentChange === 0 && <Minus className="w-10 h-10 text-muted-foreground" />}
+                <span className={`text-5xl font-light ${
+                  platformData.sentimentChange >= 0 ? 'text-success' : 'text-destructive'
+                }`}>
+                  {platformData.sentimentChange > 0 ? '+' : ''}
+                  {platformData.sentimentChange}%
+                </span>
               </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+            </div>
 
-        {/* Sentiment Clusters */}
+            {/* Total Mentions */}
+            <div className="glass p-10 rounded-2xl space-y-4 relative overflow-hidden group">
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent"
+                whileHover={{ scale: 1.1, opacity: 0.8 }}
+              />
+              <MessageSquare className="w-8 h-8 text-accent mx-auto relative z-10" />
+              <p className="text-sm text-foreground/60 uppercase tracking-wider relative z-10">Total Mentions</p>
+              <motion.p
+                className="text-6xl font-light tabular-nums text-accent relative z-10"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 1.2, type: "spring", bounce: 0.4 }}
+              >
+                {animatedMentions.toLocaleString()}
+              </motion.p>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Sentiment Clusters Section */}
+      <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="max-w-7xl w-full space-y-12"
         >
-          <h2 className="text-3xl font-bold mb-6 text-foreground">Sentiment Clusters vs Recent Updates</h2>
+          <div className="text-center space-y-4">
+            <h2 className="text-5xl md:text-6xl font-light text-foreground leading-tight">
+              Sentiment Clusters
+              <br />
+              <span className="text-foreground/60">vs Recent Updates</span>
+            </h2>
+            <p className="text-xl text-foreground/60 font-light max-w-3xl mx-auto">
+              Understanding the emotional landscape of user feedback
+            </p>
+          </div>
           <SentimentClusterView clusters={platformData.sentimentClusters} />
         </motion.div>
+      </section>
 
-        {/* Sentiment Overview */}
+      {/* Topic Breakdown Section */}
+      <section className="full-section">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="max-w-7xl w-full space-y-16"
         >
-          <h2 className="text-3xl font-bold mb-6 text-foreground">Sentiment Breakdown</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="text-center space-y-4">
+            <h2 className="text-4xl md:text-5xl font-light text-foreground">
+              What people are talking about
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
             {platformData.topics.map((topic, index) => (
               <motion.div
                 key={topic.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 + index * 0.1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.15 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10 }}
+                className="glass p-8 rounded-2xl space-y-6 relative overflow-hidden group cursor-pointer"
               >
-                <Card className="text-center group hover:scale-105 hover:shadow-2xl transition-all duration-500 border-2 hover:border-primary/50 bg-gradient-to-br from-card to-card/50 cursor-pointer relative overflow-hidden">
+                {/* Background Gradient on Hover */}
+                <motion.div
+                  className={`absolute inset-0 bg-gradient-to-br ${
+                    topic.sentiment === 'positive'
+                      ? 'from-success/10'
+                      : topic.sentiment === 'negative'
+                      ? 'from-destructive/10'
+                      : 'from-warning/10'
+                  } to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}
+                />
+
+                <div className="relative z-10 space-y-6">
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-light text-foreground">{topic.topic}</h3>
+                    <p className="text-xs text-foreground/50 uppercase tracking-widest">{topic.dateRange}</p>
+                  </div>
+
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "100%" }}
-                    transition={{ duration: 0.6 }}
-                  />
-                  <CardContent className="p-8 space-y-4 relative z-10">
-                    <p className="font-bold text-xl group-hover:text-primary transition-colors">{topic.topic}</p>
-                    <p className="text-sm text-muted-foreground uppercase tracking-wider">{topic.dateRange}</p>
-                    <motion.p 
-                      className="text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tabular-nums"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      {topic.mentions.toLocaleString()}
-                    </motion.p>
-                    <Badge
-                      variant={
-                        topic.sentiment === 'positive'
-                          ? 'default'
-                          : topic.sentiment === 'negative'
-                          ? 'destructive'
-                          : 'secondary'
-                      }
-                      className="text-sm"
-                    >
-                      {topic.sentiment}
-                    </Badge>
-                    <div className="pt-2">
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <div
-                          className={`h-full ${
-                            topic.sentiment === 'positive'
-                              ? 'bg-success'
-                              : topic.sentiment === 'negative'
-                              ? 'bg-destructive'
-                              : 'bg-warning'
-                          }`}
-                          style={{ width: `${topic.engagement * 100}%` }}
-                        />
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {Math.round(topic.engagement * 100)}% engagement
-                      </p>
+                    className="text-6xl font-light bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent tabular-nums"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {topic.mentions.toLocaleString()}
+                  </motion.div>
+
+                  <Badge
+                    variant={
+                      topic.sentiment === 'positive'
+                        ? 'default'
+                        : topic.sentiment === 'negative'
+                        ? 'destructive'
+                        : 'secondary'
+                    }
+                    className="text-xs px-3 py-1"
+                  >
+                    {topic.sentiment}
+                  </Badge>
+
+                  {/* Engagement Bar */}
+                  <div className="space-y-2">
+                    <div className="h-1.5 bg-muted/50 rounded-full overflow-hidden">
+                      <motion.div
+                        className={`h-full ${
+                          topic.sentiment === 'positive'
+                            ? 'bg-gradient-to-r from-success to-success/50'
+                            : topic.sentiment === 'negative'
+                            ? 'bg-gradient-to-r from-destructive to-destructive/50'
+                            : 'bg-gradient-to-r from-warning to-warning/50'
+                        }`}
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${topic.engagement * 100}%` }}
+                        transition={{ duration: 1, delay: index * 0.2 }}
+                        viewport={{ once: true }}
+                      />
                     </div>
-                  </CardContent>
-                </Card>
+                    <p className="text-xs text-foreground/50">
+                      {Math.round(topic.engagement * 100)}% engagement
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
         </motion.div>
+      </section>
 
-        {/* Comment Feed */}
+      {/* User Comments Section */}
+      <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="max-w-7xl w-full space-y-12"
         >
-          <h2 className="text-3xl font-bold mb-6 text-foreground">What Users Are Saying</h2>
+          <div className="text-center space-y-4">
+            <h2 className="text-4xl md:text-5xl font-light text-foreground leading-tight">
+              The voice of
+              <br />
+              <span className={`text-${getPlatformColor()}`}>the community</span>
+            </h2>
+          </div>
           <CommentFeed topics={platformData.topics} />
         </motion.div>
-      </div>
+      </section>
     </div>
   );
 };
