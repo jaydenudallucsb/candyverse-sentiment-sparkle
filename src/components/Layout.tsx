@@ -19,7 +19,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-background/20">
         <div className="container mx-auto px-6 py-6 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 group">
-            <Sparkles className="h-6 w-6 text-primary group-hover:rotate-12 transition-transform" />
           </Link>
 
           {/* Desktop Navigation */}

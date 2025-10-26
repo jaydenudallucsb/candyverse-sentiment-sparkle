@@ -148,17 +148,8 @@ const Candyverse = () => {
               </Suspense>
             </Canvas>
 
-            {/* Comparison Toggle & Legend */}
-            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
-              <Button
-                onClick={() => setComparisonMode(!comparisonMode)}
-                variant={comparisonMode ? "default" : "outline"}
-                className="gap-2 glass hover:scale-105 transition-all duration-300"
-              >
-                {comparisonMode ? <EyeOff className="w-4 h-4" /> : <Layers className="w-4 h-4" />}
-                {comparisonMode ? "Hide" : "Compare All"}
-              </Button>
-
+            {/* Legend */}
+            <div className="absolute bottom-6 left-6 right-6 flex justify-end items-center">
               <div className="flex gap-4 text-sm">
                 <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-slack/30 hover:border-slack hover:bg-slack/10 transition-all duration-300 hover:scale-105 cursor-pointer">
                   <div className="w-5 h-5 rounded-full bg-slack animate-pulse-glow" />
