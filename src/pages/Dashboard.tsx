@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { TrendingUp, TrendingDown, BarChart3, Award } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -170,6 +173,322 @@ const Dashboard = () => {
               <p className="text-foreground/60 leading-relaxed">52.5% positive sentiment.</p>
             </div>
           </div>
+        </motion.div>
+      </section>
+
+      {/* Detailed Sentiment Analysis Section */}
+      <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="max-w-7xl w-full space-y-16"
+        >
+          <div className="text-center space-y-4">
+            <Badge className="px-4 py-2 text-sm">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Cross-Platform Intelligence
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-light text-foreground">
+              Sentiment Percentages
+              <br />
+              <span className="text-foreground/60">by Platform</span>
+            </h2>
+          </div>
+
+          {/* Platform Sentiment Cards */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Slack */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="glass border-slack/20 hover:border-slack/40 transition-all h-full">
+                <CardHeader>
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-slack/40 to-slack/10 mx-auto mb-4 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-slack" />
+                  </div>
+                  <CardTitle className="text-center text-2xl font-light text-slack">Slack</CardTitle>
+                  <CardDescription className="text-center">1,376 total comments</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4 text-success" />
+                        <span className="text-sm text-foreground/80">Positive</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-light text-success">56.5%</p>
+                        <p className="text-xs text-foreground/50">778 comments</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full bg-foreground/30" />
+                        <span className="text-sm text-foreground/80">Neutral</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-light text-foreground/60">23.0%</p>
+                        <p className="text-xs text-foreground/50">316 comments</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <TrendingDown className="w-4 h-4 text-destructive" />
+                        <span className="text-sm text-foreground/80">Negative</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-light text-destructive">20.5%</p>
+                        <p className="text-xs text-foreground/50">282 comments</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pt-4 border-t border-border/50">
+                    <p className="text-sm text-center text-foreground/60">Average Score</p>
+                    <p className="text-3xl font-light text-center text-success">+0.218</p>
+                    <p className="text-xs text-center text-foreground/50 mt-1">Slightly positive overall</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Discord */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <Card className="glass border-accent/20 hover:border-accent/40 transition-all h-full">
+                <CardHeader>
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent/40 to-accent/10 mx-auto mb-4 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-accent" />
+                  </div>
+                  <CardTitle className="text-center text-2xl font-light text-accent">Discord</CardTitle>
+                  <CardDescription className="text-center">1,684 total comments</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4 text-success" />
+                        <span className="text-sm text-foreground/80">Positive</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-light text-success">38.1%</p>
+                        <p className="text-xs text-foreground/50">641 comments</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full bg-foreground/30" />
+                        <span className="text-sm text-foreground/80">Neutral</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-light text-foreground/60">27.7%</p>
+                        <p className="text-xs text-foreground/50">466 comments</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <TrendingDown className="w-4 h-4 text-destructive" />
+                        <span className="text-sm text-foreground/80">Negative</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-light text-destructive">34.3%</p>
+                        <p className="text-xs text-foreground/50">577 comments</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pt-4 border-t border-border/50">
+                    <p className="text-sm text-center text-foreground/60">Average Score</p>
+                    <p className="text-3xl font-light text-center text-foreground/70">+0.011</p>
+                    <p className="text-xs text-center text-foreground/50 mt-1">Barely positive/neutral</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Microsoft Teams */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <Card className="glass border-secondary/20 hover:border-secondary/40 transition-all h-full">
+                <CardHeader>
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-secondary/40 to-secondary/10 mx-auto mb-4 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-secondary" />
+                  </div>
+                  <CardTitle className="text-center text-2xl font-light text-secondary">Microsoft Teams</CardTitle>
+                  <CardDescription className="text-center">1,602 total comments</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4 text-success" />
+                        <span className="text-sm text-foreground/80">Positive</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-light text-success">52.5%</p>
+                        <p className="text-xs text-foreground/50">841 comments</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full bg-foreground/30" />
+                        <span className="text-sm text-foreground/80">Neutral</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-light text-foreground/60">26.5%</p>
+                        <p className="text-xs text-foreground/50">424 comments</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <TrendingDown className="w-4 h-4 text-destructive" />
+                        <span className="text-sm text-foreground/80">Negative</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-light text-destructive">21.0%</p>
+                        <p className="text-xs text-foreground/50">337 comments</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pt-4 border-t border-border/50">
+                    <p className="text-sm text-center text-foreground/60">Average Score</p>
+                    <p className="text-3xl font-light text-center text-success">+0.193</p>
+                    <p className="text-xs text-center text-foreground/50 mt-1">Slightly positive</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+
+          {/* Key Takeaways */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div className="text-center">
+              <h3 className="text-3xl md:text-4xl font-light text-foreground mb-4">
+                Key Takeaways
+              </h3>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Positive Rankings */}
+              <Card className="glass">
+                <CardHeader>
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <TrendingUp className="w-5 h-5 text-success" />
+                    <CardTitle className="text-xl font-light">Positive Sentiment</CardTitle>
+                  </div>
+                  <CardDescription className="text-center">Ranking by % Positive</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-success/10 border border-success/20">
+                    <div className="flex items-center gap-3">
+                      <Award className="w-5 h-5 text-success" />
+                      <span className="font-light">Slack</span>
+                    </div>
+                    <span className="text-xl font-light text-success">56.5%</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                    <div className="flex items-center gap-3">
+                      <span className="text-foreground/60">2.</span>
+                      <span className="font-light">Teams</span>
+                    </div>
+                    <span className="text-xl font-light">52.5%</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                    <div className="flex items-center gap-3">
+                      <span className="text-foreground/60">3.</span>
+                      <span className="font-light">Discord</span>
+                    </div>
+                    <span className="text-xl font-light">38.1%</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Negative Rankings */}
+              <Card className="glass">
+                <CardHeader>
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <TrendingDown className="w-5 h-5 text-destructive" />
+                    <CardTitle className="text-xl font-light">Negative Sentiment</CardTitle>
+                  </div>
+                  <CardDescription className="text-center">Ranking by % Negative</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-destructive/10 border border-destructive/20">
+                    <div className="flex items-center gap-3">
+                      <Award className="w-5 h-5 text-destructive rotate-180" />
+                      <span className="font-light">Discord</span>
+                    </div>
+                    <span className="text-xl font-light text-destructive">34.3%</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                    <div className="flex items-center gap-3">
+                      <span className="text-foreground/60">2.</span>
+                      <span className="font-light">Teams</span>
+                    </div>
+                    <span className="text-xl font-light">21.0%</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                    <div className="flex items-center gap-3">
+                      <span className="text-foreground/60">3.</span>
+                      <span className="font-light">Slack</span>
+                    </div>
+                    <span className="text-xl font-light">20.5%</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Average Score Rankings */}
+              <Card className="glass">
+                <CardHeader>
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <BarChart3 className="w-5 h-5 text-primary" />
+                    <CardTitle className="text-xl font-light">Overall Score</CardTitle>
+                  </div>
+                  <CardDescription className="text-center">Average Sentiment Score</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-primary/10 border border-primary/20">
+                    <div className="flex items-center gap-3">
+                      <Award className="w-5 h-5 text-primary" />
+                      <span className="font-light">Slack</span>
+                    </div>
+                    <span className="text-xl font-light text-primary">+0.218</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                    <div className="flex items-center gap-3">
+                      <span className="text-foreground/60">2.</span>
+                      <span className="font-light">Teams</span>
+                    </div>
+                    <span className="text-xl font-light">+0.193</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                    <div className="flex items-center gap-3">
+                      <span className="text-foreground/60">3.</span>
+                      <span className="font-light">Discord</span>
+                    </div>
+                    <span className="text-xl font-light">+0.011</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </motion.div>
         </motion.div>
       </section>
     </div>
