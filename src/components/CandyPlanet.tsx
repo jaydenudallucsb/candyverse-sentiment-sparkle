@@ -10,9 +10,18 @@ interface CandyPlanetProps {
   sentiment: number;
   onClick?: () => void;
   isSelected?: boolean;
+  showComparison?: boolean;
+  comparisonActive?: boolean;
 }
 
-export const CandyPlanet = ({ platform, position, sentiment, onClick, isSelected }: CandyPlanetProps) => {
+export const CandyPlanet = ({ 
+  platform, 
+  position, 
+  sentiment, 
+  onClick, 
+  isSelected,
+  comparisonActive = false 
+}: CandyPlanetProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
 
@@ -21,14 +30,24 @@ export const CandyPlanet = ({ platform, position, sentiment, onClick, isSelected
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.002;
       
-      if (isSelected) {
+      if (isSelected || comparisonActive) {
         meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 2) * 0.1;
       }
     }
     
     if (glowRef.current) {
       const pulse = Math.sin(state.clock.elapsedTime * 2) * 0.2 + 0.8;
-      glowRef.current.scale.setScalar(1 + pulse * 0.1);
+      const glowScale = comparisonActive ? 1.3 : 1;
+      glowRef.current.scale.setScalar(glowScale + pulse * 0.1);
+      
+      // Color shift when comparison is active
+      if (comparisonActive && glowRef.current.material) {
+        const material = glowRef.current.material as THREE.MeshBasicMaterial;
+        const blendFactor = (Math.sin(state.clock.elapsedTime) + 1) / 2;
+        const color1 = new THREE.Color('#0891b2'); // Slack teal
+        const color2 = new THREE.Color('#a855f7'); // Discord purple
+        material.color.lerpColors(color1, color2, blendFactor);
+      }
     }
   });
 
@@ -48,7 +67,8 @@ export const CandyPlanet = ({ platform, position, sentiment, onClick, isSelected
   };
 
   const getEmissiveIntensity = () => {
-    return sentiment > 70 ? 0.5 : sentiment > 50 ? 0.3 : 0.1;
+    const baseIntensity = sentiment > 70 ? 0.5 : sentiment > 50 ? 0.3 : 0.1;
+    return comparisonActive ? baseIntensity * 1.5 : baseIntensity;
   };
 
   // Platform logo symbol

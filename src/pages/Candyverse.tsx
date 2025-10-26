@@ -5,19 +5,27 @@ import { OrbitControls, PerspectiveCamera, Stars } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, TrendingDown, Minus, Quote, Globe } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { TrendingUp, TrendingDown, Minus, Quote, Globe, Layers, Eye, EyeOff } from 'lucide-react';
 import { CandyPlanet } from '@/components/CandyPlanet';
 import { CompetitiveMoon } from '@/components/CompetitiveMoon';
 import { CandyCluster } from '@/components/CandyCluster';
+import { ComparisonRing } from '@/components/ComparisonRing';
 import { TimeSlider } from '@/components/TimeSlider';
 import { CompetitiveInsightsPanel } from '@/components/CompetitiveInsightsPanel';
 import { sentimentData, Platform } from '@/data/sentimentData';
+import { getClusterInsights, getComparisonMetrics, ComparisonInsight } from '@/utils/clusteringUtils';
 
 const Candyverse = () => {
   const navigate = useNavigate();
   const [selectedCompetitor, setSelectedCompetitor] = useState<Platform | null>(null);
   const [timeIndex, setTimeIndex] = useState(6);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [comparisonMode, setComparisonMode] = useState(false);
+  const [hoveredInsight, setHoveredInsight] = useState<ComparisonInsight | null>(null);
+
+  const clusterInsights = getClusterInsights();
+  const comparisonMetrics = getComparisonMetrics();
 
   const handlePlanetClick = (platform: Platform) => {
     navigate(`/platform/${platform}`);
@@ -92,6 +100,14 @@ const Candyverse = () => {
                       sentiment={slackData.overallSentiment}
                       onClick={() => handlePlanetClick('slack')}
                       isSelected={selectedCompetitor === null}
+                      comparisonActive={comparisonMode}
+                    />
+
+                    {/* Comparison Ring around Slack */}
+                    <ComparisonRing
+                      insights={clusterInsights}
+                      isActive={comparisonMode}
+                      onSegmentHover={setHoveredInsight}
                     />
                     
                     {/* Slack's Topic Clusters */}
@@ -116,34 +132,51 @@ const Candyverse = () => {
                     })}
                     
                     {/* Competitor Moons (orbiting) */}
-                    {competitorData.map((data, index) => (
-                      <CompetitiveMoon
-                        key={data.platform}
-                        platform={data.platform}
-                        orbitRadius={5}
-                        orbitSpeed={0.3}
-                        sentiment={data.overallSentiment}
-                        onClick={() => handlePlanetClick(data.platform)}
-                        isSelected={selectedCompetitor === data.platform}
-                        timeOffset={index * Math.PI}
-                      />
-                    ))}
+                    {competitorData.map((data, index) => {
+                      // Calculate similarity based on sentiment proximity to Slack
+                      const similarityScore = 1 - Math.abs(data.overallSentiment - slackData.overallSentiment) / 100;
+                      
+                      return (
+                        <CompetitiveMoon
+                          key={data.platform}
+                          platform={data.platform}
+                          orbitRadius={5}
+                          orbitSpeed={0.3}
+                          sentiment={data.overallSentiment}
+                          onClick={() => handlePlanetClick(data.platform)}
+                          isSelected={selectedCompetitor === data.platform}
+                          timeOffset={index * Math.PI}
+                          similarityScore={similarityScore}
+                        />
+                      );
+                    })}
                   </Suspense>
                 </Canvas>
                 
-                {/* Legend */}
-                <div className="absolute bottom-6 left-6 right-6 flex justify-center gap-4 text-sm">
-                  <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-slack/30 hover:border-slack hover:bg-slack/10 transition-all duration-300 hover:scale-105 cursor-pointer">
-                    <div className="w-5 h-5 rounded-full bg-slack animate-pulse-glow" />
-                    <span className="font-semibold">Slack</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-accent/30 hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-105 cursor-pointer">
-                    <div className="w-4 h-4 rounded-full bg-accent animate-pulse-glow" />
-                    <span className="font-semibold">Discord</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-secondary/30 hover:border-secondary hover:bg-secondary/10 transition-all duration-300 hover:scale-105 cursor-pointer">
-                    <div className="w-4 h-4 rounded-full bg-secondary animate-pulse-glow" />
-                    <span className="font-semibold">Teams</span>
+                {/* Comparison Toggle & Legend */}
+                <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
+                  <Button
+                    onClick={() => setComparisonMode(!comparisonMode)}
+                    variant={comparisonMode ? "default" : "outline"}
+                    className="gap-2 glass hover:scale-105 transition-all duration-300"
+                  >
+                    {comparisonMode ? <EyeOff className="w-4 h-4" /> : <Layers className="w-4 h-4" />}
+                    {comparisonMode ? 'Hide' : 'Compare All'}
+                  </Button>
+
+                  <div className="flex gap-4 text-sm">
+                    <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-slack/30 hover:border-slack hover:bg-slack/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                      <div className="w-5 h-5 rounded-full bg-slack animate-pulse-glow" />
+                      <span className="font-semibold">Slack</span>
+                    </div>
+                    <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-accent/30 hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                      <div className="w-4 h-4 rounded-full bg-accent animate-pulse-glow" />
+                      <span className="font-semibold">Discord</span>
+                    </div>
+                    <div className="flex items-center gap-3 px-5 py-3 rounded-xl glass border border-secondary/30 hover:border-secondary hover:bg-secondary/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                      <div className="w-4 h-4 rounded-full bg-secondary animate-pulse-glow" />
+                      <span className="font-semibold">Teams</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -165,6 +198,74 @@ const Candyverse = () => {
             />
           </div>
         </motion.div>
+
+        {/* Cross-Platform Comparison Metrics */}
+        <AnimatePresence>
+          {comparisonMode && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: 'auto' }}
+              exit={{ opacity: 0, y: -20, height: 0 }}
+              className="glass rounded-2xl border-2 border-primary/40 overflow-hidden"
+            >
+              <div className="p-8 space-y-6">
+                <div className="flex items-center gap-3">
+                  <Globe className="w-8 h-8 text-primary" />
+                  <h2 className="text-3xl font-light text-foreground">Cross-Platform Intelligence</h2>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-6">
+                  <div className="text-center p-6 rounded-xl bg-slack/10 border border-slack/30">
+                    <p className="text-sm text-foreground/70 mb-2">Slack Avg Sentiment</p>
+                    <p className="text-4xl font-bold text-slack">{comparisonMetrics.slack.toFixed(2)}</p>
+                  </div>
+                  <div className="text-center p-6 rounded-xl bg-accent/10 border border-accent/30">
+                    <p className="text-sm text-foreground/70 mb-2">Discord Avg Sentiment</p>
+                    <p className="text-4xl font-bold text-accent">{comparisonMetrics.discord.toFixed(2)}</p>
+                  </div>
+                  <div className="text-center p-6 rounded-xl bg-secondary/10 border border-secondary/30">
+                    <p className="text-sm text-foreground/70 mb-2">Teams Avg Sentiment</p>
+                    <p className="text-4xl font-bold text-secondary">{comparisonMetrics.teams.toFixed(2)}</p>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
+                  <p className="text-sm text-foreground/70 mb-2">Dataset Overview</p>
+                  <p className="text-lg text-foreground">
+                    Analyzed <span className="font-bold text-primary">{comparisonMetrics.totalComments.toLocaleString()}</span> comments 
+                    across <span className="font-bold text-primary">{comparisonMetrics.totalClusters}</span> semantic clusters
+                  </p>
+                </div>
+
+                {hoveredInsight && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-6 rounded-xl bg-gradient-to-br from-background/80 to-background/40 border-2 border-primary/40"
+                  >
+                    <Badge className="mb-3">{hoveredInsight.category.replace('_', ' ')}</Badge>
+                    <h3 className="text-2xl font-bold mb-2 text-foreground">{hoveredInsight.label}</h3>
+                    <p className="text-foreground/80 mb-4">{hoveredInsight.summary}</p>
+                    <div className="flex gap-3">
+                      <div className="flex-1 text-center p-3 rounded-lg bg-slack/20">
+                        <p className="text-xs text-foreground/70">Slack</p>
+                        <p className="text-lg font-bold text-slack">{hoveredInsight.slackSentiment.toFixed(2)}</p>
+                      </div>
+                      <div className="flex-1 text-center p-3 rounded-lg bg-accent/20">
+                        <p className="text-xs text-foreground/70">Discord</p>
+                        <p className="text-lg font-bold text-accent">{hoveredInsight.discordSentiment.toFixed(2)}</p>
+                      </div>
+                      <div className="flex-1 text-center p-3 rounded-lg bg-secondary/20">
+                        <p className="text-xs text-foreground/70">Teams</p>
+                        <p className="text-lg font-bold text-secondary">{hoveredInsight.teamsSentiment.toFixed(2)}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Slack Overview */}
         <motion.div

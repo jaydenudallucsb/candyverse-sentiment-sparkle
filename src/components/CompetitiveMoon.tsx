@@ -12,6 +12,7 @@ interface CompetitiveMoonProps {
   onClick?: () => void;
   isSelected?: boolean;
   timeOffset?: number;
+  similarityScore?: number; // 0-1, affects orbit distance and speed
 }
 
 export const CompetitiveMoon = ({ 
@@ -21,7 +22,8 @@ export const CompetitiveMoon = ({
   sentiment, 
   onClick, 
   isSelected,
-  timeOffset = 0 
+  timeOffset = 0,
+  similarityScore = 0.5
 }: CompetitiveMoonProps) => {
   const groupRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Mesh>(null);
@@ -30,9 +32,12 @@ export const CompetitiveMoon = ({
   useFrame((state) => {
     if (groupRef.current) {
       // Orbital rotation around Slack (center)
-      const time = state.clock.elapsedTime * orbitSpeed + timeOffset;
-      groupRef.current.position.x = Math.cos(time) * orbitRadius;
-      groupRef.current.position.z = Math.sin(time) * orbitRadius;
+      // Adjust orbit based on similarity (closer = more similar)
+      const adjustedRadius = orbitRadius * (1 - similarityScore * 0.2);
+      const adjustedSpeed = orbitSpeed * (1 + similarityScore * 0.3);
+      const time = state.clock.elapsedTime * adjustedSpeed + timeOffset;
+      groupRef.current.position.x = Math.cos(time) * adjustedRadius;
+      groupRef.current.position.z = Math.sin(time) * adjustedRadius;
     }
 
     if (meshRef.current) {

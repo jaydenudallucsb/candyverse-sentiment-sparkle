@@ -1,0 +1,337 @@
+{
+  "metadata": {
+    "timestamp": "2025-10-25T18:27:46.727696",
+    "total_comments": 4662,
+    "total_clusters": 4,
+    "noise_count": 720,
+    "silhouette_score": 0.03200000151991844
+  },
+  "clustering_metrics": {
+    "num_clusters": 4,
+    "noise_ratio": 0.154,
+    "silhouette_score": 0.03200000151991844,
+    "avg_cluster_size": 985.5,
+    "min_cluster_size": 5,
+    "max_cluster_size": 3924
+  },
+  "venn_summary": {
+    "discord_only": 1,
+    "none": 1,
+    "all_3": 1,
+    "teams_only": 1
+  },
+  "validation_summary": {
+    "total_clusters": 4,
+    "valid_clusters": 4,
+    "invalid_clusters": 0,
+    "quality_distribution": {
+      "acceptable": 4
+    }
+  },
+  "clusters": {
+    "0": {
+      "cluster_id": 0,
+      "label": "Post/Like/Really",
+      "size": 5,
+      "venn_position": "discord_only",
+      "platform_distribution": {
+        "discordapp": 5,
+        "Slack": 0,
+        "MicrosoftTeams": 0,
+        "total": 5
+      },
+      "platform_sentiments": {
+        "Slack": {
+          "avg": 0.0,
+          "count": 0
+        },
+        "discordapp": {
+          "avg": 0.046,
+          "count": 5
+        },
+        "MicrosoftTeams": {
+          "avg": 0.0,
+          "count": 0
+        }
+      },
+      "recommendation": {},
+      "coherence": 0.255,
+      "quality": {
+        "is_valid": true,
+        "quality_rating": "acceptable",
+        "warnings": [],
+        "confidence": 0.6
+      },
+      "keywords": [
+        [
+          "post",
+          0.212
+        ],
+        [
+          "like",
+          0.2
+        ],
+        [
+          "really",
+          0.174
+        ],
+        [
+          "video",
+          0.11
+        ],
+        [
+          "know",
+          0.09
+        ]
+      ],
+      "examples": [
+        {
+          "id": 5419,
+          "text": "omori reference",
+          "subreddit": "discordapp",
+          "sentiment_score": 0.0
+        },
+        {
+          "id": 5449,
+          "text": "what makes you doubt it lol seems like an omori reference to me",
+          "subreddit": "discordapp",
+          "sentiment_score": 0.4215
+        },
+        {
+          "id": 5433,
+          "text": "is that a bloody omori reference",
+          "subreddit": "discordapp",
+          "sentiment_score": -0.4404
+        }
+      ]
+    },
+    "1": {
+      "cluster_id": 1,
+      "label": "Slack/Teams/Com",
+      "size": 5,
+      "venn_position": "none",
+      "platform_distribution": {
+        "Slack": 3,
+        "MicrosoftTeams": 2,
+        "discordapp": 0,
+        "total": 5
+      },
+      "platform_sentiments": {
+        "Slack": {
+          "avg": -0.373,
+          "count": 3
+        },
+        "discordapp": {
+          "avg": 0.0,
+          "count": 0
+        },
+        "MicrosoftTeams": {
+          "avg": 0.0,
+          "count": 2
+        }
+      },
+      "recommendation": {},
+      "coherence": 0.336,
+      "quality": {
+        "is_valid": true,
+        "quality_rating": "acceptable",
+        "warnings": [],
+        "confidence": 0.6
+      },
+      "keywords": [
+        [
+          "slack",
+          0.329
+        ],
+        [
+          "teams",
+          0.2
+        ],
+        [
+          "com",
+          0.152
+        ],
+        [
+          "yes",
+          0.0
+        ],
+        [
+          "discord",
+          0.0
+        ]
+      ],
+      "examples": [
+        {
+          "id": 3103,
+          "text": "Es todo un proceso, yo tambi\u00e9n estoy buscando equipos que puedan usar mi herramienta en desarrollo, pero creo que s\u00ed deber\u00edas buscar entre amigos y comunidades, es dif\u00edcil que alguien extra\u00f1o que no te conoce de nada se tome el tiempo, son pocos. Reci\u00e9n llevo a una persona que acept\u00f3 usar mi herramienta con su equipo.",
+          "subreddit": "Slack",
+          "sentiment_score": -0.296
+        },
+        {
+          "id": 3092,
+          "text": "Hola chicos, estoy trabajando en desarrollar una herramienta para ayudar a equipos distribuidos a saber la salud emocional de los miembros y brindar una gu\u00eda clara a los l\u00edderes de estos equipos, mediante slack. Estoy buscando quienes puedan brindarme retroalimentaci\u00f3n y uso. \u00bfLes interesar\u00eda?",
+          "subreddit": "Slack",
+          "sentiment_score": 0.0
+        },
+        {
+          "id": 8072,
+          "text": "N\u00e3o. E pode n\u00e3o ser sequer monitoriza\u00e7\u00e3o, basta estar nos contactos favoritos, algo comum sendo da mesma \u00e1rea, e esse popup \u00e9 default.",
+          "subreddit": "MicrosoftTeams",
+          "sentiment_score": 0.0
+        }
+      ]
+    },
+    "2": {
+      "cluster_id": 2,
+      "label": "Slack/Just/Teams",
+      "size": 3924,
+      "venn_position": "all_3",
+      "platform_distribution": {
+        "Slack": 1186,
+        "discordapp": 1357,
+        "MicrosoftTeams": 1381,
+        "total": 3924
+      },
+      "platform_sentiments": {
+        "Slack": {
+          "avg": 0.236,
+          "count": 1186
+        },
+        "discordapp": {
+          "avg": -0.009,
+          "count": 1357
+        },
+        "MicrosoftTeams": {
+          "avg": 0.198,
+          "count": 1381
+        }
+      },
+      "recommendation": {},
+      "coherence": 0.468,
+      "quality": {
+        "is_valid": true,
+        "quality_rating": "acceptable",
+        "warnings": [],
+        "confidence": 0.6
+      },
+      "keywords": [
+        [
+          "slack",
+          0.059
+        ],
+        [
+          "just",
+          0.057
+        ],
+        [
+          "teams",
+          0.055
+        ],
+        [
+          "discord",
+          0.044
+        ],
+        [
+          "like",
+          0.042
+        ]
+      ],
+      "examples": [
+        {
+          "id": 2639,
+          "text": "Whoever decided to make this change has never used Slack or they only have 1 small group of people they chat with \ud83d\ude02",
+          "subreddit": "Slack",
+          "sentiment_score": 0.4404
+        },
+        {
+          "id": 7263,
+          "text": "MS took it away for awhile earlier this year, but it's been back on all of my Teams tenants since the 'Threaded' (chat) UX was released",
+          "subreddit": "MicrosoftTeams",
+          "sentiment_score": 0.0
+        },
+        {
+          "id": 3409,
+          "text": "It's fucking annoying honestly, and makes me wish to not use slack if it cannot respect my settings.",
+          "subreddit": "Slack",
+          "sentiment_score": 0.1107
+        }
+      ]
+    },
+    "3": {
+      "cluster_id": 3,
+      "label": "Just/Did/Like",
+      "size": 8,
+      "venn_position": "teams_only",
+      "platform_distribution": {
+        "MicrosoftTeams": 8,
+        "Slack": 0,
+        "discordapp": 0,
+        "total": 8
+      },
+      "platform_sentiments": {
+        "Slack": {
+          "avg": 0.0,
+          "count": 0
+        },
+        "discordapp": {
+          "avg": 0.0,
+          "count": 0
+        },
+        "MicrosoftTeams": {
+          "avg": -0.106,
+          "count": 8
+        }
+      },
+      "recommendation": {},
+      "coherence": 0.365,
+      "quality": {
+        "is_valid": true,
+        "quality_rating": "acceptable",
+        "warnings": [],
+        "confidence": 0.6
+      },
+      "keywords": [
+        [
+          "just",
+          0.153
+        ],
+        [
+          "did",
+          0.125
+        ],
+        [
+          "like",
+          0.103
+        ],
+        [
+          "people",
+          0.103
+        ],
+        [
+          "version",
+          0.102
+        ]
+      ],
+      "examples": [
+        {
+          "id": 6986,
+          "text": "It's CatDog.",
+          "subreddit": "MicrosoftTeams",
+          "sentiment_score": 0.0
+        },
+        {
+          "id": 8038,
+          "text": "What did you do to his dog?",
+          "subreddit": "MicrosoftTeams",
+          "sentiment_score": 0.0
+        },
+        {
+          "id": 8052,
+          "text": "No dogs harmed, it's just a daily stand-up.",
+          "subreddit": "MicrosoftTeams",
+          "sentiment_score": 0.091
+        }
+      ]
+    }
+  }
+}
