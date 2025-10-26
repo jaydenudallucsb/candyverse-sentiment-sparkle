@@ -111,13 +111,13 @@ export const CompetitiveMoon = ({
       </Sphere>
 
       {/* Platform Logo on moon surface */}
-      <Billboard position={[0, 0, moonSize + 0.01]}>
+      <Billboard position={[0, 0, moonSize + 0.15]}>
         <Text
-          fontSize={0.35}
+          fontSize={0.4}
           color="white"
           anchorX="center"
           anchorY="middle"
-          outlineWidth={0.02}
+          outlineWidth={0.03}
           outlineColor="#000000"
           fontWeight="bold"
         >

@@ -92,13 +92,13 @@ export const CandyPlanet = ({ platform, position, sentiment, onClick, isSelected
       </Sphere>
 
       {/* Platform Logo on planet surface */}
-      <Billboard position={[0, 0, 1.01]}>
+      <Billboard position={[0, 0, 1.2]}>
         <Text
-          fontSize={0.6}
+          fontSize={0.8}
           color="white"
           anchorX="center"
           anchorY="middle"
-          outlineWidth={0.03}
+          outlineWidth={0.05}
           outlineColor="#000000"
           fontWeight="bold"
         >
