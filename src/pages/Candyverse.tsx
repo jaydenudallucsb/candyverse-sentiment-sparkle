@@ -664,7 +664,7 @@ const Candyverse = () => {
         </motion.div>
       </motion.div>
 
-      {/* Actionable Next Steps Section */}
+      {/* Applications Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -672,65 +672,37 @@ const Candyverse = () => {
         viewport={{ once: true }}
         className="container mx-auto px-6 pt-20 pb-16"
       >
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center space-y-6 mb-12">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center space-y-4 mb-8">
             <h2 className="text-4xl md:text-5xl font-light text-foreground">
-              What's Next?
+              Moving Forward
             </h2>
-            <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-              Ready to dive deeper? Explore platform-specific insights, download the data, or connect with our team.
-            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* CTA 1: Explore Platforms */}
-            <Card className="glass border-slack/30 hover:border-slack hover:shadow-[0_0_30px_rgba(var(--slack),0.3)] transition-all duration-300 cursor-pointer group" onClick={() => navigate('/platform/slack')}>
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-slack/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                  <Globe className="w-6 h-6 text-slack" />
-                </div>
-                <CardTitle className="text-xl font-light">Explore Platforms</CardTitle>
-                <CardDescription>Deep-dive into Slack, Discord, or Teams insights</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button className="w-full bg-slack hover:bg-slack/80 text-white" onClick={() => navigate('/platform/slack')}>
-                  View Platform Details →
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* CTA 2: Download Data */}
-            <Card className="glass border-primary/30 hover:border-primary hover:shadow-[0_0_30px_rgba(var(--primary),0.3)] transition-all duration-300 cursor-pointer group">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                  <BarChart3 className="w-6 h-6 text-primary" />
-                </div>
-                <CardTitle className="text-xl font-light">Access Full Data</CardTitle>
-                <CardDescription>Download complete analysis reports and datasets</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button className="w-full" variant="outline">
-                  Download Reports →
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* CTA 3: Connect */}
-            <Card className="glass border-accent/30 hover:border-accent hover:shadow-[0_0_30px_rgba(var(--accent),0.3)] transition-all duration-300 cursor-pointer group">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                  <Layers className="w-6 h-6 text-accent" />
-                </div>
-                <CardTitle className="text-xl font-light">Connect With Us</CardTitle>
-                <CardDescription>Discuss insights and collaboration opportunities</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button className="w-full bg-accent hover:bg-accent/80">
-                  Get in Touch →
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+          <Card className="glass border-primary/20">
+            <CardContent className="pt-6 space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">For Product Teams</h3>
+                <p className="text-foreground/70">
+                  Prioritize features based on real user pain points. Threading complaints are growing 3x - this signals an urgent UX issue. Call quality is Slack's competitive advantage at +0.71 sentiment.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">For Competitive Intelligence</h3>
+                <p className="text-foreground/70">
+                  84% of user complaints are universal across platforms - this means the market has shared problems waiting to be solved. Discord's negative sentiment (34.3%) presents an opportunity.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">For Data Engineering</h3>
+                <p className="text-foreground/70">
+                  This pipeline demonstrates end-to-end ML capabilities: web scraping, NLP sentiment analysis, vector embeddings, and automated clustering. The methodology scales to any social platform or feature set.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </motion.div>
 
