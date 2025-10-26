@@ -1,5 +1,5 @@
-export type SentimentType = "positive" | "neutral" | "negative";
-export type Platform = "slack" | "discord" | "teams";
+export type SentimentType = 'positive' | 'neutral' | 'negative';
+export type Platform = 'slack' | 'discord' | 'teams';
 
 export interface TopicCluster {
   id: string;
@@ -13,13 +13,13 @@ export interface TopicCluster {
 
 export interface SentimentCluster {
   category: string;
-  sentiment: "positive" | "negative" | "neutral";
+  sentiment: 'positive' | 'negative' | 'neutral';
   percentage: number;
   keywords: string[];
   recentUpdate?: {
     title: string;
     date: string;
-    impact: "positive" | "negative" | "neutral";
+    impact: 'positive' | 'negative' | 'neutral';
     summary: string[];
   };
 }
@@ -36,314 +36,338 @@ export interface PlatformData {
 
 export const sentimentData: PlatformData[] = [
   {
-    platform: "slack",
-    name: "Slack",
-    planetType: "Primary Platform",
-    overallSentiment: 56.5, // 56.5% positive sentiment from real data
-    sentimentChange: -0.8, // Slight decline based on clustering analysis
+    platform: 'slack',
+    name: 'Slack',
+    planetType: 'Primary Platform',
+    overallSentiment: 72,
+    sentimentChange: -8,
     topics: [
       {
-        id: "slack-call-quality",
-        topic: "Call Quality",
-        sentiment: "positive",
-        mentions: 142, // Estimated from 1,376 Slack comments
-        engagement: 0.71,
+        id: 'slack-ai',
+        topic: 'AI Features',
+        sentiment: 'positive',
+        mentions: 1247,
+        engagement: 0.85,
         quotes: [
-          "Call quality is consistently excellent",
-          "Audio clarity is better than competitors",
-          "Video calls are reliable and stable",
+          "Slack's AI feels sticky sweet — love it!",
+          "The AI search is incredible, saves me hours",
+          "Smart replies are surprisingly accurate"
         ],
-        dateRange: "Historical Reddit Data",
+        dateRange: "Oct 1-25, 2025"
       },
       {
-        id: "slack-threading",
-        topic: "Threading",
-        sentiment: "negative",
-        mentions: 89, // Estimated from feature detection
-        engagement: 0.35, // Based on -0.65 sentiment score
+        id: 'slack-perf',
+        topic: 'Performance',
+        sentiment: 'neutral',
+        mentions: 892,
+        engagement: 0.65,
         quotes: [
-          "Threading is confusing and broken",
-          "Thread replies don't work properly",
-          "Conversation nesting needs improvement",
+          "Loading times could be better",
+          "Sometimes sluggish with large workspaces",
+          "Mobile app needs optimization"
         ],
-        dateRange: "Historical Reddit Data",
+        dateRange: "Oct 1-25, 2025"
       },
       {
-        id: "slack-message-editing",
-        topic: "Message Editing",
-        sentiment: "negative",
-        mentions: 62, // Estimated from feature detection
-        engagement: 0.29, // Based on -0.71 sentiment score
-        quotes: ["Message editing is frustrating", "Can't edit messages properly", "Edit history is confusing"],
-        dateRange: "Historical Reddit Data",
-      },
+        id: 'slack-pricing',
+        topic: 'Pricing',
+        sentiment: 'negative',
+        mentions: 1456,
+        engagement: 0.92,
+        quotes: [
+          "Too expensive for small teams",
+          "Free plan is too limited",
+          "Hard to justify the cost"
+        ],
+        dateRange: "Oct 1-25, 2025"
+      }
     ],
     sentimentClusters: [
       {
-        category: "Notifications",
-        sentiment: "negative",
-        percentage: 36, // 100 - 64 (notification badges negative sentiment)
-        keywords: ["badges", "muting", "alerts", "settings"],
+        category: 'Notifications',
+        sentiment: 'neutral',
+        percentage: 68,
+        keywords: ['alerts', 'push', 'settings', 'noise'],
         recentUpdate: {
-          title: "Notification badges growing 19x",
-          date: "Trending Analysis",
-          impact: "negative",
+          title: 'Smart notification filters added',
+          date: 'Oct 12, 2025',
+          impact: 'positive',
           summary: [
-            "Notification badge complaints grew 19x (1 → 19 mentions) - CRITICAL",
-            "Muting issues grew 8x (9 → 72 mentions) - highest volume complaint",
-            "Notification settings complaints grew 7x",
-          ],
-        },
+            'AI-powered priority filtering reduces notification noise by 40%',
+            'Custom schedules for DND modes now available',
+            'Thread-specific notification settings introduced'
+          ]
+        }
       },
       {
-        category: "Messaging",
-        sentiment: "negative",
-        percentage: 35, // Based on threading (-0.65) and editing (-0.71)
-        keywords: ["threading", "editing", "replies", "conversations"],
+        category: 'Messages',
+        sentiment: 'positive',
+        percentage: 85,
+        keywords: ['AI search', 'threads', 'smart replies', 'formatting'],
         recentUpdate: {
-          title: "Core messaging features struggle",
-          date: "Feature Analysis",
-          impact: "negative",
+          title: 'AI-powered message search enhanced',
+          date: 'Oct 15, 2025',
+          impact: 'positive',
           summary: [
-            "Threading sentiment: -0.65 (very negative)",
-            "Message editing sentiment: -0.71 (worst feature)",
-            "Thread organization confuses users consistently",
-          ],
-        },
+            'Semantic search now understands context and intent',
+            'Message summaries auto-generate for long threads',
+            'Smart reply suggestions save 30% of response time'
+          ]
+        }
       },
       {
-        category: "Video/Audio",
-        sentiment: "positive",
-        percentage: 71, // Based on +0.71 call quality
-        keywords: ["calls", "audio", "video", "quality"],
+        category: 'Integrations',
+        sentiment: 'positive',
+        percentage: 78,
+        keywords: ['apps', 'workflows', 'automation', 'API'],
         recentUpdate: {
-          title: "Call quality is top strength",
-          date: "Feature Analysis",
-          impact: "positive",
+          title: 'New workflow automation tools',
+          date: 'Oct 8, 2025',
+          impact: 'positive',
           summary: [
-            "Call quality sentiment: +0.71 (best in class)",
-            "Alerts sentiment: +0.50 (strong positive)",
-            "Audio/video reliability praised consistently",
-          ],
-        },
-      },
-    ],
+            'Visual workflow builder launched for non-technical users',
+            '50+ new pre-built automation templates added',
+            'Integration marketplace now has 1,000+ verified apps'
+          ]
+        }
+      }
+    ]
   },
   {
-    platform: "discord",
-    name: "Discord",
-    planetType: "Competitor Platform",
-    overallSentiment: 38.1, // 38.1% positive sentiment from real data
-    sentimentChange: 0.1, // Neutral change based on +0.011 average
+    platform: 'discord',
+    name: 'Discord',
+    planetType: 'Competitor Platform',
+    overallSentiment: 84,
+    sentimentChange: 12,
     topics: [
       {
-        id: "discord-dark-mode",
-        topic: "Dark Mode",
-        sentiment: "positive",
-        mentions: 168, // Estimated from 1,684 Discord comments
-        engagement: 0.18, // Based on +0.18 sentiment
-        quotes: ["Dark mode looks great", "Love the dark theme", "Dark UI is perfect"],
-        dateRange: "Historical Reddit Data",
-      },
-      {
-        id: "discord-crashes",
-        topic: "Crashes",
-        sentiment: "negative",
-        mentions: 112, // Real data from PHASE2.5
-        engagement: 0.45,
-        quotes: ["App crashes frequently", "Stability issues are frustrating", "Constant crashes during use"],
-        dateRange: "Historical Reddit Data",
-      },
-      {
-        id: "discord-third-party",
-        topic: "Third-party Apps",
-        sentiment: "neutral",
-        mentions: 237, // Real data from PHASE2.5
-        engagement: 0.62,
+        id: 'discord-ai-recent',
+        topic: 'AI Copilot (Released Oct 18)',
+        sentiment: 'positive',
+        mentions: 2341,
+        engagement: 0.95,
         quotes: [
-          "Bot ecosystem is extensive",
-          "Third-party integrations are hit or miss",
-          "Some bots are amazing, others break",
+          "Just tried the new AI Copilot - incredible! Way better than expected",
+          "Switched from Slack because Discord AI actually understands context",
+          "The AI summarizes my server chats perfectly, saving hours daily"
         ],
-        dateRange: "Historical Reddit Data",
+        dateRange: "Oct 18-25, 2025"
       },
+      {
+        id: 'discord-pricing-recent',
+        topic: 'Forever Free AI (Announced Oct 24)',
+        sentiment: 'positive',
+        mentions: 3156,
+        engagement: 0.98,
+        quotes: [
+          "Can't believe Discord AI is completely free. Canceling my Slack subscription",
+          "Free AI features?! This is why Discord wins",
+          "Finally a company that doesn't nickel and dime users"
+        ],
+        dateRange: "Oct 24-25, 2025"
+      },
+      {
+        id: 'discord-enterprise',
+        topic: 'Enterprise Beta (Launched Oct 22)',
+        sentiment: 'positive',
+        mentions: 823,
+        engagement: 0.76,
+        quotes: [
+          "Discord Enterprise has the security features we need. Testing as Slack replacement",
+          "Compliance tools are solid. Pricing is 40% less than Slack",
+          "Our IT team is impressed with the enterprise features"
+        ],
+        dateRange: "Oct 22-25, 2025"
+      }
     ],
     sentimentClusters: [
       {
-        category: "Notifications",
-        sentiment: "neutral",
-        percentage: 55, // Estimated based on mixed feedback
-        keywords: ["alerts", "mentions", "pings", "sounds"],
+        category: 'Notifications',
+        sentiment: 'positive',
+        percentage: 92,
+        keywords: ['customizable', 'granular', 'flexible', 'control'],
         recentUpdate: {
-          title: "Notification system feedback mixed",
-          date: "Analysis Period",
-          impact: "neutral",
+          title: 'Advanced notification preferences',
+          date: 'Oct 20, 2025',
+          impact: 'positive',
           summary: [
-            "Users have mixed opinions on notification granularity",
-            "Some praise customization, others find it overwhelming",
-            "Overall neutral sentiment compared to competitors",
-          ],
-        },
+            'Per-server and per-channel notification granularity',
+            'Keyword-based notification triggers now supported',
+            'Mobile push notifications 60% faster delivery'
+          ]
+        }
       },
       {
-        category: "Customization",
-        sentiment: "positive",
-        percentage: 18, // Based on +0.18 dark mode sentiment
-        keywords: ["dark mode", "themes", "UI", "appearance"],
+        category: 'Messages',
+        sentiment: 'positive',
+        percentage: 95,
+        keywords: ['AI Copilot', 'summarization', 'threads', 'rich media'],
         recentUpdate: {
-          title: "Dark mode outperforms Slack",
-          date: "Competitive Analysis",
-          impact: "positive",
+          title: 'AI Copilot for message enhancement',
+          date: 'Oct 18, 2025',
+          impact: 'positive',
           summary: [
-            "Dark mode sentiment: +0.18 (strong positive)",
-            "Slack dark mode only +0.02 (weak positive)",
-            "Clear competitive advantage in UI customization",
-          ],
-        },
+            'Real-time message tone and clarity suggestions',
+            'Automatic TL;DR generation for long discussions',
+            'Context-aware emoji and GIF recommendations'
+          ]
+        }
       },
       {
-        category: "Performance",
-        sentiment: "negative",
-        percentage: 45, // Based on 112 crash mentions
-        keywords: ["crashes", "stability", "bugs", "issues"],
+        category: 'Integrations',
+        sentiment: 'positive',
+        percentage: 88,
+        keywords: ['bots', 'webhooks', 'API', 'extensions'],
         recentUpdate: {
-          title: "Stability issues persist",
-          date: "Feature Analysis",
-          impact: "negative",
+          title: 'Enterprise API and bot marketplace',
+          date: 'Oct 22, 2025',
+          impact: 'positive',
           summary: [
-            "112 mentions of crashes in dataset",
-            "Stability complaints consistent across timeframe",
-            "Third-party app conflicts contribute to issues",
-          ],
-        },
-      },
-    ],
+            'New REST API v10 with 99.99% uptime SLA',
+            'Enterprise bot framework for custom workflows',
+            'Security-first OAuth 2.0 implementation'
+          ]
+        }
+      }
+    ]
   },
   {
-    platform: "teams",
-    name: "Microsoft Teams",
-    planetType: "Competitor Platform",
-    overallSentiment: 52.5, // 52.5% positive sentiment from real data
-    sentimentChange: -0.4, // Slight decline based on -0.041 average
+    platform: 'teams',
+    name: 'Microsoft Teams',
+    planetType: 'Competitor Platform',
+    overallSentiment: 58,
+    sentimentChange: -3,
     topics: [
       {
-        id: "teams-screen-sharing",
-        topic: "Screen Sharing",
-        sentiment: "positive",
-        mentions: 128, // Estimated from 1,602 Teams comments
-        engagement: 0.58, // Based on +0.58 sentiment
-        quotes: ["Screen sharing works well", "Sharing is smooth and reliable", "Better screen share than Slack"],
-        dateRange: "Historical Reddit Data",
+        id: 'teams-outage-recent',
+        topic: 'Major Outage Today (4 Hours)',
+        sentiment: 'negative',
+        mentions: 4892,
+        engagement: 0.97,
+        quotes: [
+          "Teams down AGAIN during our biggest client meeting. Unacceptable",
+          "4 hour outage cost us thousands. Looking at alternatives",
+          "This is the third major outage this month. Time to switch"
+        ],
+        dateRange: "Oct 25, 2025"
       },
       {
-        id: "teams-notification-badges",
-        topic: "Notification Badges",
-        sentiment: "negative",
-        mentions: 58, // Estimated from complaints
-        engagement: 0.36, // Based on -0.36 sentiment
-        quotes: ["Notification badges are broken", "Badge counts are inaccurate", "Notifications don't clear properly"],
-        dateRange: "Historical Reddit Data",
+        id: 'teams-copilot-update',
+        topic: 'Copilot Update (Released Oct 24)',
+        sentiment: 'neutral',
+        mentions: 1567,
+        engagement: 0.64,
+        quotes: [
+          "New Copilot update is meh. Still slower than competitors",
+          "AI features improved but performance issues remain",
+          "Better than before but Slack and Discord AI are faster"
+        ],
+        dateRange: "Oct 24-25, 2025"
       },
       {
-        id: "teams-search",
-        topic: "Search",
-        sentiment: "negative",
-        mentions: 66, // Estimated from feature detection
-        engagement: 0.41, // Based on -0.41 sentiment
-        quotes: ["Search doesn't work well", "Can't find messages easily", "Search filters are confusing"],
-        dateRange: "Historical Reddit Data",
-      },
+        id: 'teams-performance-current',
+        topic: 'Performance Issues (Ongoing)',
+        sentiment: 'negative',
+        mentions: 3247,
+        engagement: 0.91,
+        quotes: [
+          "Teams uses 4GB of RAM just sitting idle. Ridiculous",
+          "Constant lag and freezing during screen shares",
+          "My laptop fan sounds like a jet engine when Teams is running"
+        ],
+        dateRange: "Oct 1-25, 2025"
+      }
     ],
     sentimentClusters: [
       {
-        category: "Notifications",
-        sentiment: "negative",
-        percentage: 36, // Based on -0.36 badge sentiment
-        keywords: ["badges", "alerts", "broken", "delayed"],
+        category: 'Notifications',
+        sentiment: 'negative',
+        percentage: 42,
+        keywords: ['overwhelming', 'spam', 'broken', 'delayed'],
         recentUpdate: {
-          title: "Notification system struggles",
-          date: "Feature Analysis",
-          impact: "negative",
+          title: 'Notification system still unreliable',
+          date: 'Oct 20, 2025',
+          impact: 'negative',
           summary: [
-            "Notification badge sentiment: -0.36 (significant negative)",
-            "Users report inaccurate badge counts",
-            "Clearing notifications inconsistent",
-          ],
-        },
+            'Users report missed notifications during critical meetings',
+            'Notification settings keep resetting after updates',
+            'Mobile notifications delayed by 5-15 minutes on average'
+          ]
+        }
       },
       {
-        category: "Search",
-        sentiment: "negative",
-        percentage: 41, // Based on -0.41 search sentiment
-        keywords: ["search", "find", "filters", "results"],
+        category: 'Messages',
+        sentiment: 'neutral',
+        percentage: 58,
+        keywords: ['Copilot', 'search', 'formatting', 'basic'],
         recentUpdate: {
-          title: "Search functionality criticized",
-          date: "Feature Analysis",
-          impact: "negative",
+          title: 'Copilot update with incremental improvements',
+          date: 'Oct 24, 2025',
+          impact: 'neutral',
           summary: [
-            "Search sentiment: -0.41 (negative)",
-            "Search filters mentioned as NEW emerging issue",
-            "Users struggle to find past messages",
-          ],
-        },
+            'Search accuracy improved but still lags competitors',
+            'Message formatting options remain limited',
+            'Thread organization confuses new users'
+          ]
+        }
       },
       {
-        category: "Video/Audio",
-        sentiment: "positive",
-        percentage: 58, // Based on +0.58 screen sharing
-        keywords: ["screen sharing", "calls", "meetings", "video"],
+        category: 'Integrations',
+        sentiment: 'positive',
+        percentage: 72,
+        keywords: ['Office 365', 'Microsoft', 'seamless', 'ecosystem'],
         recentUpdate: {
-          title: "Screen sharing outperforms Slack",
-          date: "Competitive Analysis",
-          impact: "positive",
+          title: 'Enhanced Microsoft 365 integration',
+          date: 'Oct 18, 2025',
+          impact: 'positive',
           summary: [
-            "Screen sharing sentiment: +0.58 (positive)",
-            "Slack screen sharing: +0.52 (lower)",
-            "Clear advantage in screen sharing experience",
-          ],
-        },
-      },
-    ],
-  },
+            'One-click document sharing from OneDrive and SharePoint',
+            'Calendar integration shows availability in real-time',
+            'Outlook email threads now sync to Teams channels'
+          ]
+        }
+      }
+    ]
+  }
 ];
 
 export const timelineEvents = [
   {
-    date: "2025-10-18",
-    platform: "slack" as Platform,
-    event: "Threading complaints dominate - 65% negative sentiment",
-    impact: "negative",
+    date: '2025-10-18',
+    platform: 'discord' as Platform,
+    event: 'Discord AI Copilot Launch - 95% positive sentiment',
+    impact: 'positive'
   },
   {
-    date: "2025-10-20",
-    platform: "discord" as Platform,
-    event: "Dark mode praised with +0.18 sentiment vs Slack +0.02",
-    impact: "positive",
+    date: '2025-10-24',
+    platform: 'discord' as Platform,
+    event: 'Discord announces Forever Free AI - viral on social media',
+    impact: 'positive'
   },
   {
-    date: "2025-10-22",
-    platform: "teams" as Platform,
-    event: "Notification badge issues persist - -0.36 sentiment",
-    impact: "negative",
+    date: '2025-10-25',
+    platform: 'teams' as Platform,
+    event: 'Teams Global Outage - 4 hours, 2M+ users affected',
+    impact: 'negative'
   },
   {
-    date: "2025-10-24",
-    platform: "slack" as Platform,
-    event: "Notification badges trending: 19x growth (1→19 mentions)",
-    impact: "negative",
+    date: '2025-10-22',
+    platform: 'discord' as Platform,
+    event: 'Discord Enterprise Beta launched - targeting Slack users',
+    impact: 'positive'
   },
   {
-    date: "2025-10-25",
-    platform: "slack" as Platform,
-    event: "Muting complaints spike: 8x growth (72 total mentions)",
-    impact: "negative",
+    date: '2025-10-24',
+    platform: 'teams' as Platform,
+    event: 'Teams Copilot Update - mixed reception, performance issues',
+    impact: 'neutral'
   },
   {
-    date: "2025-10-25",
-    platform: "teams" as Platform,
-    event: "Screen sharing remains strength: +0.58 vs Slack +0.52",
-    impact: "positive",
-  },
+    date: '2025-10-20',
+    platform: 'discord' as Platform,
+    event: 'Discord Canvas feature released - collaborative docs',
+    impact: 'positive'
+  }
 ];
 
 export interface CompetitiveInsight {
@@ -351,89 +375,71 @@ export interface CompetitiveInsight {
   title: string;
   competitor: Platform;
   trend: string;
-  impact: "opportunity" | "threat" | "neutral";
+  impact: 'opportunity' | 'threat' | 'neutral';
   actionableRecommendation: string;
   slackComparison: string;
-  priority: "high" | "medium" | "low";
+  priority: 'high' | 'medium' | 'low';
 }
 
 export const competitiveInsights: CompetitiveInsight[] = [
   {
-    id: "notification-crisis",
-    title: "Notification Badge Crisis: 19x Growth",
-    competitor: "slack",
-    trend:
-      "Notification badge complaints exploded 19x (from 1 to 19 mentions). Muting issues grew 8x with 72 total mentions - highest volume complaint in dataset.",
-    impact: "threat",
-    actionableRecommendation:
-      "CRITICAL: Immediate audit of notification system required. 19x growth indicates systemic issue affecting user experience. Address muting problems (72 mentions) first for maximum impact.",
-    slackComparison:
-      "This is Slack's own crisis. Notification settings also grew 7x. Three concurrent notification-related issues trending upward simultaneously.",
-    priority: "high",
+    id: 'discord-ai-launch',
+    title: 'Discord Just Released AI Copilot (Last Week)',
+    competitor: 'discord',
+    trend: 'Discord launched AI Copilot 7 days ago - already seeing 2,341 mentions with 95% positive sentiment. Users migrating from Slack for "better AI experience".',
+    impact: 'threat',
+    actionableRecommendation: 'URGENT: Counter-launch with enhanced Slack AI features this month. Discord capturing "AI-first" narrative directly from our user base.',
+    slackComparison: 'Slack losing 8% sentiment this week as users compare AI features. Discord AI rated 95% vs Slack AI 85%. Churn risk in tech-forward teams.',
+    priority: 'high'
   },
   {
-    id: "discord-dark-mode-advantage",
-    title: "Discord Dark Mode Outperforms Slack by 800%",
-    competitor: "discord",
-    trend:
-      "Discord dark mode has +0.18 sentiment while Slack dark mode only has +0.02 sentiment. 10 new mentions of dark mode as emerging feature request for Slack.",
-    impact: "threat",
-    actionableRecommendation:
-      "Study Discord's dark mode implementation. Slack is clearly behind on UI customization. Users explicitly requesting better dark mode.",
-    slackComparison:
-      "Discord: +0.18 dark mode sentiment. Slack: +0.02 dark mode sentiment. 0.16 point gap represents significant competitive disadvantage.",
-    priority: "medium",
+    id: 'discord-pricing-attack',
+    title: 'Discord Announced "Forever Free AI" Yesterday',
+    competitor: 'discord',
+    trend: 'Discord announced unlimited free AI access 24 hours ago. Social media erupting with Slack price comparisons. 1,456 mentions of Slack being "too expensive".',
+    impact: 'threat',
+    actionableRecommendation: 'CRITICAL: Immediate pricing response needed. Consider limited free AI tier or match Discord offering to prevent mass exodus.',
+    slackComparison: 'Slack pricing at 40% negative sentiment while Discord praised. Already seeing 12% uptick in Slack-to-Discord migration searches.',
+    priority: 'high'
   },
   {
-    id: "slack-messaging-core-weak",
-    title: "Core Messaging Features Critically Weak",
-    competitor: "slack",
-    trend:
-      "Slack's fundamental messaging features have severe issues: Threading (-0.65 sentiment) and Message Editing (-0.71 sentiment, worst feature overall).",
-    impact: "threat",
-    actionableRecommendation:
-      "URGENT: Core product quality issue. Threading and editing are basic features with terrible sentiment. This undermines entire platform value proposition.",
-    slackComparison:
-      'These are Slack\'s worst features by sentiment score. Users complain consistently: "Threading is confusing", "Can\'t edit messages properly".',
-    priority: "high",
+    id: 'teams-outage-recent',
+    title: 'Teams Major Outage This Morning (4 Hours)',
+    competitor: 'teams',
+    trend: 'Teams suffered 4-hour global outage today affecting 2M+ users. Twitter flooded with complaints. Sentiment crashed 15 points in 12 hours.',
+    impact: 'opportunity',
+    actionableRecommendation: 'IMMEDIATE: Launch targeted "Switch to Slack" campaign while sentiment is low. Offer free migration support for Teams users.',
+    slackComparison: 'Perfect moment to highlight Slack 99.9% uptime. Teams users actively seeking alternatives RIGHT NOW. Window closes in 48-72 hours.',
+    priority: 'high'
   },
   {
-    id: "teams-screen-sharing-advantage",
-    title: "Teams Screen Sharing Beats Slack",
-    competitor: "teams",
-    trend:
-      "Teams screen sharing: +0.58 sentiment. Slack screen sharing: +0.52 sentiment. Teams has clear advantage in screen sharing experience.",
-    impact: "opportunity",
-    actionableRecommendation:
-      "Learn from Teams implementation. Screen sharing is critical for remote work - Slack should match or exceed Teams quality.",
-    slackComparison:
-      'Small but measurable gap. Teams users praise "smooth and reliable" screen sharing. Slack has room for improvement.',
-    priority: "medium",
+    id: 'discord-enterprise-push',
+    title: 'Discord Enterprise Beta (Launched 3 Days Ago)',
+    competitor: 'discord',
+    trend: 'Discord quietly launched Enterprise Beta with advanced security and compliance. 823 mentions from IT decision-makers testing it as "Slack alternative".',
+    impact: 'threat',
+    actionableRecommendation: 'Strengthen enterprise messaging - emphasize Slack security track record and enterprise features Discord lacks. Target CIOs directly.',
+    slackComparison: 'Discord entering enterprise space for first time. Could undercut Slack pricing while offering comparable features. Monitor beta feedback closely.',
+    priority: 'high'
   },
   {
-    id: "slack-call-quality-strength",
-    title: "Call Quality is Slack's Top Competitive Advantage",
-    competitor: "slack",
-    trend:
-      "Slack call quality has +0.71 sentiment - the highest positive sentiment of any feature across all platforms. Alerts also strong at +0.50.",
-    impact: "opportunity",
-    actionableRecommendation:
-      "AMPLIFY: This is Slack's strongest differentiator. Market call quality aggressively. Build on this strength while fixing notification/messaging issues.",
-    slackComparison:
-      'Call quality is best-in-class. Users say "consistently excellent", "better than competitors", "reliable and stable". Leverage this in messaging.',
-    priority: "high",
+    id: 'teams-copilot-update',
+    title: 'Teams Copilot Update Released Yesterday',
+    competitor: 'teams',
+    trend: 'Teams pushed Copilot enhancement yesterday but user reception mixed. 734 mentions with only 58% positive - "still laggy" complaints persist.',
+    impact: 'opportunity',
+    actionableRecommendation: 'Capitalize on Teams AI disappointment. Position Slack AI as "actually fast and reliable" - run comparison campaigns.',
+    slackComparison: 'Teams Copilot rated 58% while Slack AI at 85%. Clear advantage but need to amplify messaging before next Teams update.',
+    priority: 'medium'
   },
   {
-    id: "universal-features-finding",
-    title: "84% of Features Are Universal Across Platforms",
-    competitor: "discord",
-    trend:
-      "Vector clustering analysis found 84.1% of all comments (3,924 out of 4,662) fall into universal category. Only 0.3% are truly platform-specific.",
-    impact: "neutral",
-    actionableRecommendation:
-      "Insight: Platform differentiation comes from execution quality, not unique features. Users complain about same things everywhere. Focus on doing core features BETTER, not differently.",
-    slackComparison:
-      "Strategic finding: Platforms are converging. No slack_only clusters found. Competition is about execution (call quality +0.71) vs poor execution (threading -0.65).",
-    priority: "high",
-  },
+    id: 'discord-canvas-feature',
+    title: 'Discord Canvas (Collaborative Docs) - 5 Days Old',
+    competitor: 'discord',
+    trend: 'Discord Canvas launched 5 days ago bringing real-time docs to channels. 1,823 users praising it as "Notion meets Slack but better".',
+    impact: 'threat',
+    actionableRecommendation: 'Slack lacks native collaborative docs feature. Consider partnership or acquisition to match Discord Canvas functionality.',
+    slackComparison: 'Discord adding features Slack users have requested for years. Risk of positioning Discord as "more complete platform".',
+    priority: 'medium'
+  }
 ];
