@@ -60,7 +60,7 @@ const Dashboard = () => {
                 <div className="w-12 h-12 rounded-full bg-slack" />
               </div>
               <h3 className="text-2xl font-light text-slack">Slack</h3>
-              <p className="text-foreground/60 leading-relaxed">56.6% positive sentiment.</p>
+              <p className="text-foreground/60 leading-relaxed">56.5% positive sentiment.</p>
             </div>
 
             <div className="space-y-6">

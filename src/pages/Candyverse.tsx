@@ -279,7 +279,7 @@ const Candyverse = () => {
               Our Approach
             </h2>
             <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
-              We scrape Reddit to analyze what people complain about on Slack vs. Discord vs. Teams, then use ML to find patterns and competitive intelligence.
+              A 4-phase data pipeline that discovers patterns across Slack, Discord, and Microsoft Teams using Reddit data and machine learning.
             </p>
           </div>
 
@@ -292,21 +292,21 @@ const Candyverse = () => {
               <div>
                 <h4 className="font-semibold text-foreground/90 mb-2">Source: Reddit (3 subreddits)</h4>
                 <ul className="space-y-1 text-foreground/70 ml-6 list-disc">
-                  <li>r/Slack (Slack users complaining)</li>
-                  <li>r/discordapp (Discord users complaining)</li>
-                  <li>r/MicrosoftTeams (Teams users complaining)</li>
+                  <li>r/Slack (1,376 comments - 29.5%)</li>
+                  <li>r/discordapp (1,684 comments - 36.1%)</li>
+                  <li>r/MicrosoftTeams (1,602 comments - 34.4%)</li>
                 </ul>
               </div>
               <div>
                 <h4 className="font-semibold text-foreground/90 mb-2">What we collected:</h4>
                 <ul className="space-y-1 text-foreground/70 ml-6 list-disc">
-                  <li>4,662 total comments</li>
-                  <li>Text content ("Threading is so confusing")</li>
-                  <li>Platform identification (Slack/Discord/Teams)</li>
-                  <li>Timestamps, author info, and upvote scores</li>
+                  <li><strong>4,662 total comments</strong> analyzed for patterns</li>
+                  <li>Text content from real user discussions</li>
+                  <li>Platform identification & timestamps</li>
+                  <li>Stored in 2.5MB SQLite database</li>
                 </ul>
               </div>
-              <p className="text-sm text-foreground/60">Database: SQLite (simple, local, no server needed)</p>
+              <p className="text-sm text-foreground/60">Tech Stack: Python 3, PRAW (Reddit API), SQLite, VADER, Sentence Transformers, HDBSCAN</p>
             </CardContent>
           </Card>
 
@@ -315,53 +315,50 @@ const Candyverse = () => {
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-foreground">Phase 1: Data Collection</h3>
               <p className="text-foreground/70 leading-relaxed">
-                We built a Reddit scraper using PRAW with SQLite database for storage and data cleaning pipelines. 
-                The system scraped 4,662 authentic user comments from Reddit - real complaints, not filtered surveys - 
-                providing a genuine foundation for competitive analysis.
+                Built a Reddit scraper using PRAW (Python Reddit API Wrapper) with OAuth authentication and rate limiting. 
+                Collected <strong>4,662 comments</strong> across three platforms with automatic error recovery. 
+                Data stored in SQLite with indexed queries for fast sentiment analysis.
               </p>
             </div>
 
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-foreground">Phase 2: Sentiment Analysis</h3>
               <p className="text-foreground/70 leading-relaxed">
-                Using VADER sentiment analyzer optimized for social media, we processed per-comment sentiment scores 
-                ranging from -1 to +1. The results revealed distinct emotional patterns: Slack averaged -0.086 (negative), 
-                Discord averaged -0.012 (neutral), and Teams averaged -0.041 (negative). This quantitative approach to 
-                emotion detection became the foundation for understanding user satisfaction across platforms.
+                Using <strong>VADER</strong> (Valence Aware Dictionary and sEntiment Reasoner) - a lexicon-based tool with 7,500+ words 
+                optimized for social media. Analyzed each comment on a -1 to +1 scale. Results: <strong>Slack averaged +0.218</strong> (56.5% positive), 
+                <strong>Teams +0.193</strong> (52.5% positive), <strong>Discord +0.011</strong> (38.1% positive). 
+                VADER handles emojis, CAPS, and punctuation (!!!) making it ideal for Reddit analysis.
               </p>
             </div>
 
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-foreground">Phase 2.5: Feature Intelligence</h3>
               <p className="text-foreground/70 leading-relaxed">
-                The breakthrough came with our detection system for 33 predefined features including threading, 
-                notifications, video calls, and dark mode. Each feature received sentiment tracking and temporal trend 
-                analysis. Critical insights emerged: notification badges showed 19x growth (CRITICAL), muting requests 
-                grew 8x (URGENT), threading sentiment measured -0.65 (very negative), while call quality scored +0.71 
-                (best in class). This granular feature-level intelligence revealed exactly where each platform excels 
-                or struggles.
+                Defined and detected <strong>33 features</strong> across 7 categories (messaging, notifications, video, UI, search, integration, performance) 
+                using keyword matching and TF-IDF phrase extraction. Discovered critical trends: notification badges grew <strong>19x</strong> (CRITICAL urgency), 
+                muting complaints grew <strong>8x</strong> (72 total mentions - highest volume), notification settings grew <strong>7x</strong>. 
+                Slack's call quality scored <strong>+0.71</strong> (best feature), while threading scored <strong>-0.65</strong> (worst).
               </p>
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-2xl font-light text-foreground">Phase 3: Vector Clustering</h3>
+              <h3 className="text-2xl font-light text-foreground">Phase 3: Vector Clustering & Venn Analysis</h3>
               <p className="text-foreground/70 leading-relaxed">
-                Vector embeddings combined with HDBSCAN clustering exposed natural semantic groups within the data, 
-                enabling sophisticated Venn diagram analysis of feature overlap across platforms. The most striking 
-                discovery: 84% of features are universal - most complaints aren't platform-specific but reflect 
-                fundamental challenges in collaborative software design.
+                Used <strong>Sentence Transformers</strong> (all-MiniLM-L6-v2) to convert comments into 384-dimensional vectors, 
+                then applied <strong>HDBSCAN clustering</strong> to discover natural semantic groups. 
+                Found <strong>4 clusters</strong> with 15.4% noise. The breakthrough: <strong>84.2% of comments</strong> (3,924 out of 4,662) 
+                fell into a universal cluster shared across ALL platforms. This means most complaints aren't platform-specific - 
+                differentiation comes from execution quality, not unique features.
               </p>
             </div>
 
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-foreground">Phase 4: AI-Powered Audio Insights</h3>
               <p className="text-foreground/70 leading-relaxed">
-                The final transformation takes our competitive intelligence and makes it accessible. Using the Eleven Labs 
-                API, we automatically process weekly insights into professionally narrated audio recordings. The system 
-                synthesizes sentiment trends, feature comparisons, and emerging patterns into digestible audio summaries 
-                that can be distributed to stakeholders weekly. This automation ensures decision-makers receive regular, 
-                actionable competitive intelligence without manual report generation - turning data into voice, and voice 
-                into strategic advantage.
+                Using Eleven Labs API, we transform competitive intelligence into professionally narrated audio recordings. 
+                The system synthesizes sentiment trends, feature comparisons, and emerging patterns into weekly audio summaries. 
+                This automation delivers actionable insights to stakeholders without manual report generation - 
+                turning raw data into strategic advantage through voice.
               </p>
             </div>
           </div>
@@ -698,14 +695,18 @@ const Candyverse = () => {
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">For Product Teams</h3>
                 <p className="text-foreground/70">
-                  Prioritize features based on real user pain points. Threading complaints are growing 3x - this signals an urgent UX issue. Call quality is Slack's competitive advantage at +0.71 sentiment.
+                  Prioritize features based on real user pain points. Notification badges grew <strong>19x</strong> (CRITICAL), 
+                  muting complaints grew <strong>8x</strong> with 72 mentions. Threading (-0.65 sentiment) and message editing (-0.71) 
+                  need urgent fixes. Leverage call quality (+0.71) as your competitive advantage.
                 </p>
               </div>
               
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">For Competitive Intelligence</h3>
                 <p className="text-foreground/70">
-                  84% of user complaints are universal across platforms - this means the market has shared problems waiting to be solved. Discord's negative sentiment (34.3%) presents an opportunity.
+                  <strong>84.2% of complaints are universal</strong> across platforms (3,924 out of 4,662 comments in one cluster). 
+                  Competition is about execution quality, not unique features. Discord has the most negative sentiment (34.3%), 
+                  presenting an opportunity. Teams beats Slack on screen sharing (+0.58 vs +0.52).
                 </p>
               </div>
               
