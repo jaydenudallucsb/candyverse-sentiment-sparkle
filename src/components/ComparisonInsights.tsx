@@ -34,14 +34,14 @@ export const ComparisonInsights = ({ data }: ComparisonInsightsProps) => {
           <Card className="border-2 border-primary/30 hover:border-primary/60 transition-all duration-300">
             <CardHeader>
               <BarChart3 className="w-8 h-8 text-primary mb-2" />
-              <CardTitle className="text-lg">Universal Features</CardTitle>
+              <CardTitle className="text-xl font-light">Universal Features</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="text-5xl font-bold text-primary">
+                <div className="text-6xl font-light text-primary tabular-nums">
                   {data.universalFeatures.percentage}%
                 </div>
-                <p className="text-sm text-foreground/70">
+                <p className="text-sm text-foreground/60">
                   of discussions are shared across all platforms
                 </p>
                 <div className="pt-3 space-y-2">
@@ -79,14 +79,14 @@ export const ComparisonInsights = ({ data }: ComparisonInsightsProps) => {
           <Card className="border-2 border-success/30 hover:border-success/60 transition-all duration-300">
             <CardHeader>
               <TrendingUp className="w-8 h-8 text-success mb-2" />
-              <CardTitle className="text-lg">Slack's Advantage</CardTitle>
+              <CardTitle className="text-xl font-light">Slack's Advantage</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="text-5xl font-bold text-success">
+                <div className="text-6xl font-light text-success tabular-nums">
                   +{data.slackAdvantage.toFixed(3)}
                 </div>
-                <p className="text-sm text-foreground/70">
+                <p className="text-sm text-foreground/60">
                   sentiment lead over Discord in universal features
                 </p>
                 <div className="pt-3 p-3 rounded-lg bg-success/10 border border-success/20">
@@ -109,12 +109,12 @@ export const ComparisonInsights = ({ data }: ComparisonInsightsProps) => {
           <Card className="border-2 border-warning/30 hover:border-warning/60 transition-all duration-300">
             <CardHeader>
               <Target className="w-8 h-8 text-warning mb-2" />
-              <CardTitle className="text-lg">Data Quality</CardTitle>
+              <CardTitle className="text-xl font-light">Data Quality</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="text-5xl font-bold text-warning">4</div>
-                <p className="text-sm text-foreground/70">
+                <div className="text-6xl font-light text-warning tabular-nums">4</div>
+                <p className="text-sm text-foreground/60">
                   semantic clusters identified from 4,662 comments
                 </p>
                 <div className="pt-3 space-y-1">
@@ -144,7 +144,7 @@ export const ComparisonInsights = ({ data }: ComparisonInsightsProps) => {
           <CardHeader>
             <div className="flex items-center gap-3">
               <AlertCircle className="w-8 h-8 text-primary" />
-              <CardTitle className="text-2xl">Key Findings</CardTitle>
+              <CardTitle className="text-3xl font-light">Key Findings</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
@@ -158,10 +158,10 @@ export const ComparisonInsights = ({ data }: ComparisonInsightsProps) => {
                   viewport={{ once: true }}
                   className="flex gap-4 p-4 rounded-lg bg-gradient-to-r from-primary/10 to-transparent border-l-4 border-primary"
                 >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-light text-lg">
                     {index + 1}
                   </div>
-                  <p className="text-foreground/80 leading-relaxed">{finding}</p>
+                  <p className="text-foreground/70 leading-relaxed">{finding}</p>
                 </motion.div>
               ))}
             </div>
@@ -180,7 +180,7 @@ export const ComparisonInsights = ({ data }: ComparisonInsightsProps) => {
           <CardHeader>
             <div className="flex items-center gap-3">
               <Lightbulb className="w-8 h-8 text-accent" />
-              <CardTitle className="text-2xl">Strategic Recommendations</CardTitle>
+              <CardTitle className="text-3xl font-light">Strategic Recommendations</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
@@ -194,10 +194,10 @@ export const ComparisonInsights = ({ data }: ComparisonInsightsProps) => {
                   viewport={{ once: true }}
                   className="flex gap-4 p-4 rounded-lg bg-gradient-to-r from-accent/10 to-transparent border-l-4 border-accent"
                 >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xl">
                     💡
                   </div>
-                  <p className="text-foreground/80 leading-relaxed">{rec}</p>
+                  <p className="text-foreground/70 leading-relaxed">{rec}</p>
                 </motion.div>
               ))}
             </div>

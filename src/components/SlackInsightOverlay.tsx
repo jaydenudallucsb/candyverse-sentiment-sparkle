@@ -107,8 +107,8 @@ export const SlackInsightOverlay = ({ onClose }: SlackInsightOverlayProps) => {
                 <PieChart className="w-8 h-8 text-slack" />
               </motion.div>
               <div>
-                <h2 className="text-4xl font-light text-foreground tracking-tight">Cross-Platform Intelligence</h2>
-                <p className="text-muted-foreground">Slack vs Discord vs Microsoft Teams</p>
+                <h2 className="text-4xl md:text-5xl font-light text-foreground tracking-tight">Cross-Platform Intelligence</h2>
+                <p className="text-foreground/60 text-lg">Slack vs Discord vs Microsoft Teams</p>
               </div>
             </div>
             <Button 
@@ -138,14 +138,14 @@ export const SlackInsightOverlay = ({ onClose }: SlackInsightOverlayProps) => {
                   <CardContent className="p-6 text-center">
                     {metric.icon && <metric.icon className={`w-6 h-6 text-${metric.color} mx-auto mb-2`} />}
                     <motion.p 
-                      className={`text-3xl font-bold text-${metric.color}`}
+                      className={`text-4xl font-light text-${metric.color} tabular-nums`}
                       initial={{ scale: 0.5, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.3 + idx * 0.1, type: "spring", stiffness: 200 }}
                     >
                       {metric.value.toLocaleString()}
                     </motion.p>
-                    <p className="text-sm text-muted-foreground mt-1">{metric.label}</p>
+                    <p className="text-sm text-foreground/60 mt-1">{metric.label}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -173,25 +173,25 @@ export const SlackInsightOverlay = ({ onClose }: SlackInsightOverlayProps) => {
                 <div className="flex items-center justify-between">
                   <div>
                     <motion.p 
-                      className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary"
+                      className="text-7xl font-light text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tabular-nums"
                       animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                       transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                       style={{ backgroundSize: "200% 100%" }}
                     >
                       {data.universalPercentage}%
                     </motion.p>
-                    <p className="text-muted-foreground mt-1">of discussions overlap across all platforms</p>
+                    <p className="text-foreground/60 mt-1">of discussions overlap across all platforms</p>
                   </div>
                   <div className="text-right">
                     <motion.p 
-                      className="text-4xl font-bold text-foreground"
+                      className="text-5xl font-light text-foreground tabular-nums"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                     >
                       {data.universalCluster.toLocaleString()}
                     </motion.p>
-                    <p className="text-sm text-muted-foreground">comments in universal cluster</p>
+                    <p className="text-sm text-foreground/60">comments in universal cluster</p>
                   </div>
                 </div>
                 <motion.div
@@ -265,13 +265,13 @@ export const SlackInsightOverlay = ({ onClose }: SlackInsightOverlayProps) => {
                         animate={{ scale: [1, 1.2, 1] }}
                         transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
                       />
-                      <span className="font-semibold text-foreground">{cluster.label}</span>
+                      <span className="font-light text-foreground text-lg">{cluster.label}</span>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className={`text-2xl font-bold text-${cluster.color || 'foreground'}`}>
+                      <span className={`text-3xl font-light text-${cluster.color || 'foreground'} tabular-nums`}>
                         {cluster.value.toLocaleString()}
                       </span>
-                      <Badge variant={cluster.percent > 50 ? "default" : "secondary"} className="min-w-[60px] justify-center">
+                      <Badge variant={cluster.percent > 50 ? "default" : "secondary"} className="min-w-[60px] justify-center font-light">
                         {cluster.percent}%
                       </Badge>
                     </div>
@@ -300,9 +300,9 @@ export const SlackInsightOverlay = ({ onClose }: SlackInsightOverlayProps) => {
                 ].map((item, idx) => (
                   <div key={idx} className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className={`font-semibold text-${item.color}`}>{item.platform}</span>
+                      <span className={`font-light text-lg text-${item.color}`}>{item.platform}</span>
                       <motion.span 
-                        className={`text-2xl font-bold text-${item.color} tabular-nums`}
+                        className={`text-3xl font-light text-${item.color} tabular-nums`}
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 1 + idx * 0.15, type: "spring", stiffness: 150 }}
@@ -380,8 +380,8 @@ export const SlackInsightOverlay = ({ onClose }: SlackInsightOverlayProps) => {
                     transition={{ delay: 1.5 + insight.delay, type: "spring", stiffness: 100 }}
                     whileHover={{ x: 4, borderLeftWidth: "6px" }}
                   >
-                    <h4 className="font-semibold mb-2 text-foreground">{insight.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <h4 className="font-light text-lg mb-2 text-foreground">{insight.title}</h4>
+                    <p className="text-sm text-foreground/60 leading-relaxed">
                       {insight.content}
                     </p>
                   </motion.div>
@@ -410,14 +410,14 @@ export const SlackInsightOverlay = ({ onClose }: SlackInsightOverlayProps) => {
                     <Target className="w-6 h-6 text-accent" />
                   </motion.div>
                   <div>
-                    <h4 className="font-semibold text-lg mb-2 text-foreground">Strategic Opportunity</h4>
+                    <h4 className="font-light text-xl mb-2 text-foreground">Strategic Opportunity</h4>
                     <motion.p 
-                      className="text-muted-foreground leading-relaxed"
+                      className="text-foreground/60 leading-relaxed"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 2 }}
                     >
-                      Opportunities for Slack lie in <strong className="text-accent">differentiating its experience</strong> and <strong className="text-accent">addressing universal user frustrations</strong> shared with Discord and Teams. Focus on unique value propositions that set Slack apart.
+                      Opportunities for Slack lie in <strong className="text-accent font-light">differentiating its experience</strong> and <strong className="text-accent font-light">addressing universal user frustrations</strong> shared with Discord and Teams. Focus on unique value propositions that set Slack apart.
                     </motion.p>
                   </div>
                 </div>

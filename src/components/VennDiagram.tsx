@@ -115,8 +115,8 @@ export const VennDiagram = ({ data }: VennDiagramProps) => {
         <text
           x="200"
           y="200"
-          fontSize="20"
-          fontWeight="bold"
+          fontSize="22"
+          fontWeight="300"
           fill="hsl(var(--slack))"
           textAnchor="middle"
         >
@@ -125,8 +125,8 @@ export const VennDiagram = ({ data }: VennDiagramProps) => {
         <text
           x="600"
           y="200"
-          fontSize="20"
-          fontWeight="bold"
+          fontSize="22"
+          fontWeight="300"
           fill="hsl(var(--accent))"
           textAnchor="middle"
         >
@@ -135,8 +135,8 @@ export const VennDiagram = ({ data }: VennDiagramProps) => {
         <text
           x="400"
           y="540"
-          fontSize="20"
-          fontWeight="bold"
+          fontSize="22"
+          fontWeight="300"
           fill="hsl(var(--secondary))"
           textAnchor="middle"
         >
@@ -147,8 +147,8 @@ export const VennDiagram = ({ data }: VennDiagramProps) => {
         <text
           x="400"
           y="330"
-          fontSize="24"
-          fontWeight="bold"
+          fontSize="32"
+          fontWeight="300"
           fill="white"
           textAnchor="middle"
         >
@@ -157,7 +157,8 @@ export const VennDiagram = ({ data }: VennDiagramProps) => {
         <text
           x="400"
           y="355"
-          fontSize="14"
+          fontSize="16"
+          fontWeight="300"
           fill="white"
           textAnchor="middle"
           opacity="0.9"
@@ -175,9 +176,9 @@ export const VennDiagram = ({ data }: VennDiagramProps) => {
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
           >
             <div className="glass p-6 rounded-xl border-2 border-primary/50 min-w-[350px]">
-              <h3 className="text-2xl font-bold text-primary mb-3">{data.all3.label}</h3>
-              <p className="text-sm text-foreground/80 mb-4">
-                <span className="font-bold text-primary">{data.all3.size.toLocaleString()}</span> comments ({getPercentage(data.all3.size)}%)
+              <h3 className="text-3xl font-light text-primary mb-3">{data.all3.label}</h3>
+              <p className="text-sm text-foreground/70 mb-4">
+                <span className="font-light text-2xl text-primary tabular-nums">{data.all3.size.toLocaleString()}</span> comments ({getPercentage(data.all3.size)}%)
               </p>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -213,9 +214,9 @@ export const VennDiagram = ({ data }: VennDiagramProps) => {
             className="absolute top-1/4 right-8 pointer-events-auto"
           >
             <div className="glass p-5 rounded-xl border-2 border-accent/50 min-w-[280px]">
-              <h3 className="text-xl font-bold text-accent mb-2">{data.discordOnly.label}</h3>
-              <p className="text-sm text-foreground/80 mb-3">
-                <span className="font-bold text-accent">{data.discordOnly.size}</span> comments ({getPercentage(data.discordOnly.size)}%)
+              <h3 className="text-2xl font-light text-accent mb-2">{data.discordOnly.label}</h3>
+              <p className="text-sm text-foreground/70 mb-3">
+                <span className="font-light text-xl text-accent tabular-nums">{data.discordOnly.size}</span> comments ({getPercentage(data.discordOnly.size)}%)
               </p>
               <Badge variant="secondary">Sentiment: {data.discordOnly.sentiment.toFixed(3)}</Badge>
               <p className="text-xs text-foreground/60 mt-3 italic">
@@ -232,9 +233,9 @@ export const VennDiagram = ({ data }: VennDiagramProps) => {
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2 pointer-events-auto"
           >
             <div className="glass p-5 rounded-xl border-2 border-secondary/50 min-w-[280px]">
-              <h3 className="text-xl font-bold text-secondary mb-2">{data.teamsOnly.label}</h3>
-              <p className="text-sm text-foreground/80 mb-3">
-                <span className="font-bold text-secondary">{data.teamsOnly.size}</span> comments ({getPercentage(data.teamsOnly.size)}%)
+              <h3 className="text-2xl font-light text-secondary mb-2">{data.teamsOnly.label}</h3>
+              <p className="text-sm text-foreground/70 mb-3">
+                <span className="font-light text-xl text-secondary tabular-nums">{data.teamsOnly.size}</span> comments ({getPercentage(data.teamsOnly.size)}%)
               </p>
               <Badge variant="secondary">Sentiment: {data.teamsOnly.sentiment.toFixed(3)}</Badge>
               <p className="text-xs text-foreground/60 mt-3 italic">
