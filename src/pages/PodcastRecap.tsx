@@ -3,13 +3,37 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Play, Pause, SkipBack, SkipForward, MessageSquare, Sparkles, Radio, TrendingUp, TrendingDown } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Play, Pause, SkipBack, SkipForward, MessageSquare, Sparkles, Radio, TrendingUp, TrendingDown, BarChart3, Award } from 'lucide-react';
 import { toast } from 'sonner';
 import { sentimentData } from '@/data/sentimentData';
+import weeklyRecapAudio from '@/assets/weekly-recap.mp3';
 
 const PodcastRecap = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateTime = () => setCurrentTime(audio.currentTime);
+    const updateDuration = () => setDuration(audio.duration);
+    const handleEnded = () => setIsPlaying(false);
+
+    audio.addEventListener('timeupdate', updateTime);
+    audio.addEventListener('loadedmetadata', updateDuration);
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('timeupdate', updateTime);
+      audio.removeEventListener('loadedmetadata', updateDuration);
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, []);
 
   const handleSendSMS = () => {
     if (!phoneNumber) {
@@ -24,10 +48,45 @@ const PodcastRecap = () => {
   };
 
   const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+      toast.info('🎧 Playing Weekly Recap', {
+        description: 'This week in sentiment analysis...'
+      });
+    }
     setIsPlaying(!isPlaying);
-    toast.info('🎧 Playing Weekly Recap', {
-      description: 'This week in sentiment analysis...'
-    });
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const time = parseFloat(e.target.value);
+    audio.currentTime = time;
+    setCurrentTime(time);
+  };
+
+  const handleSkipBack = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = Math.max(0, audio.currentTime - 15);
+  };
+
+  const handleSkipForward = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = Math.min(duration, audio.currentTime + 15);
+  };
+
+  const formatTime = (seconds: number) => {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
   const { scrollY } = useScroll();
@@ -104,6 +163,9 @@ const PodcastRecap = () => {
           </div>
 
           <div className="glass p-12 rounded-3xl space-y-8">
+            {/* Hidden Audio Element */}
+            <audio ref={audioRef} src={weeklyRecapAudio} />
+
             {/* Waveform Visualization */}
             <div className="relative h-40 bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 rounded-2xl overflow-hidden">
               <div className="absolute inset-0 flex items-center justify-center gap-1 px-6">
@@ -135,13 +197,14 @@ const PodcastRecap = () => {
               <input
                 type="range"
                 min="0"
-                max="100"
-                defaultValue="0"
+                max={duration || 100}
+                value={currentTime}
+                onChange={handleSeek}
                 className="w-full h-2 bg-muted/30 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-lg"
               />
               <div className="flex justify-between text-sm text-foreground/50 font-light">
-                <span>0:00</span>
-                <span>5:42</span>
+                <span>{formatTime(currentTime)}</span>
+                <span>{formatTime(duration)}</span>
               </div>
             </div>
 
@@ -150,6 +213,7 @@ const PodcastRecap = () => {
               <Button 
                 variant="ghost" 
                 size="icon" 
+                onClick={handleSkipBack}
                 className="h-14 w-14 hover:bg-primary/10"
               >
                 <SkipBack className="w-6 h-6" />
@@ -172,6 +236,7 @@ const PodcastRecap = () => {
               <Button 
                 variant="ghost" 
                 size="icon" 
+                onClick={handleSkipForward}
                 className="h-14 w-14 hover:bg-primary/10"
               >
                 <SkipForward className="w-6 h-6" />
@@ -298,8 +363,324 @@ const PodcastRecap = () => {
         </motion.div>
       </section>
 
-      {/* Subscribe Section */}
+      {/* Sentiment Data Section */}
+      <section className="full-section">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="max-w-7xl w-full space-y-12"
+        >
+          <div className="text-center space-y-4">
+            <Badge className="px-4 py-2 text-sm">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Detailed Analysis
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-light text-foreground">
+              Sentiment Percentages by Platform
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Slack */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="glass border-slack/20">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3 text-2xl">
+                    <div className="w-10 h-10 rounded-full bg-slack/20 flex items-center justify-center">
+                      <div className="w-5 h-5 rounded-full bg-slack" />
+                    </div>
+                    Slack
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Positive</span>
+                      <span className="text-xl font-light text-success">56.5%</span>
+                    </div>
+                    <div className="text-xs text-foreground/50">778 comments</div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Neutral</span>
+                      <span className="text-xl font-light">23.0%</span>
+                    </div>
+                    <div className="text-xs text-foreground/50">316 comments</div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Negative</span>
+                      <span className="text-xl font-light text-destructive">20.5%</span>
+                    </div>
+                    <div className="text-xs text-foreground/50">282 comments</div>
+                  </div>
+                  <div className="pt-4 border-t border-border/50">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Average Score</span>
+                      <span className="text-2xl font-light text-success">+0.218</span>
+                    </div>
+                    <p className="text-xs text-foreground/50 mt-2">Slightly positive overall</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Discord */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              viewport={{ once: true }}
+            >
+              <Card className="glass border-accent/20">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3 text-2xl">
+                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                      <div className="w-5 h-5 rounded-full bg-accent" />
+                    </div>
+                    Discord
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Positive</span>
+                      <span className="text-xl font-light text-success">38.1%</span>
+                    </div>
+                    <div className="text-xs text-foreground/50">641 comments</div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Neutral</span>
+                      <span className="text-xl font-light">27.7%</span>
+                    </div>
+                    <div className="text-xs text-foreground/50">466 comments</div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Negative</span>
+                      <span className="text-xl font-light text-destructive">34.3%</span>
+                    </div>
+                    <div className="text-xs text-foreground/50">577 comments</div>
+                  </div>
+                  <div className="pt-4 border-t border-border/50">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Average Score</span>
+                      <span className="text-2xl font-light">+0.011</span>
+                    </div>
+                    <p className="text-xs text-foreground/50 mt-2">Barely positive/neutral</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Microsoft Teams */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <Card className="glass border-secondary/20">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3 text-2xl">
+                    <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center">
+                      <div className="w-5 h-5 rounded-full bg-secondary" />
+                    </div>
+                    Microsoft Teams
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Positive</span>
+                      <span className="text-xl font-light text-success">52.5%</span>
+                    </div>
+                    <div className="text-xs text-foreground/50">841 comments</div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Neutral</span>
+                      <span className="text-xl font-light">26.5%</span>
+                    </div>
+                    <div className="text-xs text-foreground/50">424 comments</div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Negative</span>
+                      <span className="text-xl font-light text-destructive">21.0%</span>
+                    </div>
+                    <div className="text-xs text-foreground/50">337 comments</div>
+                  </div>
+                  <div className="pt-4 border-t border-border/50">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-foreground/60">Average Score</span>
+                      <span className="text-2xl font-light text-success">+0.193</span>
+                    </div>
+                    <p className="text-xs text-foreground/50 mt-2">Slightly positive</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Key Takeaways Section */}
       <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="max-w-7xl w-full space-y-12"
+        >
+          <div className="text-center space-y-4">
+            <Badge className="px-4 py-2 text-sm">
+              <Award className="w-4 h-4 mr-2" />
+              Key Insights
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-light text-foreground">
+              Platform Rankings
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Positive Ranking */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="glass">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5 text-success" />
+                    Most Positive
+                  </CardTitle>
+                  <CardDescription>Ranking by % Positive Sentiment</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-slack/10">
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="w-8 h-8 rounded-full flex items-center justify-center p-0">1</Badge>
+                      <span className="font-medium">Slack</span>
+                    </div>
+                    <span className="text-xl font-light text-success">56.5%</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/10">
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="w-8 h-8 rounded-full flex items-center justify-center p-0">2</Badge>
+                      <span className="font-medium">Teams</span>
+                    </div>
+                    <span className="text-xl font-light">52.5%</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-accent/10">
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="w-8 h-8 rounded-full flex items-center justify-center p-0">3</Badge>
+                      <span className="font-medium">Discord</span>
+                    </div>
+                    <span className="text-xl font-light">38.1%</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Negative Ranking */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              viewport={{ once: true }}
+            >
+              <Card className="glass">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingDown className="w-5 h-5 text-destructive" />
+                    Most Negative
+                  </CardTitle>
+                  <CardDescription>Ranking by % Negative Sentiment</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-accent/10">
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="w-8 h-8 rounded-full flex items-center justify-center p-0">1</Badge>
+                      <span className="font-medium">Discord</span>
+                    </div>
+                    <span className="text-xl font-light text-destructive">34.3%</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/10">
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="w-8 h-8 rounded-full flex items-center justify-center p-0">2</Badge>
+                      <span className="font-medium">Teams</span>
+                    </div>
+                    <span className="text-xl font-light">21.0%</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-slack/10">
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="w-8 h-8 rounded-full flex items-center justify-center p-0">3</Badge>
+                      <span className="font-medium">Slack</span>
+                    </div>
+                    <span className="text-xl font-light">20.5%</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Average Score Ranking */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <Card className="glass">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5 text-primary" />
+                    Average Score
+                  </CardTitle>
+                  <CardDescription>Ranking by Overall Sentiment</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-slack/10">
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="w-8 h-8 rounded-full flex items-center justify-center p-0">1</Badge>
+                      <span className="font-medium">Slack</span>
+                    </div>
+                    <span className="text-xl font-light text-success">+0.218</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/10">
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="w-8 h-8 rounded-full flex items-center justify-center p-0">2</Badge>
+                      <span className="font-medium">Teams</span>
+                    </div>
+                    <span className="text-xl font-light">+0.193</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-accent/10">
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="w-8 h-8 rounded-full flex items-center justify-center p-0">3</Badge>
+                      <span className="font-medium">Discord</span>
+                    </div>
+                    <span className="text-xl font-light">+0.011</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Subscribe Section */}
+      <section className="full-section bg-gradient-to-b from-background via-background to-muted/20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
