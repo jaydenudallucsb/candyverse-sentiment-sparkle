@@ -11,7 +11,6 @@ import { CandyPlanet } from "@/components/CandyPlanet";
 import { CompetitiveMoon } from "@/components/CompetitiveMoon";
 import { CandyCluster } from "@/components/CandyCluster";
 import { ComparisonRing } from "@/components/ComparisonRing";
-import { SlackInsightOverlay } from "@/components/SlackInsightOverlay";
 import { TimeSlider } from "@/components/TimeSlider";
 import { sentimentData, Platform } from "@/data/sentimentData";
 import { getClusterInsights, getComparisonMetrics, ComparisonInsight } from "@/utils/clusteringUtils";
@@ -23,17 +22,13 @@ const Candyverse = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [comparisonMode, setComparisonMode] = useState(false);
   const [hoveredInsight, setHoveredInsight] = useState<ComparisonInsight | null>(null);
-  const [showSlackInsight, setShowSlackInsight] = useState(false);
+  
 
   const clusterInsights = getClusterInsights();
   const comparisonMetrics = getComparisonMetrics();
 
   const handlePlanetClick = (platform: Platform) => {
-    if (platform === "slack") {
-      setShowSlackInsight(true);
-    } else {
-      navigate(`/platform/${platform}`);
-    }
+    navigate(`/platform/${platform}`);
   };
 
 
@@ -332,10 +327,6 @@ const Candyverse = () => {
         </AnimatePresence>
       </div>
 
-      {/* Slack Insight Overlay */}
-      <AnimatePresence>
-        {showSlackInsight && <SlackInsightOverlay onClose={() => setShowSlackInsight(false)} />}
-      </AnimatePresence>
     </div>
   );
 };
