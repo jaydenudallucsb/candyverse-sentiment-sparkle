@@ -190,15 +190,27 @@ const Candyverse = () => {
             <div className="space-y-4">
               <p className="text-base text-foreground/70 font-medium">Overall Sentiment</p>
               <div className="flex items-center gap-4">
-                <div className="flex-1 h-4 bg-muted rounded-full overflow-hidden shadow-inner">
+                <div className="flex-1 h-4 bg-muted rounded-full overflow-hidden shadow-inner relative">
                   <motion.div
                     className="h-full bg-gradient-to-r from-destructive via-warning to-success rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${slackData.overallSentiment}%` }}
-                    transition={{ duration: 1, delay: 0.5 }}
+                    transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                  />
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent"
+                    animate={{ x: ["-100%", "200%"] }}
+                    transition={{ duration: 2, delay: 1.5, ease: "easeInOut" }}
                   />
                 </div>
-                <span className="font-bold text-3xl text-slack">{slackData.overallSentiment}%</span>
+                <motion.span 
+                  className="font-bold text-3xl text-slack tabular-nums"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 1 }}
+                >
+                  {slackData.overallSentiment}%
+                </motion.span>
               </div>
             </div>
             

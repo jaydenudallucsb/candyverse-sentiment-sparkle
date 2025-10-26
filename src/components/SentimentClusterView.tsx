@@ -127,27 +127,43 @@ export const SentimentClusterView = ({ clusters }: SentimentClusterViewProps) =>
 
               {/* Recent Update */}
               {cluster.recentUpdate && (
-                <div className="pt-3 border-t space-y-2">
-                  <div className="flex items-start gap-2">
-                    {getImpactIcon(cluster.recentUpdate.impact)}
+                <motion.div 
+                  className="pt-4 border-t space-y-3"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: index * 0.1 + 0.6 }}
+                >
+                  <div className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-br from-background/60 to-background/40 border border-border/50 hover:border-primary/30 transition-all duration-300 group cursor-pointer">
+                    <motion.div
+                      whileHover={{ scale: 1.2, rotate: 15 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      {getImpactIcon(cluster.recentUpdate.impact)}
+                    </motion.div>
                     <div className="flex-1">
-                      <p className="text-sm font-semibold">{cluster.recentUpdate.title}</p>
-                      <p className="text-xs text-muted-foreground mt-1">
+                      <p className="text-base font-bold group-hover:text-primary transition-colors">{cluster.recentUpdate.title}</p>
+                      <p className="text-xs text-muted-foreground mt-2 uppercase tracking-wider">
                         {cluster.recentUpdate.date}
                       </p>
                     </div>
                   </div>
                   {cluster.recentUpdate.summary && cluster.recentUpdate.summary.length > 0 && (
-                    <ul className="space-y-1 ml-7">
+                    <ul className="space-y-2 ml-2">
                       {cluster.recentUpdate.summary.map((point, idx) => (
-                        <li key={idx} className="text-xs text-muted-foreground flex items-start gap-1">
-                          <span className="text-foreground/40 mt-0.5">•</span>
-                          <span>{point}</span>
-                        </li>
+                        <motion.li 
+                          key={idx} 
+                          className="text-sm text-muted-foreground flex items-start gap-3 p-2 rounded-lg hover:bg-primary/5 transition-colors group cursor-pointer"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 + 0.7 + idx * 0.05 }}
+                        >
+                          <span className="text-primary font-bold mt-0.5 group-hover:scale-125 transition-transform">•</span>
+                          <span className="flex-1">{point}</span>
+                        </motion.li>
                       ))}
                     </ul>
                   )}
-                </div>
+                </motion.div>
               )}
             </CardContent>
           </Card>

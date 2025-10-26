@@ -87,38 +87,65 @@ const PlatformDetail = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-6">
-                    <div>
-                      <p className="text-sm opacity-80 mb-1">Overall Sentiment</p>
-                      <p className="text-3xl font-bold">{platformData.overallSentiment}%</p>
-                    </div>
+                  <div className="flex items-center gap-8">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-center p-4 rounded-xl bg-background/30 backdrop-blur-sm"
+                    >
+                      <p className="text-sm opacity-70 mb-2 uppercase tracking-wide">Overall Sentiment</p>
+                      <motion.p 
+                        className="text-4xl font-bold tabular-nums"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.5, type: "spring", bounce: 0.5 }}
+                      >
+                        {platformData.overallSentiment}%
+                      </motion.p>
+                    </motion.div>
 
-                    <div className="h-12 w-px bg-foreground/20" />
+                    <div className="h-16 w-px bg-foreground/20" />
 
-                    <div>
-                      <p className="text-sm opacity-80 mb-1">Trend</p>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="text-center"
+                    >
+                      <p className="text-sm opacity-70 mb-2 uppercase tracking-wide">Trend</p>
                       <Badge
                         variant={platformData.sentimentChange >= 0 ? 'default' : 'destructive'}
-                        className="gap-1 text-base px-3 py-1"
+                        className="gap-1 text-lg px-4 py-2"
                       >
-                        {platformData.sentimentChange > 0 && <TrendingUp className="w-4 h-4" />}
-                        {platformData.sentimentChange < 0 && <TrendingDown className="w-4 h-4" />}
-                        {platformData.sentimentChange === 0 && <Minus className="w-4 h-4" />}
+                        {platformData.sentimentChange > 0 && <TrendingUp className="w-5 h-5" />}
+                        {platformData.sentimentChange < 0 && <TrendingDown className="w-5 h-5" />}
+                        {platformData.sentimentChange === 0 && <Minus className="w-5 h-5" />}
                         {platformData.sentimentChange > 0 ? '+' : ''}
                         {platformData.sentimentChange}%
                       </Badge>
-                    </div>
+                    </motion.div>
 
-                    <div className="h-12 w-px bg-foreground/20" />
+                    <div className="h-16 w-px bg-foreground/20" />
 
-                    <div>
-                      <p className="text-sm opacity-80 mb-1">Total Mentions</p>
-                      <p className="text-3xl font-bold">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="text-center p-4 rounded-xl bg-background/30 backdrop-blur-sm"
+                    >
+                      <p className="text-sm opacity-70 mb-2 uppercase tracking-wide">Total Mentions</p>
+                      <motion.p 
+                        className="text-4xl font-bold tabular-nums"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.7, type: "spring", bounce: 0.5 }}
+                      >
                         {platformData.topics
                           .reduce((sum, topic) => sum + topic.mentions, 0)
                           .toLocaleString()}
-                      </p>
-                    </div>
+                      </motion.p>
+                    </motion.div>
                   </div>
                 </div>
               </div>
@@ -151,11 +178,23 @@ const PlatformDetail = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 + index * 0.1 }}
               >
-                <Card className="text-center hover:scale-105 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 bg-gradient-to-br from-card to-card/50">
-                  <CardContent className="p-8 space-y-3">
-                    <p className="font-bold text-xl">{topic.topic}</p>
-                    <p className="text-sm text-muted-foreground">{topic.dateRange}</p>
-                    <p className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{topic.mentions.toLocaleString()}</p>
+                <Card className="text-center group hover:scale-105 hover:shadow-2xl transition-all duration-500 border-2 hover:border-primary/50 bg-gradient-to-br from-card to-card/50 cursor-pointer relative overflow-hidden">
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  <CardContent className="p-8 space-y-4 relative z-10">
+                    <p className="font-bold text-xl group-hover:text-primary transition-colors">{topic.topic}</p>
+                    <p className="text-sm text-muted-foreground uppercase tracking-wider">{topic.dateRange}</p>
+                    <motion.p 
+                      className="text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tabular-nums"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      {topic.mentions.toLocaleString()}
+                    </motion.p>
                     <Badge
                       variant={
                         topic.sentiment === 'positive'
