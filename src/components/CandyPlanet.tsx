@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sphere, Text } from '@react-three/drei';
+import { Sphere, Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { Platform } from '@/data/sentimentData';
 
@@ -51,6 +51,18 @@ export const CandyPlanet = ({ platform, position, sentiment, onClick, isSelected
     return sentiment > 70 ? 0.5 : sentiment > 50 ? 0.3 : 0.1;
   };
 
+  // Platform logo symbol
+  const getLogo = () => {
+    switch(platform) {
+      case 'slack':
+        return '#';
+      case 'discord':
+        return '🎮';
+      case 'teams':
+        return 'T';
+    }
+  };
+
   return (
     <group position={position}>
       {/* Glow effect */}
@@ -78,6 +90,21 @@ export const CandyPlanet = ({ platform, position, sentiment, onClick, isSelected
           metalness={0.6}
         />
       </Sphere>
+
+      {/* Platform Logo on planet surface */}
+      <Billboard position={[0, 0, 1.01]}>
+        <Text
+          fontSize={0.6}
+          color="white"
+          anchorX="center"
+          anchorY="middle"
+          outlineWidth={0.03}
+          outlineColor="#000000"
+          fontWeight="bold"
+        >
+          {getLogo()}
+        </Text>
+      </Billboard>
 
       {/* Selection ring */}
       {isSelected && (

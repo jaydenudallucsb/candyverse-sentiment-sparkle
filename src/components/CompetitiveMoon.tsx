@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sphere, Text } from '@react-three/drei';
+import { Sphere, Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { Platform } from '@/data/sentimentData';
 
@@ -62,6 +62,18 @@ export const CompetitiveMoon = ({
     return baseColor.multiplyScalar(brightness);
   };
 
+  // Platform logo symbol
+  const getLogo = () => {
+    switch(platform) {
+      case 'slack':
+        return '#';
+      case 'discord':
+        return '🎮';
+      case 'teams':
+        return 'T';
+    }
+  };
+
   const moonSize = 0.5; // Smaller than the main Slack planet
 
   return (
@@ -97,6 +109,21 @@ export const CompetitiveMoon = ({
           metalness={0.5}
         />
       </Sphere>
+
+      {/* Platform Logo on moon surface */}
+      <Billboard position={[0, 0, moonSize + 0.01]}>
+        <Text
+          fontSize={0.35}
+          color="white"
+          anchorX="center"
+          anchorY="middle"
+          outlineWidth={0.02}
+          outlineColor="#000000"
+          fontWeight="bold"
+        >
+          {getLogo()}
+        </Text>
+      </Billboard>
 
       {/* Selection ring */}
       {isSelected && (
