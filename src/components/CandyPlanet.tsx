@@ -95,7 +95,7 @@ export const CandyPlanet = ({
       </Sphere>
 
       {/* Main Logo as Planet */}
-      <Billboard>
+      <Billboard position={[0, 0, 2]}>
         <mesh
           ref={meshRef}
           onClick={onClick}
