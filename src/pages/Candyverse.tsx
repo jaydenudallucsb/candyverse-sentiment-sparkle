@@ -11,10 +11,7 @@ import { CandyPlanet } from "@/components/CandyPlanet";
 import { CompetitiveMoon } from "@/components/CompetitiveMoon";
 import { CandyCluster } from "@/components/CandyCluster";
 import { ComparisonRing } from "@/components/ComparisonRing";
-import { PlanetAtmosphere } from "@/components/PlanetAtmosphere";
-import { SolarWindConnection } from "@/components/SolarWindConnection";
 import { SlackInsightOverlay } from "@/components/SlackInsightOverlay";
-import { UniverseTooltip } from "@/components/UniverseTooltip";
 import { TimeSlider } from "@/components/TimeSlider";
 import { sentimentData, Platform } from "@/data/sentimentData";
 import { getClusterInsights, getComparisonMetrics, ComparisonInsight } from "@/utils/clusteringUtils";
@@ -27,15 +24,6 @@ const Candyverse = () => {
   const [comparisonMode, setComparisonMode] = useState(false);
   const [hoveredInsight, setHoveredInsight] = useState<ComparisonInsight | null>(null);
   const [showSlackInsight, setShowSlackInsight] = useState(false);
-  const [tooltipState, setTooltipState] = useState<{
-    isVisible: boolean;
-    position: { x: number; y: number };
-    content: { title: string; metrics: { label: string; value: string | number }[] };
-  }>({
-    isVisible: false,
-    position: { x: 0, y: 0 },
-    content: { title: "", metrics: [] },
-  });
 
   const clusterInsights = getClusterInsights();
   const comparisonMetrics = getComparisonMetrics();
@@ -48,47 +36,6 @@ const Candyverse = () => {
     }
   };
 
-  const handleConnectionHover = (isHovered: boolean, e?: React.MouseEvent) => {
-    if (isHovered && e) {
-      setTooltipState({
-        isVisible: true,
-        position: { x: e.clientX, y: e.clientY },
-        content: {
-          title: "Universal Feature Overlap",
-          metrics: [
-            { label: "Overlap", value: "84%" },
-            { label: "Comments", value: "3,924" },
-            { label: "Platforms", value: "All 3" },
-          ],
-        },
-      });
-    } else {
-      setTooltipState((prev) => ({ ...prev, isVisible: false }));
-    }
-  };
-
-  const handlePlanetHover = (platform: Platform, isHovered: boolean, e?: React.MouseEvent) => {
-    if (isHovered && e) {
-      const sentiments = {
-        slack: -0.086,
-        discord: -0.012,
-        teams: -0.041,
-      };
-      setTooltipState({
-        isVisible: true,
-        position: { x: e.clientX, y: e.clientY },
-        content: {
-          title: `${platform.charAt(0).toUpperCase() + platform.slice(1)} Sentiment`,
-          metrics: [
-            { label: "Average Sentiment", value: sentiments[platform].toFixed(3) },
-            { label: "Status", value: "Slightly Negative" },
-          ],
-        },
-      });
-    } else {
-      setTooltipState((prev) => ({ ...prev, isVisible: false }));
-    }
-  };
 
   // Auto-play animation
   useEffect(() => {
@@ -148,18 +95,15 @@ const Candyverse = () => {
 
                 <Stars radius={100} depth={50} count={5000} factor={4} fade speed={1} />
 
-                {/* Central Slack Planet with Atmosphere */}
-                <group position={[0, 0, 0]}>
-                  <PlanetAtmosphere platform="slack" sentiment={-0.086} radius={1.8} />
-                  <CandyPlanet
-                    platform="slack"
-                    position={[0, 0, 0]}
-                    sentiment={slackData.overallSentiment}
-                    onClick={() => handlePlanetClick("slack")}
-                    isSelected={selectedCompetitor === null}
-                    comparisonActive={comparisonMode}
-                  />
-                </group>
+                {/* Central Slack Planet */}
+                <CandyPlanet
+                  platform="slack"
+                  position={[0, 0, 0]}
+                  sentiment={slackData.overallSentiment}
+                  onClick={() => handlePlanetClick("slack")}
+                  isSelected={selectedCompetitor === null}
+                  comparisonActive={comparisonMode}
+                />
 
                 {/* Comparison Ring around Slack */}
                 <ComparisonRing
@@ -185,53 +129,29 @@ const Candyverse = () => {
                   );
                 })}
 
-                {/* Competitor Moons with Atmospheres and Connections */}
+                {/* Competitor Moons */}
                 {competitorData.map((data, index) => {
                   // Calculate similarity based on sentiment proximity to Slack
                   const similarityScore = 1 - Math.abs(data.overallSentiment - slackData.overallSentiment) / 100;
                   const angle = index * Math.PI;
                   const orbitRadius = 5;
-                  const moonPosition: [number, number, number] = [
-                    Math.cos(angle) * orbitRadius,
-                    0,
-                    Math.sin(angle) * orbitRadius,
-                  ];
 
                   return (
-                    <group key={data.platform}>
-                      {/* Solar Wind Connection */}
-                      <SolarWindConnection
-                        startPosition={[0, 0, 0]}
-                        endPosition={moonPosition}
-                        color1="#6366f1"
-                        color2={data.platform === "discord" ? "#5865F2" : "#6264A7"}
-                        overlapPercentage={84}
-                        onHover={(isHovered) => handleConnectionHover(isHovered)}
-                      />
-
-                      {/* Moon with Atmosphere */}
-                      <CompetitiveMoon
-                        platform={data.platform}
-                        orbitRadius={orbitRadius}
-                        orbitSpeed={0.3}
-                        sentiment={data.overallSentiment}
-                        onClick={() => handlePlanetClick(data.platform)}
-                        isSelected={selectedCompetitor === data.platform}
-                        timeOffset={angle}
-                        similarityScore={similarityScore}
-                      />
-                    </group>
+                    <CompetitiveMoon
+                      key={data.platform}
+                      platform={data.platform}
+                      orbitRadius={orbitRadius}
+                      orbitSpeed={0.3}
+                      sentiment={data.overallSentiment}
+                      onClick={() => handlePlanetClick(data.platform)}
+                      isSelected={selectedCompetitor === data.platform}
+                      timeOffset={angle}
+                      similarityScore={similarityScore}
+                    />
                   );
                 })}
               </Suspense>
             </Canvas>
-
-            {/* Universe Tooltip */}
-            <UniverseTooltip
-              isVisible={tooltipState.isVisible}
-              position={tooltipState.position}
-              content={tooltipState.content}
-            />
 
             {/* Comparison Toggle & Legend */}
             <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
