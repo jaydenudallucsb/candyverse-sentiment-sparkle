@@ -675,7 +675,7 @@ const Candyverse = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-4 mb-8">
             <h2 className="text-4xl md:text-5xl font-light text-foreground">
-              Moving Forward
+              Taking Action
             </h2>
           </div>
 
@@ -699,6 +699,51 @@ const Candyverse = () => {
                 <h3 className="text-lg font-semibold text-foreground mb-2">For Data Engineering</h3>
                 <p className="text-foreground/70">
                   This pipeline demonstrates end-to-end ML capabilities: web scraping, NLP sentiment analysis, vector embeddings, and automated clustering. The methodology scales to any social platform or feature set.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </motion.div>
+
+      {/* Moving Forward Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="container mx-auto px-6 pb-20"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center space-y-4 mb-8">
+            <h2 className="text-4xl md:text-5xl font-light text-foreground">
+              Moving Forward
+            </h2>
+            <p className="text-xl text-foreground/70">
+              Future enhancements to deepen competitive intelligence
+            </p>
+          </div>
+
+          <Card className="glass border-accent/20">
+            <CardContent className="pt-6 space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Automated Weekly Analysis</h3>
+                <p className="text-foreground/70">
+                  Implement continuous monitoring to analyze competitor comparison trends automatically on a week-by-week basis. This would enable real-time tracking of sentiment shifts and emerging patterns, allowing teams to respond quickly to market changes.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Update-Based Correlation</h3>
+                <p className="text-foreground/70">
+                  Correlate sentiment trends with specific app updates and feature releases over time. By tracking version releases alongside user sentiment data, we can identify which updates improve satisfaction and which introduce friction.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Predictive Modeling</h3>
+                <p className="text-foreground/70">
+                  Develop machine learning models to predict future sentiment trends based on historical patterns, seasonal variations, and competitor actions. This would transform reactive analysis into proactive strategic planning.
                 </p>
               </div>
             </CardContent>
