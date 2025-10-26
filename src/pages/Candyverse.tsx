@@ -241,7 +241,7 @@ const Candyverse = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        className="max-w-7xl mx-auto space-y-16"
+        className="max-w-7xl mx-auto space-y-16 pt-16"
       >
         <div className="text-center space-y-4">
           <h2 className="text-4xl md:text-5xl font-light text-foreground">
