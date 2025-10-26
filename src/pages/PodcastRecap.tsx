@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,12 +6,33 @@ import { Badge } from '@/components/ui/badge';
 import { Play, Pause, SkipBack, SkipForward, MessageSquare, Sparkles, Radio, TrendingUp, TrendingDown } from 'lucide-react';
 import { toast } from 'sonner';
 import { sentimentData } from '@/data/sentimentData';
+import weeklyRecapAudio from '@/assets/weekly-recap.mp3';
 
 const PodcastRecap = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
-  const duration = 180; // 3 minutes
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateTime = () => setCurrentTime(audio.currentTime);
+    const updateDuration = () => setDuration(audio.duration);
+    const handleEnded = () => setIsPlaying(false);
+
+    audio.addEventListener('timeupdate', updateTime);
+    audio.addEventListener('loadedmetadata', updateDuration);
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('timeupdate', updateTime);
+      audio.removeEventListener('loadedmetadata', updateDuration);
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, []);
 
   const handleSendSMS = () => {
     if (!phoneNumber) {
@@ -26,12 +47,37 @@ const PodcastRecap = () => {
   };
 
   const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-    if (!isPlaying) {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
       toast.info('🎧 Playing Weekly Recap', {
         description: 'This week in sentiment analysis...'
       });
     }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleSeek = (value: number) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = value;
+    setCurrentTime(value);
+  };
+
+  const handleSkipBack = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = Math.max(0, audio.currentTime - 10);
+  };
+
+  const handleSkipForward = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
   };
 
   const formatTime = (seconds: number) => {
@@ -46,6 +92,7 @@ const PodcastRecap = () => {
 
   return (
     <div className="relative">
+      <audio ref={audioRef} src={weeklyRecapAudio} preload="metadata" />
       {/* Hero Section */}
       <section className="full-section">
         <motion.div
@@ -145,9 +192,9 @@ const PodcastRecap = () => {
               <input
                 type="range"
                 min="0"
-                max={duration}
+                max={duration || 0}
                 value={currentTime}
-                onChange={(e) => setCurrentTime(Number(e.target.value))}
+                onChange={(e) => handleSeek(Number(e.target.value))}
                 className="w-full h-2 bg-muted/30 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-lg"
               />
               <div className="flex justify-between text-sm text-foreground/50 font-light">
@@ -158,7 +205,12 @@ const PodcastRecap = () => {
 
             {/* Controls */}
             <div className="flex items-center justify-center gap-6">
-              <Button variant="ghost" size="icon" className="h-14 w-14 hover:bg-primary/10">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-14 w-14 hover:bg-primary/10"
+                onClick={handleSkipBack}
+              >
                 <SkipBack className="w-6 h-6" />
               </Button>
               
@@ -176,7 +228,12 @@ const PodcastRecap = () => {
                 </Button>
               </motion.div>
               
-              <Button variant="ghost" size="icon" className="h-14 w-14 hover:bg-primary/10">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-14 w-14 hover:bg-primary/10"
+                onClick={handleSkipForward}
+              >
                 <SkipForward className="w-6 h-6" />
               </Button>
             </div>
