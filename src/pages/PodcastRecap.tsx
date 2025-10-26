@@ -102,10 +102,6 @@ const PodcastRecap = () => {
           transition={{ duration: 0.8 }}
           className="text-center space-y-4 max-w-3xl mx-auto"
         >
-          <Badge className="px-4 py-2 text-sm">
-            <Sparkles className="w-4 h-4 mr-2" />
-            Weekly Intelligence Brief
-          </Badge>
           <h1 className="text-5xl md:text-6xl font-light text-foreground">
             This Week in Sentiment
           </h1>
