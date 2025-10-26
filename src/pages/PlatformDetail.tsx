@@ -328,25 +328,6 @@ const PlatformDetail = () => {
           </div>
         </motion.div>
       </section>
-      {/* User Comments Section */}
-      <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="max-w-7xl w-full space-y-12"
-        >
-          <div className="text-center space-y-4">
-            <h2 className="text-4xl md:text-5xl font-light text-foreground leading-tight">
-              The voice of
-              <br />
-              <span className={`text-${getPlatformColor()}`}>the community</span>
-            </h2>
-          </div>
-          <CommentFeed topics={platformData.topics} />
-        </motion.div>
-      </section>
     </div>
   );
 };
