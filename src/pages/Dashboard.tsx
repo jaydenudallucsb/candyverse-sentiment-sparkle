@@ -155,8 +155,7 @@ const Dashboard = () => {
               </div>
               <h3 className="text-2xl font-light text-slack">Slack</h3>
               <p className="text-foreground/60 leading-relaxed">
-                The central hub. 72% positive sentiment with concerns around pricing 
-                creating opportunities for market positioning.
+                56.6% positive sentiment. 
               </p>
             </div>
 
@@ -166,8 +165,7 @@ const Dashboard = () => {
               </div>
               <h3 className="text-2xl font-light text-accent">Discord</h3>
               <p className="text-foreground/60 leading-relaxed">
-                The rising competitor. 84% sentiment driven by innovative AI features 
-                and strong community engagement.
+                38.1% positive sentiment. 
               </p>
             </div>
 
@@ -177,8 +175,7 @@ const Dashboard = () => {
               </div>
               <h3 className="text-2xl font-light text-secondary">Teams</h3>
               <p className="text-foreground/60 leading-relaxed">
-                The enterprise alternative. 58% sentiment reveals performance and UX 
-                pain points to capitalize on.
+                 52.5% positive sentiment. 
               </p>
             </div>
           </div>
