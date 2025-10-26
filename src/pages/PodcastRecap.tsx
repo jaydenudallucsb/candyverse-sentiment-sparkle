@@ -94,58 +94,6 @@ const PodcastRecap = () => {
 
   return (
     <div className="relative">
-      {/* Hero Section */}
-      <section className="full-section">
-        <motion.div
-          style={{ opacity, scale }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          className="text-center max-w-6xl space-y-12"
-        >
-          {/* Icon */}
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, type: "spring" }}
-            className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/40 to-accent/10 mx-auto flex items-center justify-center relative"
-          >
-            <Radio className="w-16 h-16 text-primary" />
-            <motion.div
-              className="absolute inset-0 rounded-full bg-primary"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </motion.div>
-
-          {/* Title */}
-          <div className="space-y-6">
-            <Badge className="px-4 py-2 text-sm">
-              <Sparkles className="w-4 h-4 mr-2" />
-              Weekly Intelligence Brief
-            </Badge>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="text-6xl md:text-8xl font-light text-foreground leading-tight tracking-tight"
-            >
-              This Week
-              <br />
-              <span className="text-foreground/60">in Sentiment</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-xl text-foreground/60 font-light max-w-2xl mx-auto"
-            >
-              Key insights and trends across Slack, Discord, and Teams
-            </motion.p>
-          </div>
-        </motion.div>
-      </section>
-
       {/* Audio Player Section */}
       <section className="full-section bg-gradient-to-b from-background via-muted/20 to-background">
         <motion.div
